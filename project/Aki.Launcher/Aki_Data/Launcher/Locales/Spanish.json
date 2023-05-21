@@ -3,7 +3,7 @@
   "retry": "Reintentar",
   "server_connecting": "Conectando",
   "server_unavailable_format_1": "El servidor '{0}' no está disponible.",
-  "no_servers_available": "No se han encontrado servidores. Revisa la lista de servidores en ajustes.",
+  "no_servers_available": "No se ha encontrado el servidor. Chequea la dirección IP del servidor en ajustes.",
   "settings_menu": "Ajustes",
   "back": "Volver",
   "wipe_profile": "Wipe",
@@ -80,5 +80,5 @@
   "profile_remove_question_format_1": "Confirma si quieres borrar el perfil: '{0}'",
   "i_understand": "Lo entiendo",
   "game_version_mismatch_format_2": "SPT no puede iniciar, esto es debido a que la versión de EFT esperada es '{1}',\npero la versión encontrada es '{0}'\n\nAsegurate de haber realizado el downgrade de tu versión de EFT, tal como se indica en la guía de instalación\nen la página en la que has descargado SPT",
-  "description": "Description"
+  "description": "Descripción"
 }
