@@ -19,7 +19,7 @@ git config --local user.email "USERNAME@SOMETHING.com"
 
 ## Requirements
 
-- Escape From Tarkov 23122
+- Escape From Tarkov 24605
 - .NET 6 SDK
 - Visual Studio Code
 
@@ -29,7 +29,7 @@ git config --local user.email "USERNAME@SOMETHING.com"
 - Avalonia Visual Studio Extension
 
 ## Build
-
-1. Open Launcher.code-workspace in Visual Studio Code.
-2. Run the build task: (top toolbar) Terminal -> Run Build Task...
-3. Copy-paste all files inside `Build` into `game root directory`, overwrite when prompted.
+1. Run `dotnet tool restore` from command line inside project folder
+2. Open Launcher.code-workspace in Visual Studio Code.
+3. Run the build task: (top toolbar) Terminal -> Run Build Task...
+4. Copy-paste all files inside `Build` into `game root directory`, overwrite when prompted.
