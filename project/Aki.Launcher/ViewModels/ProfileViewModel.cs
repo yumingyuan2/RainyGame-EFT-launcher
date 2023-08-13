@@ -12,6 +12,8 @@ using System.Reactive.Disposables;
 using System.Diagnostics;
 using System.IO;
 using Aki.Launcher.Models.Aki;
+using Aki.Launch.Models.Aki;
+using System.Collections.Generic;
 
 namespace Aki.Launcher.ViewModels
 {
@@ -32,6 +34,9 @@ namespace Aki.Launcher.ViewModels
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
 
         public ImageHelper SideImage { get; } = new ImageHelper();
+
+        public Dictionary<string, AkiServerModInfo> ServerMods { get; set; }
+        public AkiProfileModInfo[] ProfileMods { get; set; }
 
         private GameStarter gameStarter = new GameStarter(new GameStarterFrontend());
 
@@ -62,6 +67,9 @@ namespace Aki.Launcher.ViewModels
             CurrentEdition = AccountManager.SelectedAccount.edition;
 
             CurrentID = AccountManager.SelectedAccount.id;
+
+            ServerMods = ServerManager.GetLoadedServerMods();
+            ProfileMods = ServerManager.GetProfileMods();
         }
 
         private async Task GameVersionCheck()

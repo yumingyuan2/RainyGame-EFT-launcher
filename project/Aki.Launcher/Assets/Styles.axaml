@@ -4,10 +4,13 @@
         xmlns:rxui="using:Avalonia.ReactiveUI"
         >
 	<Design.PreviewWith>
-		<StackPanel Spacing="5" Background="{StaticResource AKI_Background_Dark}">
+		<StackPanel Spacing="5" Background="{StaticResource AKI_Background_Dark}" Margin="50">
 			<Button Content="Blah"/>
 			<TextBox Text="Some cool text here" Margin="5"/>
 			<TextBox Watermark="This is a watermark" Margin="5"/>
+			<Expander Header="Test Header" Margin="10">
+				<TextBlock Text="test"/>
+			</Expander>
 		</StackPanel>
 	</Design.PreviewWith>
 
@@ -471,6 +474,15 @@
 		<Setter Property="Background" Value="{StaticResource AKI_Brush_Yellow}" />
 		<Setter Property="BorderBrush" Value="{StaticResource AKI_Brush_Yellow}" />
 		<Setter Property="TextBlock.Foreground" Value="{StaticResource AKI_Background_Dark}" />
+	</Style>
+
+	<!-- Expander Styles -->
+	<Style Selector="Expander">
+		<Setter Property="Background" Value="{StaticResource AKI_Background_Dark}"/>
+		<Setter Property="CornerRadius" Value="5"/>
+	</Style>
+	<Style Selector="Expander:expanded /template/ Border#ExpanderContent">
+		<Setter Property="Background" Value="Red"/>
 	</Style>
 
 </Styles>

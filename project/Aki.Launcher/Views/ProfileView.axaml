@@ -54,6 +54,34 @@
 					Command="{Binding ChangeEditionCommand}"/>
 		</Grid>
     </Border>
+	  
+	<!-- Mods bar -->
+	  <Expander Grid.Row="2" Grid.Column="1" Margin="0 10"
+					Header="3 Server Mods - 3 Profile Mods"
+					Background="{StaticResource AKI_Background_Dark}"
+					CornerRadius="5">
+		  <ItemsControl Background="{StaticResource AKI_Background_Dark}">
+			  <ItemsControl.Items>
+				  <Label Content="Testing 0"/>
+				  <Label Content="Testing 0"/>
+				  <Label Content="Testing 0"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing 1"/>
+				  <Label Content="Testing 1"/>
+				  <Label Content="Testing 1"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing"/>
+				  <Label Content="Testing 2"/>
+				  <Label Content="Testing 2"/>
+				  <Label Content="Testing 2"/>
+			  </ItemsControl.Items>
+		  </ItemsControl>
+	  </Expander>
 
     <!-- Bottom bar -->
     <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" CornerRadius="5"
