@@ -7,10 +7,9 @@
  */
 
 
-using Aki.Launch.Models.Aki;
 using Aki.Launcher.MiniCommon;
+using Aki.Launcher.Models.Aki;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Aki.Launcher

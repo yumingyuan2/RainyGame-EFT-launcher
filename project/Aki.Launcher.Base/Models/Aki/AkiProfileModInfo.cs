@@ -1,13 +1,10 @@
 ﻿using System;
 
-namespace Aki.Launch.Models.Aki
+namespace Aki.Launcher.Models.Aki
 {
-    public class AkiProfileModInfo
+    public class AkiProfileModInfo : AkiMod
     {
-        public string Author { get; set; }
-        public string Name { get; set; }
-        public DateTime DateAdded { get; set; }
-        public string Version { get; set; }
+        public string DateAdded { get; set; }
     }
 }
 

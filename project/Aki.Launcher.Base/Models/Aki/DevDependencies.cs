@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Aki.Launch.Models.Aki
+namespace Aki.Launcher.Models.Aki
 {
     public class DevDependencies
     {

@@ -80,5 +80,8 @@
   "profile_remove_question_format_1": "永久移除档案 '{0}'吗？",
   "i_understand": "我了解",
   "game_version_mismatch_format_2": "SPT无法运行，这是由于SPT需要EFT版本 '{1}'，\n但现有版本是 '{0}'\n\n确保你已经按照你下载SPT的页面上的\n安装指导的描述降级你的EFT",
-  "description": "描述"
+  "description": "描述",
+  "server_mods": "Server Mods",
+  "profile_mods": "Profile Mods",
+  "author": "Author"
 }
