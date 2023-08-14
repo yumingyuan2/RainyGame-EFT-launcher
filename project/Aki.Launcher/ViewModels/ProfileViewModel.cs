@@ -12,9 +12,6 @@ using System.Reactive.Disposables;
 using System.Diagnostics;
 using System.IO;
 using Aki.Launcher.Models.Aki;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Avalonia.Media;
 
 namespace Aki.Launcher.ViewModels
 {
@@ -37,22 +34,13 @@ namespace Aki.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _ModsListIsVisible, value);
         }
 
-        private PathGeometry _ModsListToggleButtonIcon;
-        public PathGeometry ModsListToggleButtonIcon
-        {
-            get => _ModsListToggleButtonIcon;
-            set => this.RaiseAndSetIfChanged(ref _ModsListToggleButtonIcon, value);
-        }
-
         public string CurrentID { get; set; }
 
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
 
         public ImageHelper SideImage { get; } = new ImageHelper();
 
-        public ObservableCollection<AkiMod> Mods { get; set; } = new ObservableCollection<AkiMod>();
-        public int ServerModsCount { get; set; }
-        public int ProfileModsCount { get; set; }
+        public ModInfoCollection ModInfoCollection { get; set; } = new ModInfoCollection();
 
         private GameStarter gameStarter = new GameStarter(new GameStarterFrontend());
 
@@ -84,33 +72,7 @@ namespace Aki.Launcher.ViewModels
 
             CurrentID = AccountManager.SelectedAccount.id;
 
-            var serverMods = ServerManager.GetLoadedServerMods().Values.ToList();
-            var profileMods = ServerManager.GetProfileMods().ToList();
-
-            ProfileModsCount = profileMods?.Count() ?? 0;
-            ServerModsCount = serverMods?.Count() ?? 0;
-
             ModsListIsVisible = false;
-
-            foreach (var serverMod in serverMods)
-            {
-                serverMod.InServer = true;
-                Mods.Add(serverMod);
-            }
-
-            foreach (var profileMod in profileMods)
-            {
-                var existingMod = Mods.Where(x => x.Name == profileMod.Name && x.Version == profileMod.Version && x.Author == profileMod.Author).FirstOrDefault();
-
-                if (existingMod != null)
-                {
-                    existingMod.InProfile = true;
-                    continue;
-                }
-
-                profileMod.InProfile = true;
-                Mods.Add(profileMod);
-            }
         }
 
         private async Task GameVersionCheck()
@@ -137,15 +99,7 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
-        public void ToggleModsListCommand()
-        {
-
-            Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                ModsListIsVisible = !ModsListIsVisible;
-                //ModsListToggleButtonIcon = ModsListIsVisible ? "<" : ">";
-            });
-        }
+        public void ToggleModsListCommand() => ModsListIsVisible = !ModsListIsVisible;
 
         public void LogoutCommand()
         {
