@@ -80,5 +80,8 @@
   "profile_remove_question_format_1": "Confirma si quieres borrar el perfil: '{0}'",
   "i_understand": "Lo entiendo",
   "game_version_mismatch_format_2": "SPT no puede iniciar, esto es debido a que la versión de EFT esperada es '{1}',\npero la versión encontrada es '{0}'\n\nAsegurate de haber realizado el downgrade de tu versión de EFT, tal como se indica en la guía de instalación\nen la página en la que has descargado SPT",
-  "description": "Descripción"
+  "description": "Descripción",
+  "server_mods": "Server Mods",
+  "profile_mods": "Profile Mods",
+  "author": "Author"
 }

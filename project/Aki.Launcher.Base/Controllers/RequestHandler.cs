@@ -94,5 +94,15 @@ namespace Aki.Launcher
         {
             return request.GetJson("/launcher/profile/compatibleTarkovVersion");
         }
+
+        public static string RequestLoadedServerMods()
+        {
+            return request.GetJson("/launcher/server/loadedServerMods");
+        }
+
+        public static string RequestProfileMods()
+        {
+            return request.GetJson("/launcher/server/serverModsUsedByProfile");
+        }
     }
 }
