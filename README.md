@@ -33,3 +33,6 @@ git config --local user.email "USERNAME@SOMETHING.com"
 2. Open Launcher.code-workspace in Visual Studio Code.
 3. Run the build task: (top toolbar) Terminal -> Run Build Task...
 4. Copy-paste all files inside `Build` into `game root directory`, overwrite when prompted.
+
+## Server Endpoints
+If you just want to mess with the server endpoints, you can use this [postman collection](https://gofile.io/d/kCzmze)
