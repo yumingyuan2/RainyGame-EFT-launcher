@@ -32,7 +32,6 @@
   "default_language": "デフォルト言語",
   "game_path": "SPTゲームパス",
   "clear_game_settings": "ゲーム設定をクリア",
-  "clear_game_settings_warning": "古いゲーム設定ファイルを削除しようとしています。 次の場所にバックアップされます:\n{0}\n\nよろしいですか?",
   "clear_game_settings_succeeded": "ゲーム設定をクリアしました。",
   "clear_game_settings_failed": "ゲーム設定のクリア中に問題が発生しました。",
   "remove_registry_keys": "レジストリキーを削除する",
@@ -83,5 +82,8 @@
   "description": "Description",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Game settings reset",
+  "reset_game_settings_succeeded": "Failed to reset game settings"
 }

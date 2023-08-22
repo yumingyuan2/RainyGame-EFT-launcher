@@ -32,7 +32,6 @@
   "default_language": "Язык по-уолчанию",
   "game_path": "Путь к игре",
   "clear_game_settings": "Очистить настройки игры",
-  "clear_game_settings_warning": "Вы собираетесь удалить старые файлы настроек игры. Их копия будет расположена здесь:\n{0}\n\n Продолжить?",
   "clear_game_settings_succeeded": "Настройки игры очищены",
   "clear_game_settings_failed": "Неизвестная проблема при очистке настроек игры",
   "remove_registry_keys": "Очистить реестр",
@@ -83,5 +82,8 @@
   "description": "Description",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Game settings reset",
+  "reset_game_settings_succeeded": "Failed to reset game settings"
 }

@@ -86,7 +86,7 @@ namespace Aki.Launcher.ViewModels
             }
             catch(Exception ex)
             {
-                SendNotification("", ex.Message, Avalonia.Controls.Notifications.NotificationType.Error);
+                SendNotification("", LocalizationProvider.Instance.clear_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
                 LogManager.Instance.Exception(ex);
                 return;
             }

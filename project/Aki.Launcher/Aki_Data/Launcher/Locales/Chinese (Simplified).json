@@ -32,7 +32,6 @@
   "default_language": "默认语言",
   "game_path": "游戏路径",
   "clear_game_settings": "恢复默认游戏设置",
-  "clear_game_settings_warning": "您将要删除旧的游戏设置文件。它们将备份到：\n{0}\n\n您确定吗？",
   "clear_game_settings_succeeded": "游戏设置已恢复默认",
   "clear_game_settings_failed": "游戏设置恢复失败",
   "remove_registry_keys": "移除注册表",
@@ -83,5 +82,8 @@
   "description": "描述",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Game settings reset",
+  "reset_game_settings_succeeded": "Failed to reset game settings"
 }

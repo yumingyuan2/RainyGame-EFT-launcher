@@ -32,7 +32,6 @@
   "default_language": "Linguaggio predefinito",
   "game_path": "Cartella di installazione di SPT",
   "clear_game_settings": "Resetta impostazioni di gioco",
-  "clear_game_settings_warning": "Stai per cancellare i file delle impostazioni di gioco. Saranno backuppate in:\n{0}\n\nConfermi?",
   "clear_game_settings_succeeded": "Impostazioni di gioco resettate.",
   "clear_game_settings_failed": "E' sorto un problema nel resettare le impostazioni di gioco.",
   "remove_registry_keys": "Rimuovi chiavi di registro",
@@ -83,5 +82,8 @@
   "description": "Descrizione",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Game settings reset",
+  "reset_game_settings_succeeded": "Failed to reset game settings"
 }
