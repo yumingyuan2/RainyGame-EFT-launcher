@@ -8,6 +8,8 @@
 
 
 using Aki.Launcher.MiniCommon;
+using Aki.Launcher.Models.Aki;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Aki.Launcher
@@ -59,6 +61,34 @@ namespace Aki.Launcher
             catch
             {
                 return "";
+            }
+        }
+
+        public static Dictionary<string, AkiServerModInfo> GetLoadedServerMods()
+        {
+            try
+            {
+                string json = RequestHandler.RequestLoadedServerMods();
+
+                return Json.Deserialize<Dictionary<string, AkiServerModInfo>>(json);
+            }
+            catch
+            {
+                return new Dictionary<string, AkiServerModInfo>();
+            }
+        }
+
+        public static AkiProfileModInfo[] GetProfileMods()
+        {
+            try
+            {
+                string json = RequestHandler.RequestProfileMods();
+
+                return Json.Deserialize<AkiProfileModInfo[]>(json);
+            }
+            catch
+            {
+                return new AkiProfileModInfo[] { };
             }
         }
 

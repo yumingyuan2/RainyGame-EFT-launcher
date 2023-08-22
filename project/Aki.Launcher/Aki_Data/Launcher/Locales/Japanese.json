@@ -80,5 +80,8 @@
   "profile_remove_question_format_1": "プロファイル '{0}' を完全に削除しますか?",
   "i_understand": "了解",
   "game_version_mismatch_format_2": "SPT を実行できません。これは、SPT が EFT バージョン '{1}' を検出することを期待していたためです\n代わりにバージョン '{0}' を検出しました\n\nインストール ガイドの説明に従って EFT をダウングレードしたことを確認してください\n SPT をダウンロードしたページ",
-  "description": "Description"
+  "description": "Description",
+  "server_mods": "Server Mods",
+  "profile_mods": "Profile Mods",
+  "author": "Author"
 }

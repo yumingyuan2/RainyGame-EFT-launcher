@@ -27,11 +27,20 @@ namespace Aki.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _CurrentEdition, value);
         }
 
+        private bool _ModsListIsVisible;
+        public bool ModsListIsVisible
+        {
+            get => _ModsListIsVisible;
+            set => this.RaiseAndSetIfChanged(ref _ModsListIsVisible, value);
+        }
+
         public string CurrentID { get; set; }
 
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
 
         public ImageHelper SideImage { get; } = new ImageHelper();
+
+        public ModInfoCollection ModInfoCollection { get; set; } = new ModInfoCollection();
 
         private GameStarter gameStarter = new GameStarter(new GameStarterFrontend());
 
@@ -62,6 +71,8 @@ namespace Aki.Launcher.ViewModels
             CurrentEdition = AccountManager.SelectedAccount.edition;
 
             CurrentID = AccountManager.SelectedAccount.id;
+
+            ModsListIsVisible = false;
         }
 
         private async Task GameVersionCheck()
@@ -87,6 +98,8 @@ namespace Aki.Launcher.ViewModels
                 });
             }
         }
+
+        public void ToggleModsListCommand() => ModsListIsVisible = !ModsListIsVisible;
 
         public void LogoutCommand()
         {

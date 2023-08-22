@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:helpers="using:Aki.Launcher.Helpers"
              xmlns:cvt="using:Aki.Launcher.Converters"
+			 xmlns:cc="using:Aki.Launcher.CustomControls"
+			 xmlns:launcher="using:Aki.Launcher.Models.Aki"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Aki.Launcher.Views.ProfileView">
   
@@ -11,7 +13,7 @@
     <cvt:ImageSourceConverter x:Key="imageSourceCvt"/>
   </UserControl.Resources>
 
-  <Grid RowDefinitions="10,AUTO,*,AUTO,10" ColumnDefinitions="10,AUTO,*,10">
+  <Grid RowDefinitions="10,AUTO,10,AUTO,10,*,10,AUTO,10" ColumnDefinitions="10,AUTO,10,*,10">
 
     <!-- profile info -->
     <Border Grid.Row="1" Grid.Column="1" CornerRadius="5"
@@ -54,9 +56,65 @@
 					Command="{Binding ChangeEditionCommand}"/>
 		</Grid>
     </Border>
+	  
+	<!-- Total Mods Info -->
+	  <Border Grid.Row="3" Grid.Column="1" CornerRadius="5"
+			  BorderBrush="{StaticResource AKI_Background_Dark}" 
+			  BorderThickness="5" IsVisible="{Binding ModInfoCollection.HasMods}"
+			  >
+		  <Grid RowDefinitions="10,AUTO,AUTO,10" ColumnDefinitions="10,AUTO,*,AUTO,AUTO,AUTO,10" 
+				Background="{StaticResource AKI_Background_Dark}">
+			  <Label Grid.Row="1" Grid.Column="1" Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=server_mods}"
+					 />
+			  <Label Grid.Row="2" Grid.Column="1" Content="{Binding ModInfoCollection.ServerModsCount}"
+					 />
+			  <Label Grid.Row="1" Grid.Column="3" Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=profile_mods}"
+					 />
+			  <Path Grid.Row="1" Grid.Column="4" Margin="10 4 0 0" IsVisible="{Binding ModInfoCollection.HasProfileOnlyMods}"
+				    Data="{StaticResource Alert}" Fill="{StaticResource AKI_Brush_Yellow}"
+					/>
+			  <Label Grid.Row="2" Grid.Column="3" Content="{Binding ModInfoCollection.ProfileModsCount}"
+					 />
+			  <Button Grid.Row="0" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="2"
+					  VerticalAlignment="Stretch" FontSize="18" Margin="10 0 0 0"
+					  Command="{Binding ToggleModsListCommand}"
+					  Classes="icon"
+					  >
+				  <Button.Content>
+					  <DockPanel LastChildFill="True">
+						  <Path Data="{StaticResource Visible}" Fill="{StaticResource AKI_Foreground_Light}"
+								VerticalAlignment="Center"
+							    IsVisible="{Binding !ModsListIsVisible}"
+								/>
+						  <Path Data="{StaticResource Hide}" Fill="{StaticResource AKI_Foreground_Light}"
+								VerticalAlignment="Center"
+							    IsVisible="{Binding ModsListIsVisible}"
+								/>
+					  </DockPanel>
+				  </Button.Content>
+			  </Button>
+		  </Grid>
+	  </Border>
+
+	  <!-- Mods List -->
+	  <ScrollViewer Grid.Row="1" Grid.RowSpan="5" Grid.Column="3" IsVisible="{Binding ModsListIsVisible}">
+		  <ItemsControl Items="{Binding ModInfoCollection.Mods}">
+			  <ItemsControl.ItemTemplate>
+				  <DataTemplate DataType="{x:Type launcher:AkiMod}">
+					  <cc:ModInfoCard ModName="{Binding Name}"
+									  Author="{Binding Author}"
+									  Version="{Binding Version}"
+									  IsInServer="{Binding InServer}"
+									  IsInProfile="{Binding InProfile}"
+									  Margin="0 0 0 10"
+									  />
+				  </DataTemplate>
+			  </ItemsControl.ItemTemplate>
+		  </ItemsControl>
+	  </ScrollViewer>
 
     <!-- Bottom bar -->
-    <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" CornerRadius="5"
+    <Border Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="5"
             BorderBrush="{StaticResource AKI_Background_Dark}"
             BorderThickness="5"
             >

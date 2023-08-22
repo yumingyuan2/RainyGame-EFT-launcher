@@ -80,5 +80,8 @@
   "profile_remove_question_format_1": "Rimuovere permanentemente il profilo '{0}'?",
   "i_understand": "Accetto",
   "game_version_mismatch_format_2": "SPT non riesce ad avviarsi, questo è perché SPT si aspettava la versione di EFT '{1}',\nmentre invece tu hai la versione '{0}'\n\nAssicurati di aver downgradato correttamente EFT come descritto nella guida all'installazione\nche hai trovato sulla pagina web da cui hai scaricato SPT",
-  "description": "Descrizione"
+  "description": "Descrizione",
+  "server_mods": "Server Mods",
+  "profile_mods": "Profile Mods",
+  "author": "Author"
 }

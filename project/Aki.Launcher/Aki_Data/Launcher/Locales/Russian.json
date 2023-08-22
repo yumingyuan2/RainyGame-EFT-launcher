@@ -80,5 +80,8 @@
   "profile_remove_question_format_1": "Удалить профиль '{0}' безвозвратно?",
   "i_understand": "Я понимаю",
   "game_version_mismatch_format_2": "Ваша версия игры: '{0}' и совместимая версия: '{1}'.\n\nИгра может работать некорректно или не работать вообще.",
-  "description": "Description"
+  "description": "Description",
+  "server_mods": "Server Mods",
+  "profile_mods": "Profile Mods",
+  "author": "Author"
 }

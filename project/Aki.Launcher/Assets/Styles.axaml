@@ -4,7 +4,7 @@
         xmlns:rxui="using:Avalonia.ReactiveUI"
         >
 	<Design.PreviewWith>
-		<StackPanel Spacing="5" Background="{StaticResource AKI_Background_Dark}">
+		<StackPanel Spacing="5" Background="{StaticResource AKI_Background_Dark}" Margin="50">
 			<Button Content="Blah"/>
 			<TextBox Text="Some cool text here" Margin="5"/>
 			<TextBox Watermark="This is a watermark" Margin="5"/>
@@ -472,5 +472,4 @@
 		<Setter Property="BorderBrush" Value="{StaticResource AKI_Brush_Yellow}" />
 		<Setter Property="TextBlock.Foreground" Value="{StaticResource AKI_Background_Dark}" />
 	</Style>
-
 </Styles>
