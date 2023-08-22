@@ -126,8 +126,8 @@ namespace Aki.Launcher.Helpers
             englishLocale.clear_game_settings_succeeded = "Game settings cleared.";
             englishLocale.clear_game_settings_failed = "An issue occurred while clearing game settings.";
             englishLocale.reset_game_settings = "Reset Game Settings";
-            englishLocale.reset_game_settings_failed = "Game settings reset";
-            englishLocale.reset_game_settings_succeeded = "Failed to reset game settings";
+            englishLocale.reset_game_settings_succeeded = "Game settings reset";
+            englishLocale.reset_game_settings_failed = "Failed to reset game settings";
             englishLocale.remove_registry_keys = "Remove Registry Keys";
             englishLocale.remove_registry_keys_succeeded = "Registry keys removed.";
             englishLocale.remove_registry_keys_failed = "An issue occurred while removing registry keys.";

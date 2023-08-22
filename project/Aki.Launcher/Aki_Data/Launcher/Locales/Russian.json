@@ -84,6 +84,6 @@
   "profile_mods": "Profile Mods",
   "author": "Author",
   "reset_game_settings": "Reset Game Settings",
-  "reset_game_settings_failed": "Game settings reset",
-  "reset_game_settings_succeeded": "Failed to reset game settings"
+  "reset_game_settings_failed": "Failed to reset game settings",
+  "reset_game_settings_succeeded": "Game settings reset"
 }
