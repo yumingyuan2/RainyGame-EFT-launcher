@@ -74,6 +74,43 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
+        public async Task ResetGameSettingsCommand()
+        {
+            string EFTSettingsFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Escape from Tarkov", "Settings");
+            string SPTSettingsFolder = Path.Join(LauncherSettingsProvider.Instance.GamePath, "user", "sptsettings");
+
+            if (!Directory.Exists(EFTSettingsFolder))
+            {
+                LogManager.Instance.Warning($"EFT settings folder not found, can't reset :: Path: {EFTSettingsFolder}");
+                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                return;
+            }
+
+            try
+            {
+                Directory.CreateDirectory(SPTSettingsFolder);
+
+                foreach (string dirPath in Directory.GetDirectories(EFTSettingsFolder, "*", SearchOption.AllDirectories))
+                {
+                    Directory.CreateDirectory(dirPath.Replace(EFTSettingsFolder, SPTSettingsFolder));
+                }
+
+                //Copy all the files & Replaces any files with the same name
+                foreach (string newPath in Directory.GetFiles(EFTSettingsFolder, "*.*", SearchOption.AllDirectories))
+                {
+                    File.Copy(newPath, newPath.Replace(EFTSettingsFolder, SPTSettingsFolder), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Instance.Exception(ex);
+                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                return;
+            }
+
+            SendNotification("", LocalizationProvider.Instance.reset_game_settings_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
+        }
+
         public async Task ClearGameSettingsCommand()
         {
             var SPTSettingsDir = new DirectoryInfo(Path.Join(LauncherSettingsProvider.Instance.GamePath, "user", "sptsettings"));
@@ -86,8 +123,8 @@ namespace Aki.Launcher.ViewModels
             }
             catch(Exception ex)
             {
-                SendNotification("", LocalizationProvider.Instance.clear_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
                 LogManager.Instance.Exception(ex);
+                SendNotification("", LocalizationProvider.Instance.clear_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
                 return;
             }
 
