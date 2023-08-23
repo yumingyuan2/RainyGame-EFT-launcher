@@ -83,7 +83,7 @@
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
   "author": "Author",
-  "reset_game_settings": "Reset Game Settings",
-  "reset_game_settings_failed": "Failed to reset game settings",
-  "reset_game_settings_succeeded": "Game settings reset"
+  "load_live_settings": "Load Live Settings",
+  "load_live_settings_succeeded": "Game settings copied from live",
+  "load_live_settings_failed": "Failed to copy live settings"
 }

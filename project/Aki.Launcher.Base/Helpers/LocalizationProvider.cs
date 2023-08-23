@@ -125,9 +125,9 @@ namespace Aki.Launcher.Helpers
             englishLocale.clear_game_settings = "Clear Game Settings";
             englishLocale.clear_game_settings_succeeded = "Game settings cleared.";
             englishLocale.clear_game_settings_failed = "An issue occurred while clearing game settings.";
-            englishLocale.reset_game_settings = "Reset Game Settings";
-            englishLocale.reset_game_settings_succeeded = "Game settings reset";
-            englishLocale.reset_game_settings_failed = "Failed to reset game settings";
+            englishLocale.load_live_settings = "Load Live Settings";
+            englishLocale.load_live_settings_succeeded = "Game settings copied from live";
+            englishLocale.load_live_settings_failed = "Failed to copy live settings";
             englishLocale.remove_registry_keys = "Remove Registry Keys";
             englishLocale.remove_registry_keys_succeeded = "Registry keys removed.";
             englishLocale.remove_registry_keys_failed = "An issue occurred while removing registry keys.";
@@ -772,49 +772,49 @@ namespace Aki.Launcher.Helpers
         }
         #endregion
 
-        #region reset_game_settings
-        private string _reset_game_settings;
-        public string reset_game_settings
+        #region load_live_settings
+        private string _load_live_settings;
+        public string load_live_settings
         {
-            get => _reset_game_settings;
+            get => _load_live_settings;
             set
             {
-                if (_reset_game_settings != value)
+                if (_load_live_settings != value)
                 {
-                    _reset_game_settings = value;
-                    RaisePropertyChanged(nameof(reset_game_settings));
+                    _load_live_settings = value;
+                    RaisePropertyChanged(nameof(load_live_settings));
                 }
             }
         }
         #endregion
 
-        #region reset_game_settings_failed
-        private string _reset_game_settings_failed;
-        public string reset_game_settings_failed
+        #region load_live_settings_failed
+        private string _load_live_settings_failed;
+        public string load_live_settings_failed
         {
-            get => _reset_game_settings_failed;
+            get => _load_live_settings_failed;
             set
             {
-                if (_reset_game_settings_failed != value)
+                if (_load_live_settings_failed != value)
                 {
-                    _reset_game_settings_failed = value;
-                    RaisePropertyChanged(nameof(reset_game_settings_failed));
+                    _load_live_settings_failed = value;
+                    RaisePropertyChanged(nameof(load_live_settings_failed));
                 }
             }
         }
         #endregion
 
-        #region reset_game_settings_succeeded
-        private string _reset_game_settings_succeeded;
-        public string reset_game_settings_succeeded
+        #region load_live_settings_succeeded
+        private string _load_live_settings_succeeded;
+        public string load_live_settings_succeeded
         {
-            get => _reset_game_settings_succeeded;
+            get => _load_live_settings_succeeded;
             set
             {
-                if (_reset_game_settings_succeeded != value)
+                if (_load_live_settings_succeeded != value)
                 {
-                    _reset_game_settings_succeeded = value;
-                    RaisePropertyChanged(nameof(reset_game_settings_succeeded));
+                    _load_live_settings_succeeded = value;
+                    RaisePropertyChanged(nameof(load_live_settings_succeeded));
                 }
             }
         }
