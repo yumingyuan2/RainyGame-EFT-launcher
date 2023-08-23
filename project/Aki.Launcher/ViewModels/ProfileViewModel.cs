@@ -144,7 +144,7 @@ namespace Aki.Launcher.ViewModels
 
             LauncherSettingsProvider.Instance.GameRunning = true;
 
-            GameStarterResult gameStartResult = await gameStarter.LaunchGame(ServerManager.SelectedServer, AccountManager.SelectedAccount);
+            GameStarterResult gameStartResult = await gameStarter.LaunchGame(ServerManager.SelectedServer, AccountManager.SelectedAccount, LauncherSettingsProvider.Instance.GamePath);
 
             if (gameStartResult.Succeeded)
             {

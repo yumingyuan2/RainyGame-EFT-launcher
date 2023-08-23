@@ -32,7 +32,6 @@
   "default_language": "預設語言",
   "game_path": "遊戲路徑",
   "clear_game_settings": "重置遊戲設定",
-  "clear_game_settings_warning": "You are about to remove your old game settings files. They will be backed up to:\n{0}\n\nAre you sure?",
   "clear_game_settings_succeeded": "遊戲設定已重置",
   "clear_game_settings_failed": "遊戲設定重置過程中發生錯誤",
   "remove_registry_keys": "移除登錄檔機碼",
@@ -83,5 +82,8 @@
   "description": "Description",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Failed to reset game settings",
+  "reset_game_settings_succeeded": "Game settings reset"
 }

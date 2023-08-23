@@ -32,7 +32,6 @@
   "default_language": "기본 언어",
   "game_path": "SPT 게임 경로",
   "clear_game_settings": "게임 설정 초기화",
-  "clear_game_settings_warning": "기존 게임의 설정 파일을 초기화 합니다. 기존 파일들은\n{0}\n\n위치에 백업됩니다. 초기화하시겠습니까?",
   "clear_game_settings_succeeded": "게임 설정이 초기화되었습니다.",
   "clear_game_settings_failed": "게임 설정을 초기화하는 도중에 문제가 발생하였습니다.",
   "remove_registry_keys": "레지스트리 키 삭제",
@@ -83,5 +82,8 @@
   "description": "Description",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Failed to reset game settings",
+  "reset_game_settings_succeeded": "Game settings reset"
 }
