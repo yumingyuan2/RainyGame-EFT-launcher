@@ -76,7 +76,7 @@ namespace Aki.Launcher.ViewModels
 
         public async Task ResetGameSettingsCommand()
         {
-            string EFTSettingsFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Escape from Tarkov", "Settings");
+            string EFTSettingsFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Battlestate Games", "Escape from Tarkov", "Settings");
             string SPTSettingsFolder = Path.Join(LauncherSettingsProvider.Instance.GamePath, "user", "sptsettings");
 
             if (!Directory.Exists(EFTSettingsFolder))
