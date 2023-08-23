@@ -82,7 +82,7 @@ namespace Aki.Launcher.ViewModels
             if (!Directory.Exists(EFTSettingsFolder))
             {
                 LogManager.Instance.Warning($"EFT settings folder not found, can't reset :: Path: {EFTSettingsFolder}");
-                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                SendNotification("", LocalizationProvider.Instance.load_live_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
                 return;
             }
 
@@ -104,11 +104,11 @@ namespace Aki.Launcher.ViewModels
             catch (Exception ex)
             {
                 LogManager.Instance.Exception(ex);
-                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                SendNotification("", LocalizationProvider.Instance.load_live_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
                 return;
             }
 
-            SendNotification("", LocalizationProvider.Instance.reset_game_settings_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
+            SendNotification("", LocalizationProvider.Instance.load_live_settings_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
         }
 
         public async Task ClearGameSettingsCommand()
