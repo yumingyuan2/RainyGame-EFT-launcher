@@ -29,7 +29,6 @@ namespace Aki.Launcher
         private readonly IGameStarterFrontend _frontend;
         private readonly bool _showOnly;
         private readonly string _originalGamePath;
-        private readonly string _gamePath;
         private readonly string[] _excludeFromCleanup;
         private const string registryInstall = @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov";
 
@@ -40,7 +39,6 @@ namespace Aki.Launcher
         {
             _frontend = frontend;
             _showOnly = showOnly;
-            _gamePath = gamePath ?? LauncherSettingsProvider.Instance.GamePath ?? Environment.CurrentDirectory;
             _originalGamePath = originalGamePath ??= DetectOriginalGamePath();
             _excludeFromCleanup = excludeFromCleanup ?? LauncherSettingsProvider.Instance.ExcludeFromCleanup;
         }
@@ -57,7 +55,7 @@ namespace Aki.Launcher
             return info?.DirectoryName;
         }
 
-        public async Task<GameStarterResult> LaunchGame(ServerInfo server, AccountInfo account)
+        public async Task<GameStarterResult> LaunchGame(ServerInfo server, AccountInfo account, string gamePath)
         {
             // setup directories
             if (IsInstalledInLive())
@@ -66,7 +64,7 @@ namespace Aki.Launcher
                 return GameStarterResult.FromError(-1);
             }
 
-            SetupGameFiles();
+            SetupGameFiles(gamePath);
 
             if (!ValidationUtil.Validate())
             {
@@ -81,7 +79,7 @@ namespace Aki.Launcher
             }
 
             // check game path
-            var clientExecutable = Path.Join(_gamePath, "EscapeFromTarkov.exe");
+            var clientExecutable = Path.Join(gamePath, "EscapeFromTarkov.exe");
 
             if (!File.Exists(clientExecutable))
             {
@@ -90,7 +88,7 @@ namespace Aki.Launcher
             }
 
             // apply patches
-            ProgressReportingPatchRunner patchRunner = new ProgressReportingPatchRunner(_gamePath);
+            ProgressReportingPatchRunner patchRunner = new ProgressReportingPatchRunner(gamePath);
 
             try
             {
@@ -116,7 +114,7 @@ namespace Aki.Launcher
                 {
                     Arguments = args,
                     UseShellExecute = false,
-                    WorkingDirectory = _gamePath,
+                    WorkingDirectory = gamePath,
                 };
 
                 Process.Start(clientProcess);
@@ -183,17 +181,17 @@ namespace Aki.Launcher
             return isInstalledInLive;
         }
 
-        void SetupGameFiles()
+        void SetupGameFiles(string gamePath)
         {
             var files = new []
             {
-                GetFileForCleanup("BattlEye"),
-                GetFileForCleanup("Logs"),
-                GetFileForCleanup("ConsistencyInfo"),
-                GetFileForCleanup("EscapeFromTarkov_BE.exe"),
-                GetFileForCleanup("Uninstall.exe"),
-                GetFileForCleanup("UnityCrashHandler64.exe"),
-                GetFileForCleanup("WinPixEventRuntime.dll")
+                GetFileForCleanup("BattlEye", gamePath),
+                GetFileForCleanup("Logs", gamePath),
+                GetFileForCleanup("ConsistencyInfo", gamePath),
+                GetFileForCleanup("EscapeFromTarkov_BE.exe", gamePath),
+                GetFileForCleanup("Uninstall.exe", gamePath),
+                GetFileForCleanup("UnityCrashHandler64.exe", gamePath),
+                GetFileForCleanup("WinPixEventRuntime.dll", gamePath)
             };
 
             foreach (var file in files)
@@ -215,7 +213,7 @@ namespace Aki.Launcher
             }
         }
 
-        private string GetFileForCleanup(string fileName)
+        private string GetFileForCleanup(string fileName, string gamePath)
         {
             if (_excludeFromCleanup.Contains(fileName))
             {
@@ -223,7 +221,7 @@ namespace Aki.Launcher
                 return null;
             }
             
-            return Path.Combine(_gamePath, fileName);
+            return Path.Combine(gamePath, fileName);
         }
 
         /// <summary>
