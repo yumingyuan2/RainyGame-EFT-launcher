@@ -32,7 +32,6 @@
   "default_language": "Idioma",
   "game_path": "Ruta para SPT",
   "clear_game_settings": "Limpiar ajustes del juego",
-  "clear_game_settings_warning": "Estás a punto de borrar tus antiguos ajustes del juego. Ellos estarán respaldados en:\n{0}\n\n¿Estás seguro?",
   "clear_game_settings_succeeded": "Ajustes limpiados.",
   "clear_game_settings_failed": "Ha habido un problema mientras se limpiaban los ajustes del juego.",
   "remove_registry_keys": "Eliminar claves de registro",
@@ -83,5 +82,8 @@
   "description": "Descripción",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Failed to reset game settings",
+  "reset_game_settings_succeeded": "Game settings reset"
 }

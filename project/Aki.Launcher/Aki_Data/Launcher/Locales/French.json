@@ -32,7 +32,6 @@
   "default_language": "Langue par défaut",
   "game_path": "Répertoire du jeu",
   "clear_game_settings": "Réinitialiser les paramètres du jeu",
-  "clear_game_settings_warning": "You are about to remove your old game settings files. They will be backed up to:\n{0}\n\nAre you sure?",
   "clear_game_settings_succeeded": "Paramètres du jeu réinitialisés.",
   "clear_game_settings_failed": "Un problème est survenu pendant la réinitialisation des paramètres de jeu.",
   "remove_registry_keys": "Réinitialiser les clés du registre",
@@ -83,5 +82,8 @@
   "description": "Description",
   "server_mods": "Server Mods",
   "profile_mods": "Profile Mods",
-  "author": "Author"
+  "author": "Author",
+  "reset_game_settings": "Reset Game Settings",
+  "reset_game_settings_failed": "Failed to reset game settings",
+  "reset_game_settings_succeeded": "Game settings reset"
 }

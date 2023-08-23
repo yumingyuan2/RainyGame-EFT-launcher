@@ -74,78 +74,58 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
-        public async Task ClearGameSettingsCommand()
+        public async Task ResetGameSettingsCommand()
         {
+            string EFTSettingsFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Battlestate Games", "Escape from Tarkov", "Settings");
+            string SPTSettingsFolder = Path.Join(LauncherSettingsProvider.Instance.GamePath, "user", "sptsettings");
 
-            bool BackupAndRemove(string backupFolderPath, FileInfo file)
+            if (!Directory.Exists(EFTSettingsFolder))
             {
-                try
-                {
-                    file.Refresh();
-
-                    //if for some reason the file no longer exists /shrug
-                    if (!file.Exists)
-                    {
-                        return false;
-                    }
-
-                    //create backup dir and copy file
-                    Directory.CreateDirectory(backupFolderPath);
-
-                    string newFilePath = Path.Combine(backupFolderPath, $"{file.Name}_{DateTime.Now.ToString("MM-dd-yyyy_hh-mm-ss-tt")}.bak");
-
-                    File.Copy(file.FullName, newFilePath);
-
-                    //copy check
-                    if (!File.Exists(newFilePath))
-                    {
-                        return false;
-                    }
-
-                    //delete old file
-                    file.Delete();
-                }
-                catch (Exception ex)
-                {
-                    LogManager.Instance.Exception(ex);
-                }
-
-                //delete check
-                if (file.Exists)
-                {
-                    return false;
-                }
-
-                return true;
+                LogManager.Instance.Warning($"EFT settings folder not found, can't reset :: Path: {EFTSettingsFolder}");
+                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                return;
             }
 
-            string EFTSettingsFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Escape from Tarkov");
-            string backupFolderPath = Path.Combine(EFTSettingsFolder, "Backups");
-
-            if (Directory.Exists(EFTSettingsFolder))
+            try
             {
-                FileInfo local_ini = new FileInfo(Path.Combine(EFTSettingsFolder, "local.ini"));
-                FileInfo shared_ini = new FileInfo(Path.Combine(EFTSettingsFolder, "shared.ini"));
+                Directory.CreateDirectory(SPTSettingsFolder);
 
-                string Message = string.Format(LocalizationProvider.Instance.clear_game_settings_warning, backupFolderPath);
-                ConfirmationDialogViewModel confirmDelete = new ConfirmationDialogViewModel(null, Message, LocalizationProvider.Instance.clear_game_settings, LocalizationProvider.Instance.cancel);
-
-                var confirmation = await ShowDialog(confirmDelete);
-
-                if (confirmation is bool proceed && !proceed)
+                foreach (string dirPath in Directory.GetDirectories(EFTSettingsFolder, "*", SearchOption.AllDirectories))
                 {
-                    return;
+                    Directory.CreateDirectory(dirPath.Replace(EFTSettingsFolder, SPTSettingsFolder));
                 }
 
-                bool localSucceeded = BackupAndRemove(backupFolderPath, local_ini);
-                bool sharedSucceeded = BackupAndRemove(backupFolderPath, shared_ini);
-
-                //if one fails, I'm considering it bad. Send failed notification.
-                if (!localSucceeded || !sharedSucceeded)
+                //Copy all the files & Replaces any files with the same name
+                foreach (string newPath in Directory.GetFiles(EFTSettingsFolder, "*.*", SearchOption.AllDirectories))
                 {
-                    SendNotification("", LocalizationProvider.Instance.clear_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
-                    return;
+                    File.Copy(newPath, newPath.Replace(EFTSettingsFolder, SPTSettingsFolder), true);
                 }
+            }
+            catch (Exception ex)
+            {
+                LogManager.Instance.Exception(ex);
+                SendNotification("", LocalizationProvider.Instance.reset_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                return;
+            }
+
+            SendNotification("", LocalizationProvider.Instance.reset_game_settings_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
+        }
+
+        public async Task ClearGameSettingsCommand()
+        {
+            var SPTSettingsDir = new DirectoryInfo(Path.Join(LauncherSettingsProvider.Instance.GamePath, "user", "sptsettings"));
+
+            try
+            {
+                SPTSettingsDir.Delete(true);
+
+                Directory.CreateDirectory(SPTSettingsDir.FullName);
+            }
+            catch(Exception ex)
+            {
+                LogManager.Instance.Exception(ex);
+                SendNotification("", LocalizationProvider.Instance.clear_game_settings_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                return;
             }
 
             SendNotification("", LocalizationProvider.Instance.clear_game_settings_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);

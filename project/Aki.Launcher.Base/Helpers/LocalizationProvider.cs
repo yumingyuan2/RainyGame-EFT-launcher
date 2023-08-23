@@ -123,9 +123,11 @@ namespace Aki.Launcher.Helpers
             englishLocale.default_language = "Default Language";
             englishLocale.game_path = "Game Path";
             englishLocale.clear_game_settings = "Clear Game Settings";
-            englishLocale.clear_game_settings_warning = "You are about to remove your old game settings files. They will be backed up to:\n{0}\n\nAre you sure?";
             englishLocale.clear_game_settings_succeeded = "Game settings cleared.";
             englishLocale.clear_game_settings_failed = "An issue occurred while clearing game settings.";
+            englishLocale.reset_game_settings = "Reset Game Settings";
+            englishLocale.reset_game_settings_succeeded = "Game settings reset";
+            englishLocale.reset_game_settings_failed = "Failed to reset game settings";
             englishLocale.remove_registry_keys = "Remove Registry Keys";
             englishLocale.remove_registry_keys_succeeded = "Registry keys removed.";
             englishLocale.remove_registry_keys_failed = "An issue occurred while removing registry keys.";
@@ -738,22 +740,6 @@ namespace Aki.Launcher.Helpers
         }
         #endregion
 
-        #region clear_game_settings_warning
-        private string _clear_game_settings_warning;
-        public string clear_game_settings_warning
-        {
-            get => _clear_game_settings_warning;
-            set
-            {
-                if (_clear_game_settings_warning != value)
-                {
-                    _clear_game_settings_warning = value;
-                    RaisePropertyChanged(nameof(clear_game_settings_warning));
-                }
-            }
-        }
-        #endregion
-
         #region clear_game_settings_succeeded
         private string _clear_game_settings_succeeded;
         public string clear_game_settings_succeeded
@@ -781,6 +767,54 @@ namespace Aki.Launcher.Helpers
                 {
                     _clear_game_settings_failed = value;
                     RaisePropertyChanged(nameof(clear_game_settings_failed));
+                }
+            }
+        }
+        #endregion
+
+        #region reset_game_settings
+        private string _reset_game_settings;
+        public string reset_game_settings
+        {
+            get => _reset_game_settings;
+            set
+            {
+                if (_reset_game_settings != value)
+                {
+                    _reset_game_settings = value;
+                    RaisePropertyChanged(nameof(reset_game_settings));
+                }
+            }
+        }
+        #endregion
+
+        #region reset_game_settings_failed
+        private string _reset_game_settings_failed;
+        public string reset_game_settings_failed
+        {
+            get => _reset_game_settings_failed;
+            set
+            {
+                if (_reset_game_settings_failed != value)
+                {
+                    _reset_game_settings_failed = value;
+                    RaisePropertyChanged(nameof(reset_game_settings_failed));
+                }
+            }
+        }
+        #endregion
+
+        #region reset_game_settings_succeeded
+        private string _reset_game_settings_succeeded;
+        public string reset_game_settings_succeeded
+        {
+            get => _reset_game_settings_succeeded;
+            set
+            {
+                if (_reset_game_settings_succeeded != value)
+                {
+                    _reset_game_settings_succeeded = value;
+                    RaisePropertyChanged(nameof(reset_game_settings_succeeded));
                 }
             }
         }
