@@ -24,7 +24,8 @@
 								Command="{Binding $parent[ItemsControl].DataContext.LoginProfileCommand}"
 								CommandParameter="{Binding Username}"
 								>
-							<Grid RowDefinitions="5,AUTO,AUTO,5" ColumnDefinitions="5,AUTO,AUTO,AUTO,*,AUTO,5">
+							<!-- profile info item grid -->
+							<Grid RowDefinitions="5,AUTO,AUTO,12,5" ColumnDefinitions="5,AUTO,AUTO,AUTO,*,5">
 								<Image Source="{Binding SideImage, Converter={StaticResource imageSourceCvt}}" Height="35"
 									   Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="0 0 5 0"
 								   />
@@ -66,17 +67,19 @@
 									   Foreground="{StaticResource AKI_Brush_DarkGrayBlue}"
 								   />
 
-								<!-- next leve in text -->
-								<Label Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=next_level_in}"
-									   Grid.Row="1" Grid.Column="4"
-									   HorizontalAlignment="Right"
-									   IsVisible="{Binding HasData}"
-								   />
-
 								<!-- remaining exp -->
-								<Label Content="{Binding RemainingExp, StringFormat={}{0} xp}" Grid.Row="1" Grid.Column="5"
+								<Label Grid.Row="2" Grid.RowSpan="2" Grid.Column="4"
+									   VerticalAlignment="Bottom" HorizontalAlignment="Center"
+									   FontSize="12"
 									   IsVisible="{Binding HasData}"
-								   />
+								   >
+									<Label.Content>
+										<MultiBinding StringFormat="{}{0} {1} xp">
+											<Binding Source="{x:Static helpers:LocalizationProvider.Instance}" Path="next_level_in"/>
+											<Binding Path="RemainingExp"/>
+										</MultiBinding>
+									</Label.Content>
+								</Label>
 
 								<!-- level text-->
 								<Label Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=level}"
@@ -119,14 +122,20 @@
                />
 
 			<!-- Login button -->
-			<Button Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=login_or_register}"
-					HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+			<Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
 					Command="{Binding LoginCommand}"
 					IsEnabled="{Binding !IsLoggingIn}"
 					IsDefault="True"
-                />
-			<CheckBox Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=login_automatically}"
-					  IsChecked="{Binding Source={x:Static helpers:LauncherSettingsProvider.Instance}, Path=UseAutoLogin}"/>
+                >
+				<TextBlock Text="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=login_or_register}"
+						   TextWrapping="Wrap"
+						   />
+			</Button>
+			<CheckBox IsChecked="{Binding Source={x:Static helpers:LauncherSettingsProvider.Instance}, Path=UseAutoLogin}">
+				<TextBlock Text="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=login_automatically}"
+						   TextWrapping="Wrap"
+						   />
+			</CheckBox>
 		</StackPanel>
 	</Grid>
 </UserControl>
