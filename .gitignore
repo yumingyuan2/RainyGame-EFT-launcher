@@ -355,3 +355,4 @@ MigrationBackup/
 # Jetbrains IDEs database
 .idea/
 
+project/user/launcher
