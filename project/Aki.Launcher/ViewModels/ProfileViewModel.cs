@@ -41,6 +41,13 @@ namespace Aki.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _WipeProfileOnStart, value);
         }
 
+        private bool _ProfileWipePending;
+        public bool ProfileWipePending
+        {
+            get => _ProfileWipePending;
+            set => this.RaiseAndSetIfChanged(ref _ProfileWipePending, value);
+        }
+
         public string CurrentID { get; set; }
 
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
@@ -199,6 +206,7 @@ namespace Aki.Launcher.ViewModels
             {
                 case AccountStatus.OK:
                     {
+                        ProfileWipePending = true;
                         CurrentEdition = AccountManager.SelectedAccount.edition;
                         SendNotification("", LocalizationProvider.Instance.account_updated);
                         break;
@@ -312,6 +320,7 @@ namespace Aki.Launcher.ViewModels
                 case LauncherAction.MinimizeAction:
                     {
                         ChangeWindowState(Avalonia.Controls.WindowState.Normal);
+                        ProfileWipePending = false;
 
                         break;
                     }
