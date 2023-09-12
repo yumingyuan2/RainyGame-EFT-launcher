@@ -85,5 +85,6 @@
     "author": "Autor",
     "load_live_settings": "Wczytaj ustawienia EFT",
     "load_live_settings_succeeded": "Ustawienia gry skopiowane z EFT",
-    "load_live_settings_failed": "Nie udało się skopiować ustawień EFT"
+    "load_live_settings_failed": "Nie udało się skopiować ustawień EFT",
+    "wipe_on_start": "Wipe profile on game start"
 }

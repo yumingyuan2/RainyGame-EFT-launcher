@@ -176,6 +176,7 @@ namespace Aki.Launcher.Helpers
             englishLocale.server_mods = "Server Mods";
             englishLocale.profile_mods = "Profile Mods";
             englishLocale.author = "Author";
+            englishLocale.wipe_on_start = "Wipe profile on game start";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -1603,6 +1604,22 @@ namespace Aki.Launcher.Helpers
             }
         }
 
+        #endregion
+
+        #region wipe_on_start
+        private string _wipe_on_start;
+        public string wipe_on_start
+        {
+            get => _wipe_on_start;
+            set
+            {
+                if (_wipe_on_start != value)
+                {
+                    _wipe_on_start = value;
+                    RaisePropertyChanged(nameof(wipe_on_start));
+                }
+            }
+        }
         #endregion
 
         #endregion
