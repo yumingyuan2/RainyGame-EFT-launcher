@@ -8,6 +8,7 @@
 			<Button Content="Blah"/>
 			<TextBox Text="Some cool text here" Margin="5"/>
 			<TextBox Watermark="This is a watermark" Margin="5"/>
+			<CheckBox Content="This is a checkbox"/>
 		</StackPanel>
 	</Design.PreviewWith>
 
@@ -295,6 +296,14 @@
 	<!-- SourceRef: https://github.com/AvaloniaUI/Avalonia/blob/master/src/Avalonia.Themes.Fluent/Controls/CheckBox.xaml -->
 	<Style Selector="CheckBox">
 		<Setter Property="Foreground" Value="{StaticResource AKI_Foreground_Light}"/>
+	</Style>
+
+	<Style Selector="CheckBox /template/ Border#NormalRectangle">
+		<Setter Property="BorderBrush" Value="{StaticResource AKI_Brush_DarkGrayBlue}"/>
+	</Style>
+
+	<Style Selector="CheckBox:pointerover /template/ Border#NormalRectangle">
+		<Setter Property="BorderBrush" Value="{StaticResource AKI_Brush_Yellow}"/>
 	</Style>
 
 	<Style Selector="CheckBox:pointerover /template/ ContentPresenter#ContentPresenter">

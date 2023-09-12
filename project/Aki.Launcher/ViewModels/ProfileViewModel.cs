@@ -34,6 +34,13 @@ namespace Aki.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _ModsListIsVisible, value);
         }
 
+        private bool _WipeProfileOnStart;
+        public bool WipeProfileOnStart
+        {
+            get => _WipeProfileOnStart;
+            set => this.RaiseAndSetIfChanged(ref _WipeProfileOnStart, value);
+        }
+
         public string CurrentID { get; set; }
 
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
@@ -144,6 +151,19 @@ namespace Aki.Launcher.ViewModels
 
             LauncherSettingsProvider.Instance.GameRunning = true;
 
+            if (WipeProfileOnStart)
+            {
+                var wipeStatus = await WipeProfile(AccountManager.SelectedAccount.edition);
+
+                if (wipeStatus != AccountStatus.OK)
+                {
+                    LauncherSettingsProvider.Instance.GameRunning = false;
+                    return;
+                }
+
+                WipeProfileOnStart = false;
+            }
+
             GameStarterResult gameStartResult = await gameStarter.LaunchGame(ServerManager.SelectedServer, AccountManager.SelectedAccount, LauncherSettingsProvider.Instance.GamePath);
 
             if (gameStartResult.Succeeded)
@@ -171,33 +191,40 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
+        private async Task<AccountStatus> WipeProfile(string edition)
+        {
+            AccountStatus status = await AccountManager.WipeAsync(edition);
+
+            switch (status)
+            {
+                case AccountStatus.OK:
+                    {
+                        CurrentEdition = AccountManager.SelectedAccount.edition;
+                        SendNotification("", LocalizationProvider.Instance.account_updated);
+                        break;
+                    }
+                case AccountStatus.NoConnection:
+                    {
+                        NavigateTo(new ConnectServerViewModel(HostScreen));
+                        break;
+                    }
+                default:
+                    {
+                        SendNotification("", LocalizationProvider.Instance.edit_account_update_error);
+                        break;
+                    }
+            }
+
+            return status;
+        }
+
         public async Task ChangeEditionCommand()
         {
             var result = await ShowDialog(new ChangeEditionDialogViewModel(null));
 
             if(result != null && result is AkiEdition edition)
             {
-                AccountStatus status = await AccountManager.WipeAsync(edition.Name);
-
-                switch (status)
-                {
-                    case AccountStatus.OK:
-                        {
-                            CurrentEdition = AccountManager.SelectedAccount.edition;
-                            SendNotification("", LocalizationProvider.Instance.account_updated);
-                            break;
-                        }
-                    case AccountStatus.NoConnection:
-                        {
-                            NavigateTo(new ConnectServerViewModel(HostScreen));
-                            break;
-                        }
-                    default:
-                        {
-                            SendNotification("", LocalizationProvider.Instance.edit_account_update_error);
-                            break;
-                        }
-                }
+                await WipeProfile(edition.Name);
             }
         }
 
