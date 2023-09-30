@@ -64,9 +64,31 @@ namespace Aki.Launcher.ViewModels
         {
             this.WhenActivated((CompositeDisposable disposables) =>
             {
-                Task.Run(() =>
+                Task.Run(async () =>
                 {
-                    GameVersionCheck();
+                    await GameVersionCheck();
+
+                    await Dispatcher.UIThread.InvokeAsync(async () =>
+                    {
+                        if (LauncherSettingsProvider.Instance.FirstRun)
+                        {
+                            LauncherSettingsProvider.Instance.FirstRun = false;
+
+                            LauncherSettingsProvider.Instance.SaveSettings();
+
+                            var confirmCopySettings = await ShowDialog(new ConfirmationDialogViewModel(Host,
+                                                                                     LocalizationProvider.Instance.copy_live_settings_question,
+                                                                                     LocalizationProvider.Instance.yes,
+                                                                                     LocalizationProvider.Instance.no));
+
+                            if (confirmCopySettings != null && confirmCopySettings is bool confirmed && confirmed)
+                            {
+                                var settingsVM = new SettingsViewModel(Host);
+
+                                await settingsVM.ResetGameSettingsCommand();
+                            }
+                        }
+                    });
                 });
             });
 
