@@ -177,6 +177,7 @@ namespace Aki.Launcher.Helpers
             englishLocale.profile_mods = "Profile Mods";
             englishLocale.author = "Author";
             englishLocale.wipe_on_start = "Wipe profile on game start";
+            englishLocale.copy_live_settings_question = "Would you like to copy your live game settings to spt";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -1617,6 +1618,22 @@ namespace Aki.Launcher.Helpers
                 {
                     _wipe_on_start = value;
                     RaisePropertyChanged(nameof(wipe_on_start));
+                }
+            }
+        }
+        #endregion
+
+        #region copy_live_settings_question
+        private string _copy_live_settings_question;
+        public string copy_live_settings_question
+        {
+            get => _copy_live_settings_question;
+            set
+            {
+                if (_copy_live_settings_question != value)
+                {
+                    _copy_live_settings_question = value;
+                    RaisePropertyChanged(nameof(copy_live_settings_question));
                 }
             }
         }
