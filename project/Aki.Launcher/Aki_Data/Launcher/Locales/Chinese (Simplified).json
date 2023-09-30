@@ -85,5 +85,6 @@
   "author": "Author",
   "load_live_settings": "Load Live Settings",
   "load_live_settings_succeeded": "Game settings copied from live",
-  "load_live_settings_failed": "Failed to copy live settings"
+  "load_live_settings_failed": "Failed to copy live settings",
+  "wipe_on_start": "Wipe profile on game start"
 }
