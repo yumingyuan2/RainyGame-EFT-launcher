@@ -15,4 +15,8 @@
 		<Exec Command="dotnet cake &quot;../build.cake&quot; --config=&quot;$(ConfigurationName)&quot; --vsbuilt=true" />
 	</Target>
 
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(BuildingByReSharper)' == 'true'">
+        <Exec Command="dotnet cake &quot;../build.cake&quot; --config=&quot;$(ConfigurationName)&quot; --vsbuilt=true" />
+    </Target>
+
 </Project>
