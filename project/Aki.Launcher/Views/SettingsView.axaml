@@ -51,7 +51,7 @@
              />
       <!-- LocaleCollection reloads the locale from file when the selected loacle changes -->
       <ComboBox Items="{Binding Locales.AvailableLocales}" MinWidth="200"
-                SelectedItem="{Binding Locales.SelectedLocale, Mode=TwoWay, }"
+                SelectedItem="{Binding Locales.SelectedLocale, Mode=TwoWay }"
                 />
     </StackPanel>
 
