@@ -23,8 +23,12 @@
 				<Path Data="{StaticResource Profile}" Fill="{StaticResource AKI_Brush_DarkGrayBlue}"
 				      IsVisible="{Binding IsInProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
 					  />
-				<Path Data="{StaticResource Alert}" Fill="{StaticResource AKI_Brush_Yellow}" Margin="0 2 0 0"
-					  >
+				
+				<Canvas>
+					<Rectangle ToolTip.Tip="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=mod_not_in_server_warning}" Fill="Transparent" Height="20" Width="20"/>
+					<Path Data="{StaticResource Alert}" Fill="{StaticResource AKI_Brush_Yellow}" 
+					      Margin="0 2 0 0" ToolTip.Tip="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=mod_not_in_server_warning}"
+					>
 					<Path.IsVisible>
 						<MultiBinding Converter="{x:Static BoolConverters.And}">
 							<Binding Path="IsInProfile" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
@@ -32,6 +36,7 @@
 						</MultiBinding>
 					</Path.IsVisible>
 				</Path>
+				</Canvas>
 			</StackPanel>
 			
 			<Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"

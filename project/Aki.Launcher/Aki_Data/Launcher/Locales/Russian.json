@@ -87,5 +87,6 @@
   "load_live_settings_succeeded": "Настройки игры скопированы из онлайн-версии",
   "load_live_settings_failed": "Не удалось скопировать настройки онлайн-версии",
   "wipe_on_start": "Wipe profile on game start",
-  "copy_live_settings_question": "Would you like to copy your live game settings to spt"
+  "copy_live_settings_question": "Would you like to copy your live game settings to spt",
+  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server"
 }
