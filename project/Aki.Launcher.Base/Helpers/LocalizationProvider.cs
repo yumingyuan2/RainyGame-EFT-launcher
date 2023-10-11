@@ -178,6 +178,7 @@ namespace Aki.Launcher.Helpers
             englishLocale.author = "Author";
             englishLocale.wipe_on_start = "Wipe profile on game start";
             englishLocale.copy_live_settings_question = "Would you like to copy your live game settings to spt";
+            englishLocale.mod_not_in_server_warning = "This mod was found in your profile, but is not loaded on the server";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -1638,7 +1639,22 @@ namespace Aki.Launcher.Helpers
             }
         }
         #endregion
-
+        
+        #region mod_not_in_server_warning
+        private string _mod_not_in_server_warning;
+        public string mod_not_in_server_warning
+        {
+            get => _mod_not_in_server_warning;
+            set
+            {
+                if (_mod_not_in_server_warning != value)
+                {
+                    _mod_not_in_server_warning = value;
+                    RaisePropertyChanged(nameof(mod_not_in_server_warning));
+                }
+            }
+        }
+        #endregion
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
