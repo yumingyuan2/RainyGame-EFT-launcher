@@ -19,7 +19,7 @@ git config --local user.email "USERNAME@SOMETHING.com"
 
 ## Requirements
 
-- Escape From Tarkov 26535
+- Escape From Tarkov 26835
 - .NET 6 SDK
 - Visual Studio Code
 
