@@ -11,6 +11,7 @@ using Splat;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
+using Avalonia.Threading;
 
 namespace Aki.Launcher.ViewModels
 {
@@ -111,12 +112,11 @@ namespace Aki.Launcher.ViewModels
             //handle auto-login
             if (LauncherSettingsProvider.Instance.UseAutoLogin && LauncherSettingsProvider.Instance.Server.AutoLoginCreds != null && !NoAutoLogin)
             {
-                Task.Run(() =>
+                Login = LauncherSettingsProvider.Instance.Server.AutoLoginCreds;
+                Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    Login = LauncherSettingsProvider.Instance.Server.AutoLoginCreds;
                     LoginCommand.Execute();
                 });
-
                 return;
             }
 
