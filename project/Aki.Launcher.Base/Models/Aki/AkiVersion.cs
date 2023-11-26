@@ -34,7 +34,6 @@ namespace Aki.Launcher.Models.Aki
                 AkiVersion = versionInfo[0];
 
                 Tag = versionInfo[1];
-                return;
             }
 
             string[] splitVersion = AkiVersion.Split('.');
