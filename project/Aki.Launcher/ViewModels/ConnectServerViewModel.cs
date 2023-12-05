@@ -32,8 +32,14 @@ namespace Aki.Launcher.ViewModels
 
         public async Task ConnectServer()
         {
-            await ServerManager.LoadDefaultServerAsync(LauncherSettingsProvider.Instance.Server.Url);
-
+            if (!await ServerManager.LoadDefaultServerAsync(LauncherSettingsProvider.Instance.Server.Url))
+            {
+                connectModel.ConnectionFailed = true;
+                connectModel.InfoText = string.Format(LocalizationProvider.Instance.server_unavailable_format_1,
+                    LauncherSettingsProvider.Instance.Server.Name);
+                return;
+            }
+            
             bool connected = ServerManager.PingServer();
 
             connectModel.ConnectionFailed = !connected;

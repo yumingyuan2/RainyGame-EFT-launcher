@@ -92,7 +92,7 @@ namespace Aki.Launcher
             }
         }
 
-        public static void LoadServer(string backendUrl)
+        public static bool LoadServer(string backendUrl)
         {
             string json = "";
 
@@ -100,22 +100,20 @@ namespace Aki.Launcher
             {
                 RequestHandler.ChangeBackendUrl(backendUrl);
                 json = RequestHandler.RequestConnect();
+                SelectedServer = Json.Deserialize<ServerInfo>(json);
             }
             catch
             {
                 SelectedServer = null;
-                return;
+                return false;
             }
 
-            SelectedServer = Json.Deserialize<ServerInfo>(json);
+            return true;
         }
 
-        public static async Task LoadDefaultServerAsync(string server)
+        public static async Task<bool> LoadDefaultServerAsync(string server)
         {
-            await Task.Run(() =>
-            {
-                LoadServer(server);
-            });
+            return await Task.Run(() => LoadServer(server));
         }
     }
 }
