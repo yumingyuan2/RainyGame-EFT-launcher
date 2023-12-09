@@ -7,6 +7,10 @@ using System.IO;
 using Splat;
 using Aki.Launcher.Models.Aki;
 using Aki.Launcher.Helpers;
+using Aki.Launcher.ViewModels.Dialogs;
+using Avalonia.Threading;
+using dialogHost = DialogHost.DialogHost;
+
 
 namespace Aki.Launcher.ViewModels
 {
@@ -28,6 +32,32 @@ namespace Aki.Launcher.ViewModels
             Locator.CurrentMutable.RegisterConstant<AkiVersion>(VersionInfo, "akiversion");
 
             LauncherSettingsProvider.Instance.AllowSettings = true;
+
+            if (LauncherSettingsProvider.Instance.FirstRun)
+            {
+                Dispatcher.UIThread.InvokeAsync(async () =>
+                {
+                    LauncherSettingsProvider.Instance.FirstRun = false;
+
+                    LocalizationProvider.TryAutoSetLocale();
+
+                    var viewModel = new ConfirmationDialogViewModel(this,
+                        LocalizationProvider.Instance.copy_live_settings_question,
+                        LocalizationProvider.Instance.yes,
+                        LocalizationProvider.Instance.no);
+
+                    var confirmCopySettings = await dialogHost.Show(viewModel);
+
+                    if (confirmCopySettings is bool and true)
+                    {
+                        var settingsVm = new SettingsViewModel(this);
+
+                        await settingsVm.ResetGameSettingsCommand();
+                    }
+                    
+                    LauncherSettingsProvider.Instance.SaveSettings();
+                });
+            }
 
             this.WhenActivated((CompositeDisposable disposables) =>
             {
