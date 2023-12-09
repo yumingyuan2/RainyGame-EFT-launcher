@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Aki.Launcher.Attributes;
 using Aki.Launcher.ViewModels.Dialogs;
 using Avalonia.Threading;
-using System.Reactive.Disposables;
 using System.Diagnostics;
 using System.IO;
 using Aki.Launcher.Models.Aki;
@@ -62,36 +61,6 @@ namespace Aki.Launcher.ViewModels
 
         public ProfileViewModel(IScreen Host) : base(Host)
         {
-            this.WhenActivated((CompositeDisposable disposables) =>
-            {
-                Task.Run(async () =>
-                {
-                    await GameVersionCheck();
-
-                    await Dispatcher.UIThread.InvokeAsync(async () =>
-                    {
-                        if (LauncherSettingsProvider.Instance.FirstRun)
-                        {
-                            LauncherSettingsProvider.Instance.FirstRun = false;
-
-                            LauncherSettingsProvider.Instance.SaveSettings();
-
-                            var confirmCopySettings = await ShowDialog(new ConfirmationDialogViewModel(Host,
-                                                                                     LocalizationProvider.Instance.copy_live_settings_question,
-                                                                                     LocalizationProvider.Instance.yes,
-                                                                                     LocalizationProvider.Instance.no));
-
-                            if (confirmCopySettings != null && confirmCopySettings is bool confirmed && confirmed)
-                            {
-                                var settingsVM = new SettingsViewModel(Host);
-
-                                await settingsVM.ResetGameSettingsCommand();
-                            }
-                        }
-                    });
-                });
-            });
-
             // cache and load side image if profile has a side
             if(AccountManager.SelectedProfileInfo != null && AccountManager.SelectedProfileInfo.Side != null)
             {

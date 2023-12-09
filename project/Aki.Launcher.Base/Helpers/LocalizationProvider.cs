@@ -16,7 +16,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Aki.Launcher.Helpers
 {
@@ -24,11 +23,11 @@ namespace Aki.Launcher.Helpers
     {
         public static string DefaultLocaleFolderPath = Path.Join(Environment.CurrentDirectory, "Aki_Data", "Launcher", "Locales");
 
-        public static Dictionary<string, string> LocaleNameDictionary = GetLocaleDictionary();
+        public static Dictionary<string, string> LocaleNameDictionary = GetLocaleDictionary("native_name");
 
         public static event EventHandler LocaleChanged = delegate { };
 
-        public static void LoadLocaleFromFile(string localeName)
+        public static void LoadLocalByName(string localeName)
         {
             string localeRomanName = LocaleNameDictionary.GetKeyByValue(localeName);
 
@@ -36,7 +35,12 @@ namespace Aki.Launcher.Helpers
             {
                 localeRomanName = localeName;
             }
+            
+            LoadLocaleFromFile(localeRomanName);
+        }
 
+        public static void LoadLocaleFromFile(string localeRomanName)
+        {
             LocaleData newLocale = Json.LoadClassWithoutSaving<LocaleData>(Path.Join(DefaultLocaleFolderPath, $"{localeRomanName}.json"));
 
             if (newLocale != null)
@@ -55,30 +59,24 @@ namespace Aki.Launcher.Helpers
             //could possibly raise an event here to say why the local wasn't changed.
         }
 
-        private static string GetSystemLocale()
-        {
-            string UIlocaleName = CultureInfo.CurrentUICulture.DisplayName;
-
-            var regexMatch = Regex.Match(UIlocaleName, @"^(\w+)");
-
-            if (regexMatch.Groups.Count == 2)
-            {
-                string localRomanName = LocaleNameDictionary.GetValueOrDefault(regexMatch.Groups[1].Value, "");
-
-                bool localExists = GetAvailableLocales().Where(x => x == localRomanName).Count() > 0;
-
-                if (localExists)
-                {
-                    return localRomanName;
-                }
-            }
-
-            return "English";
-        }
-
         public static void TryAutoSetLocale()
         {
-            LoadLocaleFromFile(GetSystemLocale());
+            // get local dictionary based on ietf_tag property in locale files. like: ("English", "en")
+            // "English" being the file name
+            var localeTagDictionary = GetLocaleDictionary("ietf_tag");
+
+            // get system locale. Like: "en-US"
+            var tag = CultureInfo.CurrentUICulture.IetfLanguageTag;
+
+            // get the locale file name from the dictionary based on the input tag. If it matches, or starts with the value
+            var localeRomanName = localeTagDictionary.GetKeyByInput(tag);
+            
+            if (String.IsNullOrEmpty(localeRomanName))
+            {
+                localeRomanName = "English";
+            }
+            
+            LoadLocaleFromFile(localeRomanName);
         }
 
         public static LocaleData GenerateEnglishLocale()
@@ -88,6 +86,7 @@ namespace Aki.Launcher.Helpers
             LocaleData englishLocale = new LocaleData();
 
             #region Set All English Defaults
+            englishLocale.ietf_tag = "en";
             englishLocale.native_name = "English";
             englishLocale.retry = "Retry";
             englishLocale.server_connecting = "Connecting";
@@ -189,14 +188,14 @@ namespace Aki.Launcher.Helpers
             return englishLocale;
         }
 
-        public static Dictionary<string, string> GetLocaleDictionary()
+        public static Dictionary<string, string> GetLocaleDictionary(string property)
         {
             List<FileInfo> localeFiles = new List<FileInfo>(Directory.GetFiles(DefaultLocaleFolderPath).Select(x => new FileInfo(x)).ToList());
             Dictionary<string, string> localeDictionary = new Dictionary<string, string>();
 
             foreach (FileInfo file in localeFiles)
             {
-                localeDictionary.Add(file.Name.Replace(".json", ""), Json.GetPropertyByName<string>(file.FullName, "native_name"));
+                localeDictionary.Add(file.Name.Replace(".json", ""), Json.GetPropertyByName<string>(file.FullName, property));
             }
 
             return localeDictionary;
@@ -215,6 +214,24 @@ namespace Aki.Launcher.Helpers
 
         #region All Properties
 
+        #region ietf_tag
+
+        private string _ietf_tag;
+
+        public string ietf_tag
+        {
+            get => _ietf_tag;
+            set
+            {
+                if (_ietf_tag != value)
+                {
+                    _ietf_tag = value;
+                    RaisePropertyChanged(nameof(ietf_tag));
+                }
+            }
+        }
+        #endregion
+        
         #region native_name
         private string _native_name;
         public string native_name

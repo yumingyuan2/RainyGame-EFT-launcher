@@ -14,20 +14,35 @@ namespace Aki.Launcher.Extensions
 {
     public static class DictionaryExtensions
     {
-        public static TKey GetKeyByValue<TKey, TValue>(this Dictionary<TKey, TValue> Dic, TValue value)
+        public static TKey GetKeyByValue<TKey, TValue>(this Dictionary<TKey, TValue> dic, TValue value)
         {
-            List<TKey> Keys = Dic.Keys.ToList();
+            List<TKey> keys = dic.Keys.ToList();
 
-            for (int x = 0; x < Keys.Count(); x++)
+            for (var x = 0; x < keys.Count; x++)
             {
-                TValue tempValue;
-
-                if (Dic.TryGetValue(Keys[x], out tempValue))
+                if (dic.TryGetValue(keys[x], out var tempValue))
                 {
                     if (tempValue != null && tempValue.Equals(value))
                     {
-                        return Keys[x];
+                        return keys[x];
                     }
+                }
+            }
+
+            return default;
+        }
+
+        public static TKey GetKeyByInput<TKey, TValue>(this Dictionary<TKey, TValue> dic,
+            string input)
+        {
+            var keys = dic.Keys.ToList();
+            var values = dic.Values.ToList();
+            
+            for (var x = 0; x < dic.Count; x++)
+            {
+                if (values[x] is string s && (input.ToLower() == s.ToLower() || input.ToLower().StartsWith(s.ToLower())))
+                {
+                    return keys[x];
                 }
             }
 
