@@ -104,7 +104,8 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
-        public void ToggleModsListCommand() => ModsListIsVisible = !ModsListIsVisible;
+        public void OpenModsInfoCommand() =>
+            NavigateTo(new ModInfoViewModel(HostScreen));
 
         public void LogoutCommand()
         {

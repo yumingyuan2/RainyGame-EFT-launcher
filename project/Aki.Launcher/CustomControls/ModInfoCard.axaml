@@ -14,9 +14,9 @@
 			  >
 
 			<StackPanel Grid.Row="1" Grid.ColumnSpan="3" Grid.Column="1"
-						VerticalAlignment="Center"
-						Orientation="Horizontal" Spacing="5"
-						>
+			            VerticalAlignment="Center"
+			            Orientation="Horizontal" Spacing="5"
+			>
 				<Path Data="{StaticResource Server}" Fill="{StaticResource AKI_Brush_DarkGrayBlue}"
 					  IsVisible="{Binding IsInServer, RelativeSource={RelativeSource AncestorType=UserControl}}"
 				      />
