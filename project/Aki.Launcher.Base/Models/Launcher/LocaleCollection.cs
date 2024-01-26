@@ -26,7 +26,7 @@ namespace Aki.Launcher.Models.Launcher
                 {
                     _SelectedLocale = value;
                     RaisePropertyChanged(nameof(SelectedLocale));
-                    LocalizationProvider.LoadLocaleFromFile(value);
+                    LocalizationProvider.LoadLocalByName(value);
                 }
             }
         }
