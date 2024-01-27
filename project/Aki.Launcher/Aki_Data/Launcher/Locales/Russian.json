@@ -81,13 +81,17 @@
   "i_understand": "Я понимаю",
   "game_version_mismatch_format_2": "Ваша версия игры: '{0}' и совместимая версия: '{1}'.\n\nИгра может работать некорректно или не работать вообще.",
   "description": "Описание",
-  "server_mods": "Серверные моды",
-  "profile_mods": "Моды профиля",
   "author": "Автор",
   "load_live_settings": "Загрузить настройкий онлайн-версии",
   "load_live_settings_succeeded": "Настройки игры скопированы из онлайн-версии",
   "load_live_settings_failed": "Не удалось скопировать настройки онлайн-версии",
   "wipe_on_start": "Wipe profile on game start",
   "copy_live_settings_question": "Would you like to copy your live game settings to spt",
-  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server"
+  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server",
+  "active_server_mods": "Active Server Mods",
+  "active_server_mods_info_text": "These mods are currently running on the server",
+  "inactive_server_mods": "Inactive Server Mods",
+  "inactive_server_mods_info_text": "These mods have not been loaded by the server, but your profile has used them in the past",
+  "open_link_question_format_1": "Are you sure you want to open the following link: \n{0}",
+  "open_link": "Open Link"
 }

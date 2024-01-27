@@ -81,13 +81,17 @@
   "i_understand": "I Understand",
   "game_version_mismatch_format_2": "SPT is unable to run, this is because SPT expected to find EFT version '{1}',\nbut instead found version '{0}'\n\nEnsure you've downgraded your EFT as described in the install guide\non the page you downloaded SPT from",
   "description": "Description",
-  "server_mods": "Server Mods",
-  "profile_mods": "Profile Mods",
   "author": "Author",
   "load_live_settings": "Load Live Settings",
   "load_live_settings_succeeded": "Game settings copied from live",
   "load_live_settings_failed": "Failed to copy live settings",
   "wipe_on_start": "Wipe profile on game start",
   "copy_live_settings_question": "Would you like to copy your live game settings to spt",
-  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server"
+  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server",
+  "active_server_mods": "Active Server Mods",
+  "active_server_mods_info_text": "These mods are currently running on the server",
+  "inactive_server_mods": "Inactive Server Mods",
+  "inactive_server_mods_info_text": "These mods have not been loaded by the server, but your profile has used them in the past",
+  "open_link_question_format_1": "Are you sure you want to open the following link: \n{0}",
+  "open_link": "Open Link"
 }
