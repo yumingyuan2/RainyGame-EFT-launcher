@@ -81,13 +81,17 @@
   "i_understand": "Rozumiem",
   "game_version_mismatch_format_2": "SPT nie może zostać uruchomiony, ponieważ SPT oczekiwał wersji EFT '{1}',\nale zamiast tego znalazł wersję '{0}'\n\nUpewnij się, że zainstalowałeś starszą wersję EFT, zgodnie z instrukcją instalacji\nna stronie, z której pobrałeś SPT",
   "description": "Opis",
-  "server_mods": "Mody serwera",
-  "profile_mods": "Mody profilu",
   "author": "Autor",
   "load_live_settings": "Wczytaj ustawienia EFT",
   "load_live_settings_succeeded": "Ustawienia gry skopiowane z EFT",
   "load_live_settings_failed": "Nie udało się skopiować ustawień EFT",
   "wipe_on_start": "Wipe profile on game start",
   "copy_live_settings_question": "Would you like to copy your live game settings to spt",
-  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server"
+  "mod_not_in_server_warning":"This mod was found in your profile, but is not loaded on the server",
+  "active_server_mods": "Active Server Mods",
+  "active_server_mods_info_text": "These mods are currently running on the server",
+  "inactive_server_mods": "Inactive Server Mods",
+  "inactive_server_mods_info_text": "These mods have not been loaded by the server, but your profile has used them in the past",
+  "open_link_question_format_1": "Are you sure you want to open the following link: \n{0}",
+  "open_link": "Open Link"
 }

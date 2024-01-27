@@ -26,13 +26,6 @@ namespace Aki.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _CurrentEdition, value);
         }
 
-        private bool _ModsListIsVisible;
-        public bool ModsListIsVisible
-        {
-            get => _ModsListIsVisible;
-            set => this.RaiseAndSetIfChanged(ref _ModsListIsVisible, value);
-        }
-
         private bool _WipeProfileOnStart;
         public bool WipeProfileOnStart
         {
@@ -76,8 +69,6 @@ namespace Aki.Launcher.ViewModels
             CurrentEdition = AccountManager.SelectedAccount.edition;
 
             CurrentID = AccountManager.SelectedAccount.id;
-
-            ModsListIsVisible = false;
         }
 
         private async Task GameVersionCheck()
@@ -104,7 +95,8 @@ namespace Aki.Launcher.ViewModels
             }
         }
 
-        public void ToggleModsListCommand() => ModsListIsVisible = !ModsListIsVisible;
+        public void OpenModsInfoCommand() =>
+            NavigateTo(new ModInfoViewModel(HostScreen, ModInfoCollection));
 
         public void LogoutCommand()
         {

@@ -20,7 +20,7 @@ namespace Aki.Launcher.Models.Launcher
                 }
             }
         }
-
+        
         private int _profileModsCount;
         public int ProfileModsCount
         {
@@ -31,20 +31,6 @@ namespace Aki.Launcher.Models.Launcher
                 {
                     _profileModsCount = value;
                     RaisePropertyChanged(nameof(ProfileModsCount));
-                }
-            }
-        }
-
-        private bool _hasProfileOnlyMods;
-        public bool HasProfileOnlyMods
-        {
-            get => _hasProfileOnlyMods;
-            set
-            {
-                if (_hasProfileOnlyMods != value)
-                {
-                    _hasProfileOnlyMods = value;
-                    RaisePropertyChanged(nameof(HasProfileOnlyMods));
                 }
             }
         }
@@ -63,7 +49,8 @@ namespace Aki.Launcher.Models.Launcher
             }
         }
 
-        public ObservableCollection<AkiMod> Mods { get; private set; } = new ObservableCollection<AkiMod>();
+        public ObservableCollection<AkiMod> ActiveMods { get; private set; } = new ObservableCollection<AkiMod>();
+        public ObservableCollection<AkiMod> InactiveMods { get; private set; } = new ObservableCollection<AkiMod>();
 
         public ModInfoCollection()
         {
@@ -73,15 +60,15 @@ namespace Aki.Launcher.Models.Launcher
             ServerModsCount = serverMods?.Count() ?? 0;
             ProfileModsCount = profileMods?.Count() ?? 0;
 
-            foreach (var serverMod in serverMods)
+            foreach (var activeMod in serverMods)
             {
-                serverMod.InServer = true;
-                Mods.Add(serverMod);
+                activeMod.InServer = true;
+                ActiveMods.Add(activeMod);
             }
 
-            foreach (var profileMod in profileMods)
+            foreach (var inactiveMod in profileMods)
             {
-                var existingMod = Mods.Where(x => x.Name == profileMod.Name && x.Version == profileMod.Version && x.Author == profileMod.Author).FirstOrDefault();
+                var existingMod = ActiveMods.Where(x => x.Name == inactiveMod.Name && x.Version == inactiveMod.Version && x.Author == inactiveMod.Author).FirstOrDefault();
 
                 if (existingMod != null)
                 {
@@ -89,12 +76,11 @@ namespace Aki.Launcher.Models.Launcher
                     continue;
                 }
 
-                profileMod.InProfile = true;
-                Mods.Add(profileMod);
+                inactiveMod.InProfile = true;
+                InactiveMods.Add(inactiveMod);
             }
 
-            HasMods = Mods.Count() > 0;
-            HasProfileOnlyMods = Mods.Where(x => x.InProfile && !x.InServer).Count() > 0;
+            HasMods = ActiveMods.Count > 0 || InactiveMods.Count > 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
