@@ -25,9 +25,9 @@
                 <!-- Active mods count and text -->
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
                     <Label.Content>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="ModsCollection.ActiveMods.Count"/>
+                        <MultiBinding StringFormat="{}{0}: {1}">
                             <Binding Source="{x:Static helpers:LocalizationProvider.Instance}" Path="active_server_mods"/>
+                            <Binding Path="ModsCollection.ActiveMods.Count"/>                            
                         </MultiBinding>
                     </Label.Content>
                 </Label>
@@ -68,9 +68,9 @@
                 <!-- Inactive mods count and text -->
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
                     <Label.Content>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="ModsCollection.InactiveMods.Count"/>
+                        <MultiBinding StringFormat="{}{0}: {1}">                            
                             <Binding Source="{x:Static helpers:LocalizationProvider.Instance}" Path="inactive_server_mods"/>
+                            <Binding Path="ModsCollection.InactiveMods.Count"/>
                         </MultiBinding>
                     </Label.Content>
                 </Label>

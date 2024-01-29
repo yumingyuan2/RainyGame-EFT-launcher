@@ -77,9 +77,9 @@
                 <!-- server mods count text -->
                 <Label Grid.Row="1" Grid.Column="1">
                     <Label.Content>
-                        <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="ModInfoCollection.ActiveMods.Count"/>
+                        <MultiBinding StringFormat="{}{0}: {1}">                            
                             <Binding Source="{x:Static helpers:LocalizationProvider.Instance}" Path="active_server_mods"/>
+                            <Binding Path="ModInfoCollection.ActiveMods.Count"/>
                         </MultiBinding>
                     </Label.Content>
                 </Label>
