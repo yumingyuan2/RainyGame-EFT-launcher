@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Aki.Launcher.Controllers;
 
 namespace Aki.Launcher.Helpers
 {
@@ -41,7 +42,8 @@ namespace Aki.Launcher.Helpers
 
         public static void LoadLocaleFromFile(string localeRomanName)
         {
-            LocaleData newLocale = Json.LoadClassWithoutSaving<LocaleData>(Path.Join(DefaultLocaleFolderPath, $"{localeRomanName}.json"));
+            var localePath = Path.Join(DefaultLocaleFolderPath, $"{localeRomanName}.json");
+            LocaleData newLocale = Json.LoadClassWithoutSaving<LocaleData>(localePath);
 
             if (newLocale != null)
             {
@@ -54,9 +56,11 @@ namespace Aki.Launcher.Helpers
                 LauncherSettingsProvider.Instance.SaveSettings();
 
                 LocaleChanged(null, EventArgs.Empty);
+
+                return;
             }
 
-            //could possibly raise an event here to say why the local wasn't changed.
+            LogManager.Instance.Error($"Could not load locale: {localePath}");
         }
 
         public static void TryAutoSetLocale()
