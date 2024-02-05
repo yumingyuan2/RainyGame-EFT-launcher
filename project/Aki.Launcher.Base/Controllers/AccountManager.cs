@@ -8,11 +8,13 @@
  */
 
 
+using System;
 using Aki.Launcher.Helpers;
 using Aki.Launcher.MiniCommon;
 using Aki.Launcher.Models.Aki;
 using Aki.Launcher.Models.Launcher;
 using System.Threading.Tasks;
+using Aki.Launcher.Controllers;
 
 namespace Aki.Launcher
 {
@@ -135,6 +137,8 @@ namespace Aki.Launcher
             {
                 return AccountStatus.NoConnection;
             }
+            
+            LogManager.Instance.Info($"Account Registered: {username}");
 
             return Login(username, password);
         }
@@ -159,16 +163,20 @@ namespace Aki.Launcher
                 if(Json.Deserialize<bool>(json))
                 {
                     SelectedAccount = null;
+                    
+                    LogManager.Instance.Info($"Account Removed: {data.username}");
 
                     return AccountStatus.OK;
                 }
                 else
                 {
+                    LogManager.Instance.Error($"Failed to remove account: {data.username}");
                     return AccountStatus.UpdateFailed;
                 }
             }
             catch
             {
+                LogManager.Instance.Error($"Failed to remove account: {data.username} - NO CONNECTION");
                 return AccountStatus.NoConnection;
             }
         }
@@ -271,15 +279,18 @@ namespace Aki.Launcher
 
                 if (json != STATUS_OK)
                 {
+                    LogManager.Instance.Error($"Failed to wipe account: {data.username}");
                     return AccountStatus.UpdateFailed;
                 }
             }
             catch
             {
+                LogManager.Instance.Error($"Failed to wipe account: {data.username} - NO CONNECTION");
                 return AccountStatus.NoConnection;
             }
 
             SelectedAccount.edition = edition;
+            LogManager.Instance.Info($"Account Wiped: {data.username} -> {edition}");
             return AccountStatus.OK;
         }
     }
