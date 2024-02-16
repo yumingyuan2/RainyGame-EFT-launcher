@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	  <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,12 +11,8 @@
     <ProjectReference Include="..\Aki.Launcher\Aki.Launcher.csproj" />
   </ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(BuildingInsideVisualStudio)' == 'true'">
-		<Exec Command="dotnet cake &quot;../build.cake&quot; --config=&quot;$(ConfigurationName)&quot; --vsbuilt=true" />
-	</Target>
-
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(BuildingByReSharper)' == 'true'">
-        <Exec Command="dotnet cake &quot;../build.cake&quot; --config=&quot;$(ConfigurationName)&quot; --vsbuilt=true" />
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="../build.bat" WorkingDirectory="$(ProjectDir)" />
     </Target>
 
 </Project>
