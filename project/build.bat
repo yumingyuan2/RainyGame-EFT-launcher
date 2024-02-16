@@ -2,7 +2,8 @@
 :: Set some Vars to use
 set buildFolder=..\Build
 set akiDataFolder=..\Build\Aki_Data
-set projReleaseFolder=.\bin\Release\net6.0\win10-x64
+set projReleaseFolder=.\bin\Release\net6.0\win-x64
+set launcherExeFolder=..\Aki.Launcher\bin\Release\net6.0\win-x64\publish
 set launcherAssetFolder=..\Aki.Launcher\Aki_Data
 set licenseFile=..\..\LICENSE.md
 
@@ -23,7 +24,7 @@ echo --------------- Done Creating Output Build Folders ---------------
 echo --------------- Moving DLLs to %buildFolder% ---------------
 
 :: Move DLLs/exe/json project's bin\Release folder to the build folder
-xcopy "%projReleaseFolder%\Aki.Launcher.exe" %buildFolder%
+xcopy "%launcherExeFolder%\Aki.Launcher.exe" %buildFolder%
 xcopy "%launcherAssetFolder%" "%buildFolder%\Aki_Data" /s /e
 
 :: If any new Dll's need to be copied, add here
