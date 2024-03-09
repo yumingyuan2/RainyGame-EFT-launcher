@@ -1,6 +1,6 @@
 ﻿$buildFolder = "..\Build"
 $akiDataFolder = "..\Build\Aki_Data"
-$launcherExeFolder = "..\Aki.Launcher\bin\Release\net6.0\win-x64\publish"
+$launcherExeFolder = "..\Aki.Launcher\bin\Release\net8.0\win-x64\publish"
 $launcherAssetFolder = "..\Aki.Launcher\Aki_Data"
 $licenseFile = "..\..\LICENSE.md"
 
@@ -14,8 +14,8 @@ foreach ($folder in $foldersToCreate) {
 }
 
 # Move built files to the build folder
-Copy-Item -Path "$launcherExeFolder\Aki.Launcher.exe" -Destination "$buildFolder"
-Copy-Item -Path "$launcherAssetFolder" -Destination "$buildFolder" -Recurse
+Copy-Item -Path "$launcherExeFolder\Aki.Launcher.exe" -Destination "$buildFolder" -Force
+Copy-Item -Path "$launcherAssetFolder" -Destination "$buildFolder" -Recurse -Force
 # If any new DLLs need to be copied, add here
 
 # Write the contents of the license file to a txt in the build folder
