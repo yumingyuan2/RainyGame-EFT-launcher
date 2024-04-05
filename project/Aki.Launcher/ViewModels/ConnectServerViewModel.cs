@@ -5,6 +5,7 @@ using ReactiveUI;
 using Splat;
 using System.Reactive.Disposables;
 using System.Threading.Tasks;
+using Aki.Launcher.Controllers;
 
 namespace Aki.Launcher.ViewModels
 {
@@ -51,6 +52,8 @@ namespace Aki.Launcher.ViewModels
                 AkiVersion version = Locator.Current.GetService<AkiVersion>("akiversion");
 
                 version.ParseVersionInfo(ServerManager.GetVersion());
+                
+                LogManager.Instance.Info($"Connected to server: {ServerManager.SelectedServer.backendUrl} - Aki Version: {version}");
 
                 NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
             }

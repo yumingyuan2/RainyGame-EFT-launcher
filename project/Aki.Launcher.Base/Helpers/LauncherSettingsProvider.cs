@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.IO;
+using Aki.Launcher.Controllers;
 
 namespace Aki.Launcher.Helpers
 {
@@ -142,6 +143,8 @@ namespace Aki.Launcher.Helpers
         {
             if (!File.Exists(LauncherSettingsProvider.DefaultSettingsFileLocation))
             {
+                LogManager.Instance.Warning("Launcher config not found");
+                LogManager.Instance.Info($"Creating launcher config: {LauncherSettingsProvider.DefaultSettingsFileLocation}");
                 LauncherStartGameAction = LauncherAction.MinimizeAction;
                 UseAutoLogin = true;
                 GamePath = Environment.CurrentDirectory;
@@ -149,6 +152,8 @@ namespace Aki.Launcher.Helpers
                 Server = new ServerSetting { Name = "SPT-AKI", Url = "http://127.0.0.1:6969" };
                 SaveSettings();
             }
+            
+            LogManager.Instance.Info($"Using launcher config at: {LauncherSettingsProvider.DefaultSettingsFileLocation}");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

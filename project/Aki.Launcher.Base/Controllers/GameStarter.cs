@@ -57,23 +57,32 @@ namespace Aki.Launcher
 
         public async Task<GameStarterResult> LaunchGame(ServerInfo server, AccountInfo account, string gamePath)
         {
+            LogManager.Instance.Info(">>> Launching Game");
+            LogManager.Instance.Info($">>> Account: {account.username}");
+            LogManager.Instance.Info($">>> Server : {server.backendUrl}");
             // setup directories
             if (IsInstalledInLive())
             {
-                LogManager.Instance.Warning("Failed installed in live check");
+                LogManager.Instance.Error("[LaunchGame] Installed in Live :: YES");
                 return GameStarterResult.FromError(-1);
             }
-
+            
+            LogManager.Instance.Info("[LaunchGame] Installed in Live :: NO");
+            
+            LogManager.Instance.Info("[LaunchGame] Setup Game Files ...");
             SetupGameFiles(gamePath);
 
             if (!ValidationUtil.Validate())
             {
-                LogManager.Instance.Warning("Failed validation check");
+                LogManager.Instance.Error("[LaunchGame] Game Validation   :: FAILED");
                 return GameStarterResult.FromError(-2);
             }
+            
+            LogManager.Instance.Info("[LaunchGame] Game Validation   :: OK");
 
             if (account.wipe)
             {
+                LogManager.Instance.Info("[LaunchGame] Wipe profile requested");
                 RemoveRegistryKeys();
                 CleanTempFiles();
             }
@@ -83,9 +92,12 @@ namespace Aki.Launcher
 
             if (!File.Exists(clientExecutable))
             {
-                LogManager.Instance.Warning($"Could not find {clientExecutable}");
+                LogManager.Instance.Error("[LaunchGame] Valid Game Path   :: FAILED");
+                LogManager.Instance.Error($"Could not find {clientExecutable}");
                 return GameStarterResult.FromError(-6);
             }
+            
+            LogManager.Instance.Info("[LaunchGame] Valid Game Path   :: OK");
 
             // apply patches
             ProgressReportingPatchRunner patchRunner = new ProgressReportingPatchRunner(gamePath);
@@ -96,9 +108,11 @@ namespace Aki.Launcher
             }
             catch (TaskCanceledException)
             {
-                LogManager.Instance.Warning("Failed to apply assembly patch");
+                LogManager.Instance.Error("[LaunchGame] Applying Patch    :: FAILED");
                 return GameStarterResult.FromError(-4);
             }
+            
+            LogManager.Instance.Info("[LaunchGame] Applying Patch    :: OK");
             
             //start game
             var args =
@@ -107,6 +121,7 @@ namespace Aki.Launcher
             if (_showOnly)
             {
                 Console.WriteLine($"{clientExecutable} {args}");
+                LogManager.Instance.Info("[LaunchGame] NOOP :: show only");
             }
             else
             {
@@ -118,6 +133,7 @@ namespace Aki.Launcher
                 };
 
                 Process.Start(clientProcess);
+                LogManager.Instance.Info("[LaunchGame] Game process started");
             }
 
             return GameStarterResult.FromSuccess();
@@ -160,6 +176,7 @@ namespace Aki.Launcher
                     if (File.Exists(file.FullName))
                     {
                         File.Delete(file.FullName);
+                        LogManager.Instance.Warning($"File removed :: found in live dir: {file.FullName}");
                         isInstalledInLive = true;
                     }
                 }
@@ -169,6 +186,7 @@ namespace Aki.Launcher
                     if (Directory.Exists(directory.FullName))
                     {
                         RemoveFilesRecurse(directory);
+                        LogManager.Instance.Warning($"Directory removed :: found in live dir: {directory.FullName}");
                         isInstalledInLive = true;
                     }
                 }
@@ -237,6 +255,7 @@ namespace Aki.Launcher
                 foreach (var value in key.GetValueNames())
                 {
                     key.DeleteValue(value);
+                    LogManager.Instance.Debug($"Removing reg key: {key.Name}");
                 }
             }
             catch (Exception ex)
@@ -266,6 +285,8 @@ namespace Aki.Launcher
 
         bool RemoveFilesRecurse(DirectoryInfo basedir)
         {
+            LogManager.Instance.Info($"Recursive Removal: {basedir}");
+            
             if (!basedir.Exists)
             {
                 return true;
@@ -286,6 +307,7 @@ namespace Aki.Launcher
                 {
                     file.IsReadOnly = false;
                     file.Delete();
+                    LogManager.Instance.Debug($"  -> del file: {file.FullName}");
                 }
 
                 // remove directory

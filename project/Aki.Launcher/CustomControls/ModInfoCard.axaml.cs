@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -55,5 +57,21 @@ namespace Aki.Launcher.CustomControls
         }
         public static readonly StyledProperty<bool> IsInProfileProperty =
             AvaloniaProperty.Register<ModInfoCard, bool>(nameof(IsInProfile));
+
+        public string ModUrl
+        {
+            get => GetValue(ModUrlProperty);
+            set => SetValue(ModUrlProperty, value);
+        }
+        public static readonly StyledProperty<string> ModUrlProperty =
+            AvaloniaProperty.Register<ModInfoCard, string>(nameof(ModUrl));
+
+        public ICommand OpenUrlCommand
+        {
+            get => GetValue(OpenUrlCommandProperty);
+            set => SetValue(OpenUrlCommandProperty, value);
+        }
+        public static readonly StyledProperty<ICommand> OpenUrlCommandProperty =
+            AvaloniaProperty.Register<ModInfoCard, ICommand>(nameof(OpenUrlCommand));
     }
 }

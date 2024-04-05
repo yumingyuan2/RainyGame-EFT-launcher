@@ -81,13 +81,17 @@
   "i_understand": "이해하였습니다",
   "game_version_mismatch_format_2": "당신의 게임 버전은 '{0}'이며 호환되는 버전은 '{1}' 입니다.\n\n게임 실행에 문제가 발생하거나 되지 않을 수 있습니다.",
   "description": "설명",
-  "server_mods": "서버 모드",
-  "profile_mods": "프로필 모드",
   "author": "개발자",
   "load_live_settings": "공식(Live) 서버의 설정 불러오기",
   "load_live_settings_succeeded": "공식(Live) 서버 설정을 불러왔습니다",
   "load_live_settings_failed": "공식(Live) 서버 설정 불러오기에 실패하였습니다",
   "wipe_on_start": "게임 시작 시 프로필 초기화",
   "copy_live_settings_question": "공식(Live) 서버에서 사용하던 설정 파일을 SPT에 복사하시겠습니까?",
-  "mod_not_in_server_warning":"SPT 서버에 없는 모드가 플레이어 프로필에서 발견되었습니다"
+  "mod_not_in_server_warning":"SPT 서버에 없는 모드가 플레이어 프로필에서 발견되었습니다",
+  "active_server_mods": "Active Server Mods",
+  "active_server_mods_info_text": "These mods are currently running on the server",
+  "inactive_server_mods": "Inactive Server Mods",
+  "inactive_server_mods_info_text": "These mods have not been loaded by the server, but your profile has used them in the past",
+  "open_link_question_format_1": "Are you sure you want to open the following link: \n{0}",
+  "open_link": "Open Link"
 }

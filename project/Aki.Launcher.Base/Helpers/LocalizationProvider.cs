@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Aki.Launcher.Controllers;
 
 namespace Aki.Launcher.Helpers
 {
@@ -41,7 +42,8 @@ namespace Aki.Launcher.Helpers
 
         public static void LoadLocaleFromFile(string localeRomanName)
         {
-            LocaleData newLocale = Json.LoadClassWithoutSaving<LocaleData>(Path.Join(DefaultLocaleFolderPath, $"{localeRomanName}.json"));
+            var localePath = Path.Join(DefaultLocaleFolderPath, $"{localeRomanName}.json");
+            LocaleData newLocale = Json.LoadClassWithoutSaving<LocaleData>(localePath);
 
             if (newLocale != null)
             {
@@ -54,9 +56,11 @@ namespace Aki.Launcher.Helpers
                 LauncherSettingsProvider.Instance.SaveSettings();
 
                 LocaleChanged(null, EventArgs.Empty);
+
+                return;
             }
 
-            //could possibly raise an event here to say why the local wasn't changed.
+            LogManager.Instance.Error($"Could not load locale: {localePath}");
         }
 
         public static void TryAutoSetLocale()
@@ -172,12 +176,17 @@ namespace Aki.Launcher.Helpers
             englishLocale.i_understand = "I Understand";
             englishLocale.game_version_mismatch_format_2 = "SPT is unable to run, this is because SPT expected to find EFT version '{1}',\nbut instead found version '{0}'\n\nEnsure you've downgraded your EFT as described in the install guide\non the page you downloaded SPT from";
             englishLocale.description = "Description";
-            englishLocale.server_mods = "Server Mods";
-            englishLocale.profile_mods = "Profile Mods";
             englishLocale.author = "Author";
             englishLocale.wipe_on_start = "Wipe profile on game start";
             englishLocale.copy_live_settings_question = "Would you like to copy your live game settings to spt";
             englishLocale.mod_not_in_server_warning = "This mod was found in your profile, but is not loaded on the server";
+            englishLocale.active_server_mods = "Active Server Mods";
+            englishLocale.active_server_mods_info_text = "These mods are currently running on the server";
+            englishLocale.inactive_server_mods = "Inactive Server Mods";
+            englishLocale.inactive_server_mods_info_text =
+                "These mods have not been loaded by the server, but your profile has used them in the past";
+            englishLocale.open_link_question_format_1 = "Are you sure you want to open the following link: \n{0}";
+            englishLocale.open_link = "Open Link";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -1576,38 +1585,6 @@ namespace Aki.Launcher.Helpers
         }
         #endregion
 
-        #region server_mods
-        private string _server_mods;
-        public string server_mods
-        {
-            get => _server_mods;
-            set
-            {
-                if (_server_mods != value)
-                {
-                    _server_mods = value;
-                    RaisePropertyChanged(nameof(server_mods));
-                }
-            }
-        }
-        #endregion
-
-        #region profile_mods
-        private string _profile_mods;
-        public string profile_mods
-        {
-            get => _profile_mods;
-            set
-            {
-                if (_profile_mods != value)
-                {
-                    _profile_mods = value;
-                    RaisePropertyChanged(nameof(profile_mods));
-                }
-            }
-        }
-        #endregion
-
         #region author
         private string _author;
         public string author
@@ -1672,6 +1649,111 @@ namespace Aki.Launcher.Helpers
             }
         }
         #endregion
+        
+        #region active_server_mods
+        private string _active_server_mods;
+        public string active_server_mods
+        {
+            get => _active_server_mods;
+            set
+            {
+                if (_active_server_mods != value)
+                {
+                    _active_server_mods = value;
+                    RaisePropertyChanged(nameof(active_server_mods));
+                }
+            }
+        }
+        #endregion
+        
+        #region active_server_mods_info_text
+
+        private string _active_server_mods_info_text;
+
+        public string active_server_mods_info_text
+        {
+            get => _active_server_mods_info_text;
+            set
+            {
+                if (_active_server_mods_info_text != value)
+                {
+                    _active_server_mods_info_text = value;
+                    RaisePropertyChanged(nameof(active_server_mods_info_text));
+                }
+            }
+        }
+        #endregion
+        
+        #region inactive_server_mods
+        private string _inactive_server_mods;
+        public string inactive_server_mods
+        {
+            get => _inactive_server_mods;
+            set
+            {
+                if (_inactive_server_mods != value)
+                {
+                    _inactive_server_mods = value;
+                    RaisePropertyChanged(nameof(inactive_server_mods));
+                }
+            }
+        }
+        #endregion
+        
+        #region inactive_server_mods_info_text
+
+        private string _inactive_server_mods_info_text;
+
+        public string inactive_server_mods_info_text
+        {
+            get => _inactive_server_mods_info_text;
+            set
+            {
+                if (_inactive_server_mods_info_text != value)
+                {
+                    _inactive_server_mods_info_text = value;
+                    RaisePropertyChanged(nameof(inactive_server_mods_info_text));
+                }
+            }
+        }
+        #endregion
+        
+        #region open_link_question_format_1
+
+        private string _open_link_question_format_1;
+
+        public string open_link_question_format_1
+        {
+            get => _open_link_question_format_1;
+            set
+            {
+                if (_open_link_question_format_1 != value)
+                {
+                    _open_link_question_format_1 = value;
+                    RaisePropertyChanged(nameof(open_link_question_format_1));
+                }
+            }
+        }
+        #endregion
+        
+        #region open_link
+
+        private string _open_link;
+
+        public string open_link
+        {
+            get => _open_link;
+            set
+            {
+                if (_open_link != value)
+                {
+                    _open_link = value;
+                    RaisePropertyChanged(nameof(open_link));
+                }
+            }
+        }
+        #endregion
+        
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -17,35 +17,42 @@ namespace Aki.Launcher.Controllers
     /// </summary>
     public class LogManager
     {
-        //TODO - update this to use reflection to get the calling method, class, etc 
         private static LogManager _instance;
-        public static LogManager Instance => _instance ?? (_instance = new LogManager());
-        private string filepath;
+        public static LogManager Instance => _instance ??= new LogManager();
+        private readonly string _filePath;
+        private readonly string _logFile;
 
-        public LogManager()
+        private LogManager()
         {
-            filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "user", "logs");
+            _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "user", "logs");
+            _logFile = Path.Combine(_filePath, "launcher.log");
+
+            if (File.Exists(_logFile))
+            {
+                File.Delete(_logFile);
+            }
+            
+            Write($" ==== Launcher Started ====");
         }
 
-        public void Write(string text)
+        private void Write(string text)
         {
-            if (!Directory.Exists(filepath))
+            if (!Directory.Exists(_filePath))
             {
-                Directory.CreateDirectory(filepath);
+                Directory.CreateDirectory(_filePath);
             }
 
-            string filename = Path.Combine(filepath, "launcher.log");
-            File.AppendAllLines(filename, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{text}" });
+            File.AppendAllLines(_logFile, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{text}" });
         }
 
-        public void Debug(string text) => Write($"[Debug]{text}");
+        public void Debug(string text) => Write($"[Debug] {text}");
 
-        public void Info(string text) => Write($"[Info]{text}");
+        public void Info(string text) => Write($"[Info] {text}");
 
-        public void Warning(string text) => Write($"[Warning]{text}");
+        public void Warning(string text) => Write($"[Warning] {text}");
 
-        public void Error(string text) => Write($"[Error]{text}");
+        public void Error(string text) => Write($"[Error] {text}");
 
-        public void Exception(Exception ex) => Write($"[Exception]{ex.Message}\nStacktrace:\n{ex.StackTrace}");
+        public void Exception(Exception ex) => Write($"[Exception] {ex.Message}\nStacktrace:\n{ex.StackTrace}");
     }
 }

@@ -59,5 +59,10 @@ namespace Aki.Launcher.Models.Aki
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
+
+        public override string ToString()
+        {
+            return HasTag ? $"{Major}.{Minor}.{Build}-{Tag}" : $"{Major}.{Minor}.{Build}";
+        }
     }
 }
