@@ -30,6 +30,7 @@ namespace Aki.Launcher.Helpers
 
         public void SaveSettings()
         {
+            Server.Url = Path.TrimEndingDirectorySeparator(Server.Url);
             Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
         }
 
