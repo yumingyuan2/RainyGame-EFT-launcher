@@ -33,11 +33,15 @@ namespace Aki.Launcher.ViewModels
 
         public async Task ConnectServer()
         {
+            LauncherSettingsProvider.Instance.AllowSettings = false;
+            
             if (!await ServerManager.LoadDefaultServerAsync(LauncherSettingsProvider.Instance.Server.Url))
             {
                 connectModel.ConnectionFailed = true;
                 connectModel.InfoText = string.Format(LocalizationProvider.Instance.server_unavailable_format_1,
                     LauncherSettingsProvider.Instance.Server.Name);
+                
+                LauncherSettingsProvider.Instance.AllowSettings = true;
                 return;
             }
             
@@ -57,6 +61,8 @@ namespace Aki.Launcher.ViewModels
 
                 NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
             }
+            
+            LauncherSettingsProvider.Instance.AllowSettings = true;
         }
 
         public void RetryCommand()
