@@ -4,10 +4,10 @@ Custom launcher for Escape From Tarkov to start the game in offline mode
 
 **Project**        | **Function**
 ------------------ | --------------------------------------------
-Aki.Build          | Build script
-Aki.ByteBanger     | Assembly-CSharp.dll patcher
-Aki.Launcher       | Launcher frontend
-Aki.Launcher.Base  | Launcher backend
+SPT.Build          | Build script
+SPT.ByteBanger     | Assembly-CSharp.dll patcher
+SPT.Launcher       | Launcher frontend
+SPT.Launcher.Base  | Launcher backend
 
 ## Privacy
 SPT is an open source project. Your commit credentials as author of a commit will be visible by anyone. Please make sure you understand this before submitting a PR.

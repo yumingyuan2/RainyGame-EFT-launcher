@@ -1,8 +1,8 @@
 ﻿# NCSA Open Source License  
 
-Copyright (c) 2022 SPT-AKI. All rights reserved.  
+Copyright (c) 2022 SPT. All rights reserved.  
 
-Developed by: SPT-AKI
+Developed by: SPT
 
 Permission is hereby granted, free of charge, to any person obtaining a copy  
 of this software and associated documentation files (the "Software"), to deal  
@@ -18,7 +18,7 @@ this list of conditions and the following disclaimers.
 this list of conditions and the following disclaimers in the documentation  
 and/or other materials provided with the distribution.  
 
-* Neither the names of SPT-AKI, nor the names of its contributors may be used  
+* Neither the names of SPT, nor the names of its contributors may be used  
 to endorse or promote products derived from this Software without specific  
 prior written permission.  
 
