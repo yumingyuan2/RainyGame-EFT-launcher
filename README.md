@@ -30,10 +30,9 @@ git config --local user.email "USERNAME@SOMETHING.com"
 - Avalonia Visual Studio Extension
 
 ## Build
-1. Run `dotnet tool restore` from command line inside project folder
-2. Open Launcher.code-workspace in Visual Studio Code.
-3. Run the build task: (top toolbar) Terminal -> Run Build Task... (requires running twice on first run)
-4. Copy-paste all files inside `Build` into `game root directory`, overwrite when prompted.
+- Ensure `Powershell` is up to date (version 7+)
+- Run `Build > Rebuild Solution`
+- Build results are stored in `project/Build`
 
 ## Server Endpoints
 If you just want to mess with the server endpoints, you can use this [postman collection](https://gofile.io/d/kCzmze)
