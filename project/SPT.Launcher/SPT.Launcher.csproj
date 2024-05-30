@@ -5,7 +5,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\spt-logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
