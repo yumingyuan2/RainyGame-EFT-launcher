@@ -10,7 +10,7 @@
         xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="450"
         x:Class="SPT.Launcher.Views.MainWindow"
-        Icon="/Assets/icon.ico"
+        Icon="/Assets/spt-logo.ico"
         Title="SPT.Launcher"
         MinHeight="450" MinWidth="800"
         Height="450" Width="800"

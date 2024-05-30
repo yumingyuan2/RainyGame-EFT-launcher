@@ -131,8 +131,17 @@ namespace SPT.Launcher
                     WorkingDirectory = gamePath,
                 };
 
-                Process.Start(clientProcess);
-                LogManager.Instance.Info("[LaunchGame] Game process started");
+                try
+                {
+
+                    Process.Start(clientProcess);
+                    LogManager.Instance.Info("[LaunchGame] Game process started");
+                }
+                catch (Exception ex)
+                {
+                    LogManager.Instance.Exception(ex);
+                    return GameStarterResult.FromError(-7);
+                }
             }
 
             return GameStarterResult.FromSuccess();
