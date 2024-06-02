@@ -93,5 +93,6 @@
   "inactive_server_mods": "Неактивные серверные моды",
   "inactive_server_mods_info_text": "Эти моды не были загружены сервером, но ваш профиль использовал их раньше",
   "open_link_question_format_1": "Вы уверены, что хотите открыть следующую ссылку? \n{0}",
-  "open_link": "Открыть ссылку"
+  "open_link": "Открыть ссылку",
+  "dev_mode": "Developer Mode"
 }
