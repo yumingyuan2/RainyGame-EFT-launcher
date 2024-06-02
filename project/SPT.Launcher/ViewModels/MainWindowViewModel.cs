@@ -30,6 +30,8 @@ namespace SPT.Launcher.ViewModels
             Locator.CurrentMutable.RegisterConstant<ImageHelper>(Background, "bgimage");
 
             Locator.CurrentMutable.RegisterConstant<SPTVersion>(VersionInfo, "sptversion");
+            
+            LauncherSettingsProvider.Instance.ResetDefaults();
 
             LauncherSettingsProvider.Instance.AllowSettings = true;
 

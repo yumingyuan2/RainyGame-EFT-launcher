@@ -93,5 +93,6 @@
   "inactive_server_mods": "Inactive Server Mods",
   "inactive_server_mods_info_text": "These mods have not been loaded by the server, but your profile has used them in the past",
   "open_link_question_format_1": "Are you sure you want to open the following link: \n{0}",
-  "open_link": "Open Link"
+  "open_link": "Open Link",
+  "dev_mode": "Developer Mode"
 }

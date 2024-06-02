@@ -93,5 +93,6 @@
   "inactive_server_mods": "Aktif Olmayan Sunucu Modları",
   "inactive_server_mods_info_text": "Bu modlar sunucu tarafından yüklenmedi, ancak profiliniz geçmişte bunları kullandı",
   "open_link_question_format_1": "Aşağıdaki bağlantıyı açmak istediğinizden emin misiniz? \n{0}",
-  "open_link": "Bağlantıyı Aç"
+  "open_link": "Bağlantıyı Aç",
+  "dev_mode": "Developer Mode"
 }

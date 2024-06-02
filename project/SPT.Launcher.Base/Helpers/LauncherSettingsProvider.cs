@@ -33,6 +33,43 @@ namespace SPT.Launcher.Helpers
             Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
         }
 
+        public void ResetDefaults()
+        {
+            string defaultUrl = "http://127.0.0.1:6969";
+            string defaultPath = Environment.CurrentDirectory;
+            
+            // don't reset if running in dev mode
+            if (IsDevMode)
+            {
+                LogManager.Instance.Info("Running in dev mode, not resetting");
+                return;
+            }
+
+            if (Server != null && Server.Url != defaultUrl)
+            {
+                LogManager.Instance.Info($"Server URL was '{Server.Url}'");
+                LogManager.Instance.Info($"Server URL was reset to default '{defaultUrl}'");
+                Server.Url = defaultUrl;
+            }
+            else
+            {
+                LogManager.Instance.Info($"Server URL is already set to default '{defaultUrl}'");
+            }
+
+            if (GamePath != defaultPath)
+            {
+                LogManager.Instance.Info($"Game path was '{GamePath}'");
+                LogManager.Instance.Info($"Game path was reset to default '{defaultPath}'");
+                GamePath = defaultPath;
+            }
+            else
+            {
+                LogManager.Instance.Info($"Game path is already set to default '{defaultPath}'");
+            }
+            
+            SaveSettings();
+        }
+
         public string DefaultLocale { get; set; } = "English";
 
         private bool _IsAddingServer;
@@ -108,6 +145,21 @@ namespace SPT.Launcher.Helpers
             }
         }
 
+        private bool _IsDevMode;
+
+        public bool IsDevMode
+        {
+            get => _IsDevMode;
+            set
+            {
+                if (_IsDevMode != value)
+                {
+                    _IsDevMode = value;
+                    RaisePropertyChanged(nameof(IsDevMode));
+                }
+            }
+        }
+
         private string _GamePath;
         public string GamePath
         {
@@ -148,6 +200,7 @@ namespace SPT.Launcher.Helpers
                 LauncherStartGameAction = LauncherAction.MinimizeAction;
                 UseAutoLogin = true;
                 GamePath = Environment.CurrentDirectory;
+                IsDevMode = false;
 
                 Server = new ServerSetting { Name = "SPT", Url = "http://127.0.0.1:6969" };
                 SaveSettings();

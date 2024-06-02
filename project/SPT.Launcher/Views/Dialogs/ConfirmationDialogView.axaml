@@ -19,6 +19,7 @@
       <Button Content="{Binding ConfirmButtonText}"
               Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"
               Classes="yellow"
+              IsEnabled="{Binding AllowConfirm}"
             >
         <Button.CommandParameter>
           <s:Boolean>True</s:Boolean>
