@@ -8,6 +8,7 @@
 
 using System;
 using System.IO;
+using SPT.Launcher.Helpers;
 
 namespace SPT.Launcher.Controllers
 {
@@ -34,14 +35,24 @@ namespace SPT.Launcher.Controllers
             Write($" ==== Launcher Started ====");
         }
 
+        private string GetDevModeTag()
+        {
+            if (LauncherSettingsProvider.Instance != null && LauncherSettingsProvider.Instance.IsDevMode)
+            {
+                return "[DEV_MODE]";
+            }
+
+            return "";
+        }
+
         private void Write(string text)
         {
             if (!Directory.Exists(_filePath))
             {
                 Directory.CreateDirectory(_filePath);
             }
-
-            File.AppendAllLines(_logFile, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{text}" });
+            
+            File.AppendAllLines(_logFile, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{GetDevModeTag()}{text}" });
         }
 
         public void Debug(string text) => Write($"[Debug] {text}");

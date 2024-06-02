@@ -8,6 +8,7 @@ namespace SPT.Launcher.ViewModels.Dialogs
         public string Question { get; set; }
         public string ConfirmButtonText { get; set; }
         public string DenyButtonText { get; set; }
+        public bool AllowConfirm { get; set; }
 
         /// <summary>
         /// A confirmation dialog
@@ -16,11 +17,12 @@ namespace SPT.Launcher.ViewModels.Dialogs
         /// <param name="Question"></param>
         /// <param name="ConfirmButtonText"></param>
         /// <param name="DenyButtonText"></param>
-        public ConfirmationDialogViewModel(IScreen Host, string Question, string? ConfirmButtonText = null, string? DenyButtonText = null) : base(Host)
+        public ConfirmationDialogViewModel(IScreen Host, string Question, string? ConfirmButtonText = null, string? DenyButtonText = null, bool allowConfirm = true) : base(Host)
         {
             this.Question = Question;
             this.ConfirmButtonText = ConfirmButtonText ?? LocalizationProvider.Instance.yes;
             this.DenyButtonText = DenyButtonText ?? LocalizationProvider.Instance.no;
+            this.AllowConfirm = allowConfirm;
         }
     }
 }

@@ -29,7 +29,8 @@ namespace SPT.Launcher.Models
                         string serverVersion = ServerManager.GetVersion();
 
                         var localeText = string.Format(LocalizationProvider.Instance.file_mismatch_dialog_message, serverVersion);
-                        var result = await DialogHost.DialogHost.Show(new ConfirmationDialogViewModel(null, localeText));
+                        
+                        var result = await DialogHost.DialogHost.Show(new ConfirmationDialogViewModel(null, localeText, null, null, LauncherSettingsProvider.Instance.IsDevMode));
 
                         if(result != null && result is bool confirmation && !confirmation)
                         {
