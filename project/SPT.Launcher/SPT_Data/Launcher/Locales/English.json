@@ -3,7 +3,7 @@
   "native_name": "English",
   "retry": "Retry",
   "server_connecting": "Connecting",
-  "server_unavailable_format_1": "Default server '{0}' is not available.",
+  "server_unavailable_format_1": "No server available at: '{0}' to connect to\nEnsure you have run 'SPT.Server.exe' first",
   "no_servers_available": "No Servers found. Check server list in settings.",
   "settings_menu": "Settings",
   "back": "Back",
