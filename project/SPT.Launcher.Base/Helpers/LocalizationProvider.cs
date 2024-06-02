@@ -160,7 +160,10 @@ namespace SPT.Launcher.Helpers
             englishLocale.level = "Level";
             englishLocale.game_path = "Game Path";
             englishLocale.patching = "Patching";
-            englishLocale.file_mismatch_dialog_message = "The input file hash doesn't match the expected hash. You may be using the wrong version\nof SPT for your client files.\n\nDo you want to continue?";
+            englishLocale.file_mismatch_dialog_message = "We noticed your EFT files do not match what we expected to see for SPT: {0}" +
+                "\nPlease check you have the latest version of live EFT installed" +
+                "\nIf not, delete SPT, update live EFT and run the Installer in an empty folder again" +
+                "\n\nAre you sure you want to proceed?";
             englishLocale.yes = "Yes";
             englishLocale.no = "No";
             englishLocale.open_folder = "Open Folder";

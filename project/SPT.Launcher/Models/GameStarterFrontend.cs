@@ -26,7 +26,10 @@ namespace SPT.Launcher.Models
                 {
                     if(info.Status == ByteBanger.PatchResultType.InputChecksumMismatch)
                     {
-                        var result = await DialogHost.DialogHost.Show(new ConfirmationDialogViewModel(null, LocalizationProvider.Instance.file_mismatch_dialog_message));
+                        string serverVersion = ServerManager.GetVersion();
+
+                        var localeText = string.Format(LocalizationProvider.Instance.file_mismatch_dialog_message, serverVersion);
+                        var result = await DialogHost.DialogHost.Show(new ConfirmationDialogViewModel(null, localeText));
 
                         if(result != null && result is bool confirmation && !confirmation)
                         {
