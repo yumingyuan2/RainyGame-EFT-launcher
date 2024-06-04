@@ -191,6 +191,7 @@ namespace SPT.Launcher.Helpers
             englishLocale.open_link_question_format_1 = "Are you sure you want to open the following link: \n{0}";
             englishLocale.open_link = "Open Link";
             englishLocale.dev_mode = "Developer Mode";
+            englishLocale.failed_to_save_settings = "Failed to save settings";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -226,6 +227,24 @@ namespace SPT.Launcher.Helpers
         //this is going to be some pretty long boiler plate code. So I'm putting everything into regions.
 
         #region All Properties
+        
+        #region failed_to_save_settings
+
+        private string _failed_to_save_settings;
+
+        public string failed_to_save_settings
+        {
+            get => _failed_to_save_settings;
+            set
+            {
+                if (_failed_to_save_settings != value)
+                {
+                    _failed_to_save_settings = value;
+                    RaisePropertyChanged(nameof(failed_to_save_settings));
+                }
+            }
+        }
+        #endregion
         
         #region dev_mode
         private string _dev_mode;

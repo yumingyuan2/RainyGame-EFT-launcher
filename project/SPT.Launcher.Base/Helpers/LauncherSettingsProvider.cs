@@ -27,10 +27,10 @@ namespace SPT.Launcher.Helpers
     {
         public bool FirstRun { get; set; } = true;
 
-        public void SaveSettings()
+        public bool SaveSettings()
         {
             Server.Url = Path.TrimEndingDirectorySeparator(Server.Url);
-            Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
+            return Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
         }
 
         public void ResetDefaults()

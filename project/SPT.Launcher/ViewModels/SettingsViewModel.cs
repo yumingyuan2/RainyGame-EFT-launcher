@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Avalonia.Controls.Notifications;
 
 namespace SPT.Launcher.ViewModels
 {
@@ -41,7 +42,11 @@ namespace SPT.Launcher.ViewModels
             }
 
             LauncherSettingsProvider.Instance.AllowSettings = true;
-            LauncherSettingsProvider.Instance.SaveSettings();
+
+            if (!LauncherSettingsProvider.Instance.SaveSettings())
+            {
+                SendNotification("", LocalizationProvider.Instance.failed_to_save_settings, NotificationType.Error);
+            }
 
             NavigateBack();
         }
@@ -52,11 +57,11 @@ namespace SPT.Launcher.ViewModels
 
             if (filesCleared)
             {
-                SendNotification("", LocalizationProvider.Instance.clean_temp_files_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
+                SendNotification("", LocalizationProvider.Instance.clean_temp_files_succeeded, NotificationType.Success);
             }
             else
             {
-                SendNotification("", LocalizationProvider.Instance.clean_temp_files_failed, Avalonia.Controls.Notifications.NotificationType.Error);
+                SendNotification("", LocalizationProvider.Instance.clean_temp_files_failed, NotificationType.Error);
             }
         }
 
