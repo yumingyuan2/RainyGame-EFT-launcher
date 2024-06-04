@@ -7,10 +7,12 @@
  */
 
 
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Linq;
+using SPT.Launcher.Controllers;
 
 namespace SPT.Launcher.MiniCommon
 {
@@ -39,14 +41,26 @@ namespace SPT.Launcher.MiniCommon
         /// <param name="filepath">Full path to file</param>
         /// <param name="data">Object to save to json file</param>
         /// <param name="format">NewtonSoft.Json Formatting</param>
-        public static void SaveWithFormatting<T>(string filepath, T data, Formatting format)
+        public static bool SaveWithFormatting<T>(string filepath, T data, Formatting format)
         {
-            if (!File.Exists(filepath))
+            try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(filepath));
-            }
 
-            File.WriteAllText(filepath, JsonConvert.SerializeObject(data, format));
+                if (!File.Exists(filepath))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(filepath));
+                }
+
+                File.WriteAllText(filepath, JsonConvert.SerializeObject(data, format));
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.Instance.Exception(ex);
+            }
+            
+            return false;
         }
 
         /// <summary>
