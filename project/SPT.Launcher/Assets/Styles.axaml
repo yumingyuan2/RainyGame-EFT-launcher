@@ -1,7 +1,6 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cc="using:SPT.Launcher.CustomControls"
-        xmlns:rxui="using:Avalonia.ReactiveUI"
         >
 	<Design.PreviewWith>
 		<StackPanel Spacing="5" Background="{StaticResource SPT_Background_Dark}" Margin="50">
@@ -17,8 +16,8 @@
 	<!-- Notification Manager Styles -->
 	<Style Selector="WindowNotificationManager">
 		<Setter Property="Margin" Value="0 35 0 0"/>
-		<Setter Property="VerticalAlignment" Value="Top"/>
-		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<!-- <Setter Property="VerticalAlignment" Value="Bottom"/> -->
+		<!-- <Setter Property="HorizontalAlignment" Value="Center"/> -->
 		<Setter Property="MaxItems" Value="2"/>
 	</Style>
 
@@ -41,48 +40,48 @@
 			</ControlTemplate>
 		</Setter>
 
-		<Style.Animations>
-			<Animation Duration="0:0:0.45" Easing="SineEaseIn" FillMode="Forward">
-				<KeyFrame Cue="0%">
-					<Setter Property="Opacity" Value="0"/>
-					<Setter Property="ZIndex" Value="0"/>
-					<Setter Property="TranslateTransform.Y" Value="-100"/>
-					<Setter Property="ScaleTransform.ScaleX" Value="1"/>
-					<Setter Property="ScaleTransform.ScaleY" Value="1"/>
-				</KeyFrame>
-				<KeyFrame Cue="30%">
-					<Setter Property="Opacity" Value="0"/>
-				</KeyFrame>
-				<KeyFrame Cue="99%">
-					<Setter Property="ZIndex" Value="0"/>
-				</KeyFrame>
-				<KeyFrame Cue="100%">
-					<Setter Property="Opacity" Value="1"/>
-					<Setter Property="ZIndex" Value="1"/>
-					<Setter Property="TranslateTransform.Y" Value="0"/>
-					<Setter Property="ScaleTransform.ScaleX" Value="1"/>
-					<Setter Property="ScaleTransform.ScaleY" Value="1"/>
-				</KeyFrame>
-			</Animation>
-		</Style.Animations>
+		<!-- <Style.Animations> -->
+		<!-- 	<Animation Duration="0:0:0.45" Easing="SineEaseIn" FillMode="Forward"> -->
+		<!-- 		<KeyFrame Cue="0%"> -->
+		<!-- 			<Setter Property="Opacity" Value="0"/> -->
+		<!-- 			<Setter Property="ZIndex" Value="0"/> -->
+		<!-- 			<Setter Property="TranslateTransform.Y" Value="-100"/> -->
+		<!-- 			<Setter Property="ScaleTransform.ScaleX" Value="1"/> -->
+		<!-- 			<Setter Property="ScaleTransform.ScaleY" Value="1"/> -->
+		<!-- 		</KeyFrame> -->
+		<!-- 		<KeyFrame Cue="30%"> -->
+		<!-- 			<Setter Property="Opacity" Value="0"/> -->
+		<!-- 		</KeyFrame> -->
+		<!-- 		<KeyFrame Cue="99%"> -->
+		<!-- 			<Setter Property="ZIndex" Value="0"/> -->
+		<!-- 		</KeyFrame> -->
+		<!-- 		<KeyFrame Cue="100%"> -->
+		<!-- 			<Setter Property="Opacity" Value="1"/> -->
+		<!-- 			<Setter Property="ZIndex" Value="1"/> -->
+		<!-- 			<Setter Property="TranslateTransform.Y" Value="0"/> -->
+		<!-- 			<Setter Property="ScaleTransform.ScaleX" Value="1"/> -->
+		<!-- 			<Setter Property="ScaleTransform.ScaleY" Value="1"/> -->
+		<!-- 		</KeyFrame> -->
+		<!-- 	</Animation> -->
+		<!-- </Style.Animations> -->
 	</Style>
 
-	<Style Selector="NotificationCard[IsClosing=true] /template/ LayoutTransformControl#PART_LayoutTransformControl">
-		<Style.Animations>
-			<Animation Duration="0:0:0.3" Easing="SineEaseOut" FillMode="Backward">
-				<KeyFrame Cue="0%">
-					<Setter Property="Opacity" Value="1"/>
-					<Setter Property="TranslateTransform.X" Value="0"/>
-					<Setter Property="TranslateTransform.Y" Value="0"/>
-				</KeyFrame>
-				<KeyFrame Cue="100%">
-					<Setter Property="Opacity" Value="0"/>
-					<Setter Property="TranslateTransform.X" Value="0"/>
-					<Setter Property="TranslateTransform.Y" Value="-100"/>
-				</KeyFrame>
-			</Animation>
-		</Style.Animations>
-	</Style>
+	<!-- <Style Selector="NotificationCard[IsClosing=true] /template/ LayoutTransformControl#PART_LayoutTransformControl"> -->
+	<!-- 	<Style.Animations> -->
+	<!-- 		<Animation Duration="0:0:0.3" Easing="SineEaseOut" FillMode="Backward"> -->
+	<!-- 			<KeyFrame Cue="0%"> -->
+	<!-- 				<Setter Property="Opacity" Value="1"/> -->
+	<!-- 				<Setter Property="TranslateTransform.X" Value="0"/> -->
+	<!-- 				<Setter Property="TranslateTransform.Y" Value="0"/> -->
+	<!-- 			</KeyFrame> -->
+	<!-- 			<KeyFrame Cue="100%"> -->
+	<!-- 				<Setter Property="Opacity" Value="0"/> -->
+	<!-- 				<Setter Property="TranslateTransform.X" Value="0"/> -->
+	<!-- 				<Setter Property="TranslateTransform.Y" Value="-100"/> -->
+	<!-- 			</KeyFrame> -->
+	<!-- 		</Animation> -->
+	<!-- 	</Style.Animations> -->
+	<!-- </Style> -->
 
 	<!-- TitleBar Styles -->
 	<Style Selector="cc|TitleBar">
@@ -423,11 +422,9 @@
 								<ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
 											  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
 									<ItemsPresenter Name="PART_ItemsPresenter"
-													Items="{TemplateBinding Items}"
 													Margin="{DynamicResource ComboBoxDropdownContentMargin}"
 													ItemsPanel="{TemplateBinding ItemsPanel}"
-													ItemTemplate="{TemplateBinding ItemTemplate}"
-													VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+													/>
 								</ScrollViewer>
 							</Border>
 						</Popup>

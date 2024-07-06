@@ -7,7 +7,7 @@
         xmlns:rxui="using:Avalonia.ReactiveUI"
         xmlns:helpers="using:SPT.Launcher.Helpers"
         xmlns:cvt="using:SPT.Launcher.Converters"
-        xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="450"
         x:Class="SPT.Launcher.Views.MainWindow"
         Icon="/Assets/spt-logo.ico"
