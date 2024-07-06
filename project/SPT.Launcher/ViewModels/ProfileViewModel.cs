@@ -10,6 +10,7 @@ using SPT.Launcher.ViewModels.Dialogs;
 using Avalonia.Threading;
 using System.Diagnostics;
 using System.IO;
+using Avalonia.Controls.ApplicationLifetimes;
 using SPT.Launcher.Models.SPT;
 
 namespace SPT.Launcher.ViewModels
@@ -221,9 +222,14 @@ namespace SPT.Launcher.ViewModels
 
         public async Task CopyCommand(object parameter)
         {
-            if (Application.Current.Clipboard != null && parameter != null && parameter is string text)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && parameter is string text)
             {
-                await Application.Current.Clipboard.SetTextAsync(text);
+                if (desktop?.MainWindow?.Clipboard == null)
+                {
+                    return;
+                }
+                
+                await desktop.MainWindow.Clipboard.SetTextAsync(text);
                 SendNotification("", $"{text} {LocalizationProvider.Instance.copied}", Avalonia.Controls.Notifications.NotificationType.Success);
             }
         }

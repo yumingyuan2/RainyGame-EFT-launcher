@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+             xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 			 xmlns:helpers="using:SPT.Launcher.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SPT.Launcher.Views.Dialogs.RegisterDialogView"
@@ -19,13 +19,13 @@
                />
 
 	    <!-- Editions Combo Selection -->
-		<ComboBox Items="{Binding Editions.AvailableEditions}"
-				  Margin="0 10"
-				  Grid.Row="1" Grid.ColumnSpan="2"
-				  HorizontalAlignment="Stretch"
-				  SelectedItem="{Binding Editions.SelectedEdition}"
-				  PlaceholderText="{Binding ComboBoxPlaceholderText}"
-              >
+		<ComboBox ItemsSource="{Binding Editions.AvailableEditions}"
+		          Margin="0 10"
+		          Grid.Row="1" Grid.ColumnSpan="2"
+		          HorizontalAlignment="Stretch"
+		          SelectedItem="{Binding Editions.SelectedEdition}"
+		          PlaceholderText="{Binding ComboBoxPlaceholderText}"
+		>
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<Label Background="Transparent" Content="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
