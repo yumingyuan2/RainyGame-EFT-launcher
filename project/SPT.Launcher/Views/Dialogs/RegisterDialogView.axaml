@@ -6,7 +6,7 @@
 			 xmlns:helpers="using:SPT.Launcher.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SPT.Launcher.Views.Dialogs.RegisterDialogView"
-             Background="{StaticResource SPT_Background_Dark}"
+             Background="{DynamicResource BackgroundBrush}"
              MinWidth="300"
              MinHeight="100"
              >
@@ -15,8 +15,7 @@
 
 		<!-- Question Text -->
 		<TextBlock Text="{Binding Question}" Grid.ColumnSpan="2" FontSize="15"
-				   Foreground="{StaticResource SPT_Foreground_Light}"
-               />
+		           />
 
 	    <!-- Editions Combo Selection -->
 		<ComboBox ItemsSource="{Binding Editions.AvailableEditions}"
@@ -44,11 +43,9 @@
 			<StackPanel Spacing="10" Margin="10">
 				<TextBlock Text="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=description}"
 						   FontSize="12"
-					   Foreground="{StaticResource SPT_Foreground_Light}"
-					   />
+						   />
 				<TextBlock Text="{Binding Editions.SelectedEdition.Description}"
 					   TextWrapping="Wrap"
-					   Foreground="{StaticResource SPT_Foreground_Light}"
 					   />
 			</StackPanel>
 		</Border>
@@ -62,7 +59,7 @@
 					CommandParameter="{Binding Editions.SelectedEdition}"
 					IsEnabled="{Binding Editions.HasSelection}"
 					IsDefault="True"
-					Classes="yellow"
+					Classes="alt"
               />
 			<Button Content="{Binding CancelButtonText}"
 					Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"

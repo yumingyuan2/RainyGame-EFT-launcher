@@ -6,11 +6,11 @@
 			 xmlns:helpers="using:SPT.Launcher.Helpers"
              x:Class="SPT.Launcher.CustomControls.ModInfoCard">
 	<Border CornerRadius="5" HorizontalAlignment="Stretch" 
-			BorderBrush="{StaticResource SPT_Background_Dark}"
+			BorderBrush="{DynamicResource BackgroundBrush}"
 			BorderThickness="5"
 			>
 		<Grid RowDefinitions="10,AUTO,AUTO,AUTO,10" ColumnDefinitions="10,AUTO,*,AUTO,10"
-			  Background="{StaticResource SPT_Background_Dark}"
+			  Background="{DynamicResource BackgroundBrush}"
 			  >
 
 			<!-- Icon stack -->
@@ -19,12 +19,12 @@
 			            Orientation="Horizontal" Spacing="5"
 			>
 				<!-- Server Icon -->
-				<Path Data="{StaticResource Server}" Fill="{StaticResource SPT_Brush_DarkGrayBlue}"
+				<Path Data="{StaticResource Server}" Fill="DarkSlateGray"
 				      IsVisible="{Binding IsInServer, RelativeSource={RelativeSource AncestorType=UserControl}}"
 				/>
 				
 				<!-- Profile Icon -->
-				<Path Data="{StaticResource Profile}" Fill="{StaticResource SPT_Brush_DarkGrayBlue}"
+				<Path Data="{StaticResource Profile}" Fill="DarkSlateGray"
 				      IsVisible="{Binding IsInProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
 					  />
 				
@@ -54,7 +54,7 @@
 			        >
 				<StackPanel Orientation="Horizontal">
 					<Label Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=open_link}"/>
-					<Path Data="{StaticResource Open}" Fill="{StaticResource SPT_Brush_Yellow}"
+					<Path Data="{StaticResource Open}" Fill="{DynamicResource AccentBrush}"
 					      IsVisible="{Binding IsInProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
 					/>
 				</StackPanel>

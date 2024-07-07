@@ -11,7 +11,7 @@
   <Grid RowDefinitions="10,AUTO,AUTO,*, AUTO, AUTO, AUTO,10" ColumnDefinitions="10,2*,2*,AUTO,10">
 
     <!-- Backdrop -->
-    <Rectangle Fill="{StaticResource SPT_Background_Dark}"
+    <Rectangle Fill="{DynamicResource BackgroundBrush}"
                Grid.RowSpan="7" Grid.ColumnSpan="5"
                Opacity=".7"
                />

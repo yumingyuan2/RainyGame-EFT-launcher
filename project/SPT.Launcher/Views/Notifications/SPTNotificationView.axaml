@@ -6,7 +6,7 @@
              x:Class="SPT.Launcher.Views.Notifications.SPTNotificationView"
              >
 
-  <Border Padding="12" MinHeight="20" Background="{StaticResource SPT_Background_Dark}"
+  <Border Padding="12" MinHeight="20" Background="{DynamicResource BackgroundBrush}"
           BorderBrush="{Binding BarColor}"
           BorderThickness="3 0 0 0">
     <Grid>

@@ -15,10 +15,10 @@
 
         <!-- profile info -->
         <Border Grid.Row="1" Grid.Column="1" CornerRadius="5"
-                BorderBrush="{StaticResource SPT_Background_Dark}"
+                BorderBrush="{DynamicResource BackgroundBrush}"
                 BorderThickness="5">
             <Grid RowDefinitions="10,AUTO,AUTO,AUTO,AUTO,10" ColumnDefinitions="10,AUTO,*,10"
-                  Background="{StaticResource SPT_Background_Dark}">
+                  Background="{DynamicResource BackgroundBrush}">
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                     <Label Content="{Binding CurrentUsername}" Margin="5 0" />
 
@@ -69,10 +69,10 @@
 
         <!-- Total Mods Info -->
         <Border Grid.Row="3" Grid.Column="1" CornerRadius="5"
-                BorderBrush="{StaticResource SPT_Background_Dark}"
+                BorderBrush="{DynamicResource BackgroundBrush}"
                 BorderThickness="5" IsVisible="{Binding ModInfoCollection.HasMods}">
             <Grid RowDefinitions="10,AUTO,10" ColumnDefinitions="10,Auto,*,AUTO,10"
-                  Background="{StaticResource SPT_Background_Dark}">
+                  Background="{DynamicResource BackgroundBrush}">
                 
                 <!-- server mods count text -->
                 <Label Grid.Row="1" Grid.Column="1">
@@ -90,7 +90,7 @@
                         Command="{Binding OpenModsInfoCommand}"
                         Classes="icon">
                     <Button.Content>
-                        <Path Data="{StaticResource Open}" Fill="{StaticResource SPT_Foreground_Light}"
+                        <Path Data="{StaticResource Open}" Fill="{DynamicResource ForegroundBrush}"
                               VerticalAlignment="Center"
                               />
                     </Button.Content>
@@ -100,9 +100,9 @@
 
         <!-- Bottom bar -->
         <Border Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="5"
-                BorderBrush="{StaticResource SPT_Background_Dark}"
+                BorderBrush="{DynamicResource BackgroundBrush}"
                 BorderThickness="5">
-            <DockPanel Background="{StaticResource SPT_Background_Dark}">
+            <DockPanel Background="{DynamicResource BackgroundBrush}">
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Stretch"
@@ -134,7 +134,7 @@
                         DockPanel.Dock="Right"
                         Command="{Binding StartGameCommand}"
                         IsEnabled="{Binding Source={x:Static helpers:LauncherSettingsProvider.Instance}, Path=!GameRunning}"
-                        Classes="yellow" />
+                        Classes="alt" />
 
                 <Button Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=logout}"
                         Command="{Binding LogoutCommand}"
