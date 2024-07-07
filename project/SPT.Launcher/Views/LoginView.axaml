@@ -57,14 +57,14 @@
 									   HorizontalAlignment="Center"
 									   VerticalAlignment="Center"
 									   FontWeight="SemiBold"
-									   Foreground="{StaticResource SPT_Brush_DarkGrayBlue}"
+									   Foreground="DarkSlateGray"
 									   IsVisible="{Binding !HasData}"
 								   />
 
 								<!-- nickname -->
 								<Label Content="{Binding Nickname}" Grid.Row="1" Grid.Column="3"
 									   IsVisible="{Binding HasData}"
-									   Foreground="{StaticResource SPT_Brush_DarkGrayBlue}"
+									   Foreground="DarkSlateGray"
 								   />
 
 								<!-- remaining exp -->
@@ -107,11 +107,11 @@
 		<!-- Login Control backdrop -->
 		<Border CornerRadius="5"
 				Grid.Row="2" Grid.Column="2"
-				BorderBrush="{StaticResource SPT_Background_Dark}"
+				BorderBrush="{DynamicResource BackgroundBrush}"
 				BorderThickness="2"
-				Background="{StaticResource SPT_Background_Dark}"
+				Background="{DynamicResource BackgroundBrush}"
             >
-			<Rectangle Fill="{StaticResource SPT_Background_Dark}" />
+			<Rectangle Fill="{DynamicResource BackgroundBrush}" />
 		</Border>
 
 		<StackPanel Spacing="10" Margin="10" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch">

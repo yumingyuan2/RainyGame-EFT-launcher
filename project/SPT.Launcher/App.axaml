@@ -14,21 +14,35 @@
 	</Application.Styles>
 
 	<Application.Resources>
-		<!-- Colors -->
-		<Color x:Key="SPT_DarkGray">#121212</Color>
-		<Color x:Key="SPT_Yellow">#FFC107</Color>
-		<Color x:Key="SPT_White">#FFFFFF</Color>
-		<Color x:Key="SPT_Gray">#282828</Color>
-		<Color x:Key="SPT_DarkGrayBlue">#323947</Color>
-
-		<!-- Brushes -->
-		<SolidColorBrush x:Key="SPT_Foreground_Light" Color="{StaticResource SPT_White}"/>
-		<SolidColorBrush x:Key="SPT_Background_Light" Color="{StaticResource SPT_Gray}"/>
-		<SolidColorBrush x:Key="SPT_Background_Dark" Color="{StaticResource SPT_DarkGray}"/>
-		<SolidColorBrush x:Key="SPT_Brush_Yellow" Color="{StaticResource SPT_Yellow}"/>
-		<SolidColorBrush x:Key="SPT_Brush_DarkGrayBlue" Color="{StaticResource SPT_DarkGrayBlue}"/>
-		<SolidColorBrush x:Key="SPT_Brush_Lighter" Color="Gainsboro"/>
-
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<SolidColorBrush x:Key="AccentBrush">#54a4ff</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush2">#4383cc</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush3">#326299</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush">#b2a58d</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush2">#7f7564</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush3">#4c463b</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush">White</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush2">#cccccc</SolidColorBrush>
+					<SolidColorBrush x:Key="AltBackgroundBrush">#cca480</SolidColorBrush>
+					<SolidColorBrush x:Key="ForegroundBrush">Black</SolidColorBrush>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="AccentBrush">#436082</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush2">#567ca8</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush3">#6998ce</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush">#6a6357</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush2">#908676</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush3">#b6a995</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush">#181a1b</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush2">#393e41</SolidColorBrush>
+					<SolidColorBrush x:Key="AltBackgroundBrush">#37332d</SolidColorBrush>
+					<SolidColorBrush x:Key="ForegroundBrush">White</SolidColorBrush>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+		
 		<!-- Path Geometry for re-usable icons -->
 		<PathGeometry x:Key="FolderWithPlus" Figures="M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z" FillRule="NonZero"
 				  />

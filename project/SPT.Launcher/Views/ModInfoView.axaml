@@ -20,7 +20,7 @@
         <!-- Active Mods List Header -->
         <Border Grid.Row="3" Grid.Column="1"
                 CornerRadius="5"
-                Background="{StaticResource SPT_Background_Dark}">
+                Background="{DynamicResource BackgroundBrush}">
             <StackPanel Spacing="2" Margin="10">
                 <!-- Active mods count and text -->
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
@@ -37,8 +37,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontSize="12"
                            TextWrapping="Wrap"
-                           Foreground="{StaticResource SPT_Foreground_Light}"
-                />
+                           />
             </StackPanel>
         </Border>
         
@@ -63,7 +62,7 @@
         <!-- Inactive Mods List Header -->
         <Border Grid.Row="3" Grid.Column="3"
                 CornerRadius="5"
-                Background="{StaticResource SPT_Background_Dark}">
+                Background="{DynamicResource BackgroundBrush}">
             <StackPanel Spacing="2" Margin="10">
                 <!-- Inactive mods count and text -->
                 <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
@@ -80,7 +79,6 @@
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            FontSize="12"
                            TextWrapping="Wrap"
-                           Foreground="{StaticResource SPT_Foreground_Light}"
                            />
             </StackPanel>
         </Border>

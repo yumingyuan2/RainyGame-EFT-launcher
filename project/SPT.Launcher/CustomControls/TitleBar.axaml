@@ -55,12 +55,12 @@
             >
 			<Button.Styles>
 				<Style Selector="Button:pointerover /template/ ContentPresenter">
-					<Setter Property="Background" Value="{StaticResource SPT_Brush_DarkGrayBlue}"/>
+					<Setter Property="Background" Value="DarkSlateGray"/>
 					<Setter Property="BorderThickness" Value="0"/>
 				</Style>
-				<Style Selector="Button:pressed /template/ ContentPresenter">
-					<Setter Property="Background" Value="{StaticResource SPT_Background_Light}"/>
-				</Style>
+				<!-- <Style Selector="Button:pressed /template/ ContentPresenter"> -->
+				<!-- 	<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/> -->
+				<!-- </Style> -->
 			</Button.Styles>
 		</Button>
 
