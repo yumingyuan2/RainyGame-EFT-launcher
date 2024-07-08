@@ -141,7 +141,6 @@ namespace SPT.Launcher
 
                 try
                 {
-
                     Process.Start(clientProcess);
                     LogManager.Instance.Info("[LaunchGame] Game process started");
                 }

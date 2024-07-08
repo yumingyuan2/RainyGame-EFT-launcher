@@ -5,20 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cc="using:SPT.Launcher.CustomControls"
         xmlns:rxui="using:Avalonia.ReactiveUI"
-        xmlns:helpers="using:SPT.Launcher.Helpers"
         xmlns:cvt="using:SPT.Launcher.Converters"
-        xmlns:dialogHost="clr-namespace:DialogHost;assembly=DialogHost.Avalonia"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="450"
         x:Class="SPT.Launcher.Views.MainWindow"
         Icon="/Assets/spt-logo.ico"
         Title="SPT.Launcher"
-        MinHeight="450" MinWidth="800"
-        Height="450" Width="800"
+        MinHeight="450" MinWidth="760"
+        Height="450" Width="760"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
-        Background="{StaticResource SPT_Background_Light}">
+        Background="{DynamicResource AltBackgroundBrush}">
 
 	<Window.Resources>
 		<cvt:ImageSourceConverter x:Key="imageSourceCvt"/>
@@ -39,7 +38,7 @@
 					 MinButtonCommand="{Binding MinimizeCommand}"
 					 SettingsButtonCommand="{Binding GoToSettingsCommand}"
 					 Classes.versiontag="{Binding VersionInfo.HasTag}"
-                 />
+				     />
 
 		<Image Source="{Binding Background.Path, Converter={StaticResource imageSourceCvt}}"
 			   Stretch="Fill" RenderOptions.BitmapInterpolationMode="HighQuality"
@@ -50,17 +49,16 @@
 		<dialogHost:DialogHost Identifier="mainHost" Grid.Row="1" Grid.RowSpan="2"
 							   CornerRadius="5"
 							   DialogMargin="0"
-							   OverlayBackground="{StaticResource SPT_Background_Light}"
+							   OverlayBackground="Gray"
                            >
-			<rxui:RoutedViewHost Router="{Binding Router}"
-								 />
+			<rxui:RoutedViewHost Router="{Binding Router}" />
 		</dialogHost:DialogHost>
 
 		<Label Content="{Binding VersionInfo.Tag}" Grid.Row="1"
 			   HorizontalAlignment="Right"
 			   VerticalAlignment="Top"
-			   Background="{StaticResource SPT_Brush_Yellow}"
-			   Foreground="{StaticResource SPT_Brush_DarkGrayBlue}"
+			   Background="{DynamicResource AccentBrush}"
+			   Foreground="DarkSlateGray"
 			   FontWeight="SemiBold"
 			   CornerRadius="0 0 5 5"
 			   Margin="10 0"
