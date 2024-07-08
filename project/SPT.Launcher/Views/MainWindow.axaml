@@ -5,20 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cc="using:SPT.Launcher.CustomControls"
         xmlns:rxui="using:Avalonia.ReactiveUI"
-        xmlns:helpers="using:SPT.Launcher.Helpers"
         xmlns:cvt="using:SPT.Launcher.Converters"
         xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="450"
         x:Class="SPT.Launcher.Views.MainWindow"
         Icon="/Assets/spt-logo.ico"
         Title="SPT.Launcher"
-        MinHeight="450" MinWidth="800"
-        Height="450" Width="800"
+        MinHeight="450" MinWidth="760"
+        Height="450" Width="760"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
-        Background="Gray">
+        Background="{DynamicResource AltBackgroundBrush}">
 
 	<Window.Resources>
 		<cvt:ImageSourceConverter x:Key="imageSourceCvt"/>
@@ -52,8 +51,7 @@
 							   DialogMargin="0"
 							   OverlayBackground="Gray"
                            >
-			<rxui:RoutedViewHost Router="{Binding Router}"
-								 />
+			<rxui:RoutedViewHost Router="{Binding Router}" />
 		</dialogHost:DialogHost>
 
 		<Label Content="{Binding VersionInfo.Tag}" Grid.Row="1"

@@ -146,8 +146,10 @@ namespace SPT.Launcher.ViewModels
             });
         }
 
-        public void GetExistingProfiles()
+        public async Task GetExistingProfiles()
         {
+            await Task.Delay(200);
+            
             ServerProfileInfo[] existingProfiles = AccountManager.GetExistingProfiles();
 
             if(existingProfiles != null)
@@ -164,6 +166,8 @@ namespace SPT.Launcher.ViewModels
 
                     ImageHelper sideImage = new ImageHelper() { Path = profileInfo.SideImage };
                     sideImage.Touch();
+
+                    await Task.Delay(100);
                 }
             }
         }

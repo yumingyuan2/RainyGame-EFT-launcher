@@ -24,6 +24,7 @@
             HorizontalAlignment="Center"
             IsVisible="{Binding connectModel.ConnectionFailed}"
             Command="{Binding RetryCommand}"
+            Classes="alt"
             />
     
   </Grid>

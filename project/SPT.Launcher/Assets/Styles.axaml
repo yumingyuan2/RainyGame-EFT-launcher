@@ -12,8 +12,9 @@
 			<Button Content="button" />
 			<Button Content="acc button" Classes="acc"/>
 			<Button Content="alt button" Classes="alt"/>
+			<Button IsEnabled="False" Content="disabled button"/>
 			<Button Content="link button" Classes="link"/>
-			<Button Classes="profileinfo" Content="profile info button"/>
+			<Button Content="underline link button" Classes="ulink"/>
 			<ComboBox SelectedIndex="0">
 				<ComboBoxItem>Item 1</ComboBoxItem>
 				<ComboBoxItem>Item 2</ComboBoxItem>
@@ -199,10 +200,6 @@
 		<Setter Property="Background" Value="{DynamicResource BackgroundBrush2}"/>
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
 	</Style>
-
-	<Style Selector="Button:pointerover">
-		<Setter Property="FontWeight" Value="SemiBold"/>
-	</Style>
 	
 	<Style Selector="Button:pointerover /template/ ContentPresenter">
 		<Setter Property="Background" Value="{DynamicResource BackgroundBrush2}"/>
@@ -221,13 +218,8 @@
 
 	<!-- Button acc -->
 	<Style Selector="Button.acc">
-		<Setter Property="Background" Value="{DynamicResource AccentBrush2}"/>
+		<Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
-		<Setter Property="FontWeight" Value="SemiBold"/>
-	</Style>
-
-	<Style Selector="Button.acc:pointerover">
-		<Setter Property="FontWeight" Value="SemiBold"/>
 	</Style>
 	
 	<Style Selector="Button.acc:pointerover /template/ ContentPresenter">
@@ -247,13 +239,8 @@
 	
 	<!-- Button alt -->
 	<Style Selector="Button.alt">
-		<Setter Property="Background" Value="{DynamicResource AltAccentBrush2}"/>
+		<Setter Property="Background" Value="{DynamicResource AltAccentBrush}"/>
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
-		<Setter Property="FontWeight" Value="SemiBold"/>
-	</Style>
-
-	<Style Selector="Button.alt:pointerover">
-		<Setter Property="FontWeight" Value="SemiBold"/>
 	</Style>
 	
 	<Style Selector="Button.alt:pointerover /template/ ContentPresenter">
@@ -271,23 +258,26 @@
 		<Setter Property="BorderBrush" Value="{DynamicResource BackgroundBrush2}"/>
 	</Style>
 
-	<!-- Button Link Style -->
-	<Style Selector="Button.link">
+	<!-- Button Link Styles -->
+	<Style Selector="Button.ulink">
 		<Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+	</Style>
+	
+	<Style Selector="Button.link, Button.ulink">
 		<Setter Property="Foreground" Value="{DynamicResource AltAccentBrush3}"/>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="0"/>
 	</Style>
 
-	<Style Selector="Button.link:pointerover /template/ ContentPresenter">
+	<Style Selector="Button.link:pointerover /template/ ContentPresenter, Button.ulink:pointerover /template/ ContentPresenter">
 		<Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentBrush3}"/>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
 		<Setter Property="BorderThickness" Value="0"/>
 	</Style>
 
-	<Style Selector="Button.link:pressed /template/ ContentPresenter">
+	<Style Selector="Button.link:pressed /template/ ContentPresenter, Button.ulink:pressed /template/ ContentPresenter">
 		<Setter Property="TextBlock.Foreground" Value="{DynamicResource AccentBrush}"/>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="BorderBrush" Value="Transparent"/>
@@ -316,19 +306,19 @@
 	<!-- </Style> -->
 
 	<!-- Button Profile Info Style -->
-	<Style Selector="Button.profileinfo">
-		<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
-		<Setter Property="BorderBrush" Value="{DynamicResource BackgroundBrush}"/>
-	</Style>
-
-	<Style Selector="Button.icon">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="BorderBrush" Value="Transparent"/>
-	</Style>
-
-	<Style Selector="Button.icon:pointerover">
-		<Setter Property="Background" Value="{DynamicResource BackgroundBrush2}"/>
-	</Style>
+	<!-- <Style Selector="Button.profileinfo"> -->
+	<!-- 	<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/> -->
+	<!-- 	<Setter Property="BorderBrush" Value="{DynamicResource BackgroundBrush}"/> -->
+	<!-- </Style> -->
+	<!-- -->
+	<!-- <Style Selector="Button.icon"> -->
+	<!-- 	<Setter Property="Background" Value="Transparent"/> -->
+	<!-- 	<Setter Property="BorderBrush" Value="Transparent"/> -->
+	<!-- </Style> -->
+	<!-- -->
+	<!-- <Style Selector="Button.icon:pointerover"> -->
+	<!-- 	<Setter Property="Background" Value="{DynamicResource BackgroundBrush2}"/> -->
+	<!-- </Style> -->
 
     <!-- Checkbox styles -->
 	<Style Selector="CheckBox">
