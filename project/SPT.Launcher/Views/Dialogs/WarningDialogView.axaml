@@ -20,7 +20,7 @@
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center"
 				Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"
-				Classes="alt"
+				Classes="acc"
 				/>
 	</Grid>
 </UserControl>

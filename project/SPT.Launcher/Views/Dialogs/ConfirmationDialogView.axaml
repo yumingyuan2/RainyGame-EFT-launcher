@@ -17,7 +17,7 @@
                 Orientation="Horizontal" Spacing="10">
       <Button Content="{Binding ConfirmButtonText}"
               Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"
-              Classes="alt"
+              Classes="acc"
               IsEnabled="{Binding AllowConfirm}"
             >
         <Button.CommandParameter>

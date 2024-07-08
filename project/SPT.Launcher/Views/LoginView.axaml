@@ -20,7 +20,7 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
 					<DataTemplate DataType="launcher:ProfileInfo">
-						<cc:ExistingProfileCard 
+						<cc:DetailedProfileCard 
 							ProfileInfo="{Binding }"
 							LoginCommand="{Binding $parent[ItemsControl].DataContext.LoginProfileCommand}"
 							/>

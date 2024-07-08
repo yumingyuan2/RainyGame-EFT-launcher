@@ -5,11 +5,7 @@
              xmlns:helpers="using:SPT.Launcher.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SPT.Launcher.CustomControls.LoginBox">
-        <Border BoxShadow="2 5 5 black" CornerRadius="5"
-                BorderBrush="{DynamicResource AltBackgroundBrush}"
-                Background="{DynamicResource BackgroundBrush}"
-                Margin="10"
-                BorderThickness="1">
+        <Border Classes="card">
             
             <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" Margin="10">
             <!-- Username box -->

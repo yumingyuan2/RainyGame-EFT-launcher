@@ -5,7 +5,7 @@
              xmlns:helpers="using:SPT.Launcher.Helpers"
              xmlns:cvt="using:SPT.Launcher.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="SPT.Launcher.CustomControls.ExistingProfileCard"
+             x:Class="SPT.Launcher.CustomControls.DetailedProfileCard"
              MinWidth="250" MinHeight="250"
              PointerEntered="InputElement_OnPointerEntered"
              PointerExited="InputElement_OnPointerExited"
@@ -16,12 +16,7 @@
         <cvt:ImageSourceConverter x:Key="ImageSourceCvt" />
     </UserControl.Resources>
 
-    <Border x:Name="CardBorder"
-            BoxShadow="2 5 5 black" CornerRadius="5"
-            BorderBrush="{DynamicResource AltBackgroundBrush}"
-            Background="{DynamicResource BackgroundBrush}"
-            Margin="15"
-            BorderThickness="1">
+    <Border x:Name="CardBorder" Classes="card" Margin="15">
         <Border.Transitions>
             <Transitions>
                 <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.200"/>

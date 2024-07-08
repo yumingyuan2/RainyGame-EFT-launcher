@@ -16,25 +16,26 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.ThemeDictionaries>
+				<!-- let's be real... we are never going to use a light theme lol -waffle.lazy -->
 				<ResourceDictionary x:Key="Light">
-					<SolidColorBrush x:Key="AccentBrush">#54a4ff</SolidColorBrush>
-					<SolidColorBrush x:Key="AccentBrush2">#4383cc</SolidColorBrush>
-					<SolidColorBrush x:Key="AccentBrush3">#326299</SolidColorBrush>
-					<SolidColorBrush x:Key="AltAccentBrush">#b2a58d</SolidColorBrush>
-					<SolidColorBrush x:Key="AltAccentBrush2">#7f7564</SolidColorBrush>
-					<SolidColorBrush x:Key="AltAccentBrush3">#4c463b</SolidColorBrush>
-					<SolidColorBrush x:Key="BackgroundBrush">White</SolidColorBrush>
-					<SolidColorBrush x:Key="BackgroundBrush2">#cccccc</SolidColorBrush>
-					<SolidColorBrush x:Key="AltBackgroundBrush">#cca480</SolidColorBrush>
-					<SolidColorBrush x:Key="ForegroundBrush">Black</SolidColorBrush>
-				</ResourceDictionary>
-				<ResourceDictionary x:Key="Dark">
 					<SolidColorBrush x:Key="AccentBrush">#436082</SolidColorBrush>
 					<SolidColorBrush x:Key="AccentBrush2">#567ca8</SolidColorBrush>
 					<SolidColorBrush x:Key="AccentBrush3">#6998ce</SolidColorBrush>
 					<SolidColorBrush x:Key="AltAccentBrush">#6a6357</SolidColorBrush>
 					<SolidColorBrush x:Key="AltAccentBrush2">#908676</SolidColorBrush>
 					<SolidColorBrush x:Key="AltAccentBrush3">#b6a995</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush">White</SolidColorBrush>
+					<SolidColorBrush x:Key="BackgroundBrush2">#cccccc</SolidColorBrush>
+					<SolidColorBrush x:Key="AltBackgroundBrush">#cca480</SolidColorBrush>
+					<SolidColorBrush x:Key="ForegroundBrush">Black</SolidColorBrush>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<SolidColorBrush x:Key="AccentBrush">#54a4ff</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush2">#4383cc</SolidColorBrush>
+					<SolidColorBrush x:Key="AccentBrush3">#326299</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush">#b2a58d</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush2">#7f7564</SolidColorBrush>
+					<SolidColorBrush x:Key="AltAccentBrush3">#4c463b</SolidColorBrush>
 					<SolidColorBrush x:Key="BackgroundBrush">#181a1b</SolidColorBrush>
 					<SolidColorBrush x:Key="BackgroundBrush2">#393e41</SolidColorBrush>
 					<SolidColorBrush x:Key="AltBackgroundBrush">#37332d</SolidColorBrush>

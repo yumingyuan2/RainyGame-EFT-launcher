@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
@@ -13,9 +11,9 @@ using SPT.Launcher.Models.Launcher;
 
 namespace SPT.Launcher.CustomControls;
 
-public partial class ExistingProfileCard : UserControl
+public partial class DetailedProfileCard : UserControl
 {
-    public ExistingProfileCard()
+    public DetailedProfileCard()
     {
         InitializeComponent();
 
@@ -29,15 +27,14 @@ public partial class ExistingProfileCard : UserControl
             await Dispatcher.UIThread.InvokeAsync(async () =>
             {
                 border.Opacity = 1;
-                border.BoxShadow = BoxShadows.Parse("2 5 5 black");
-                await Task.Delay(200);
                 border.RenderTransform = TransformOperations.Parse("scale(1)");
+                border.BoxShadow = BoxShadows.Parse("2 5 5 black");
             });
         });
     }
 
     public static readonly StyledProperty<ProfileInfo> ProfileInfoProperty =
-        AvaloniaProperty.Register<ExistingProfileCard, ProfileInfo>(
+        AvaloniaProperty.Register<DetailedProfileCard, ProfileInfo>(
             "ProfileInfo");
 
     public ProfileInfo ProfileInfo
@@ -46,7 +43,7 @@ public partial class ExistingProfileCard : UserControl
         set => SetValue(ProfileInfoProperty, value);
     }
 
-    public static readonly StyledProperty<ICommand> LoginCommandProperty = AvaloniaProperty.Register<ExistingProfileCard, ICommand>(
+    public static readonly StyledProperty<ICommand> LoginCommandProperty = AvaloniaProperty.Register<DetailedProfileCard, ICommand>(
         "LoginCommand");
 
     public ICommand LoginCommand

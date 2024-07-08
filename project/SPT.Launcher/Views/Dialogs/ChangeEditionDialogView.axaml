@@ -23,7 +23,7 @@
               >
 		  <ComboBox.ItemTemplate>
 			  <DataTemplate>
-				  <Label Background="Transparent" Content="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
+				  <TextBlock Background="Transparent" Text="{Binding Name}" ToolTip.Tip="{Binding Description}"/>
 			  </DataTemplate>
 		  </ComboBox.ItemTemplate>
 	  </ComboBox>
@@ -32,7 +32,7 @@
       <Button Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=update}"
               Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"
               CommandParameter="{Binding editions.SelectedEdition}"
-              Classes="alt"
+              Classes="acc"
               />
       <Button Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=cancel}"
               Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=dialogHost:DialogHost}, Path=CloseDialogCommand}"
