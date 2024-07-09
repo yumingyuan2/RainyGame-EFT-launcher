@@ -10,6 +10,7 @@ using SPT.Launcher.ViewModels.Dialogs;
 using Avalonia.Threading;
 using System.Diagnostics;
 using System.IO;
+using Avalonia.Controls.ApplicationLifetimes;
 using SPT.Launcher.Models.SPT;
 
 namespace SPT.Launcher.ViewModels
@@ -17,8 +18,8 @@ namespace SPT.Launcher.ViewModels
     [RequireLoggedIn]
     public class ProfileViewModel : ViewModelBase
     {
-        public string CurrentUsername { get; set; }
-
+        // public string CurrentUsername { get; set; }
+        
         private string _CurrentEdition;
         public string CurrentEdition
         {
@@ -40,7 +41,7 @@ namespace SPT.Launcher.ViewModels
             set => this.RaiseAndSetIfChanged(ref _ProfileWipePending, value);
         }
 
-        public string CurrentID { get; set; }
+        public string CurrentId { get; set; }
 
         public ProfileInfo ProfileInfo { get; set; } = AccountManager.SelectedProfileInfo;
 
@@ -48,9 +49,9 @@ namespace SPT.Launcher.ViewModels
 
         public ModInfoCollection ModInfoCollection { get; set; } = new ModInfoCollection();
 
-        private GameStarter gameStarter = new GameStarter(new GameStarterFrontend());
+        private readonly GameStarter _gameStarter = new GameStarter(new GameStarterFrontend());
 
-        private ProcessMonitor monitor { get; set; }
+        private readonly ProcessMonitor _monitor;
 
         public ProfileViewModel(IScreen Host) : base(Host)
         {
@@ -62,13 +63,13 @@ namespace SPT.Launcher.ViewModels
                 SideImage.Touch();
             }
 
-            monitor = new ProcessMonitor("EscapeFromTarkov", 1000, aliveCallback: GameAliveCallBack, exitCallback: GameExitCallback);
+            _monitor = new ProcessMonitor("EscapeFromTarkov", 1000, aliveCallback: GameAliveCallBack, exitCallback: GameExitCallback);
 
-            CurrentUsername = AccountManager.SelectedAccount.username;
+            // CurrentUsername = AccountManager.SelectedAccount.username;
 
             CurrentEdition = AccountManager.SelectedAccount.edition;
 
-            CurrentID = AccountManager.SelectedAccount.id;
+            CurrentId = AccountManager.SelectedAccount.id;
         }
 
         private async Task GameVersionCheck()
@@ -154,11 +155,11 @@ namespace SPT.Launcher.ViewModels
                 WipeProfileOnStart = false;
             }
 
-            GameStarterResult gameStartResult = await gameStarter.LaunchGame(ServerManager.SelectedServer, AccountManager.SelectedAccount, LauncherSettingsProvider.Instance.GamePath);
+            GameStarterResult gameStartResult = await _gameStarter.LaunchGame(ServerManager.SelectedServer, AccountManager.SelectedAccount, LauncherSettingsProvider.Instance.GamePath);
 
             if (gameStartResult.Succeeded)
             {
-                monitor.Start();
+                _monitor.Start();
 
                 switch (LauncherSettingsProvider.Instance.LauncherStartGameAction)
                 {
@@ -221,9 +222,14 @@ namespace SPT.Launcher.ViewModels
 
         public async Task CopyCommand(object parameter)
         {
-            if (Application.Current.Clipboard != null && parameter != null && parameter is string text)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop && parameter is string text)
             {
-                await Application.Current.Clipboard.SetTextAsync(text);
+                if (desktop?.MainWindow?.Clipboard == null)
+                {
+                    return;
+                }
+                
+                await desktop.MainWindow.Clipboard.SetTextAsync(text);
                 SendNotification("", $"{text} {LocalizationProvider.Instance.copied}", Avalonia.Controls.Notifications.NotificationType.Success);
             }
         }

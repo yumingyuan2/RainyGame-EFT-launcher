@@ -141,7 +141,6 @@ namespace SPT.Launcher
 
                 try
                 {
-
                     Process.Start(clientProcess);
                     LogManager.Instance.Info("[LaunchGame] Game process started");
                 }
@@ -319,7 +318,7 @@ namespace SPT.Launcher
         /// <returns>returns true if the temp folder was cleaned succefully or doesn't exist. returns false if something went wrong.</returns>
 		public bool CleanTempFiles()
         {
-            var rootdir = new DirectoryInfo(Path.Combine(Path.GetTempPath(), @"Battlestate Games\EscapeFromTarkov"));
+            var rootdir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptappdata"));
 
             if (!rootdir.Exists)
             {

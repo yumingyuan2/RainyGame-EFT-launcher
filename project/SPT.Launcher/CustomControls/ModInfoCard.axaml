@@ -5,12 +5,10 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:helpers="using:SPT.Launcher.Helpers"
              x:Class="SPT.Launcher.CustomControls.ModInfoCard">
-	<Border CornerRadius="5" HorizontalAlignment="Stretch" 
-			BorderBrush="{StaticResource SPT_Background_Dark}"
-			BorderThickness="5"
-			>
-		<Grid RowDefinitions="10,AUTO,AUTO,AUTO,10" ColumnDefinitions="10,AUTO,*,AUTO,10"
-			  Background="{StaticResource SPT_Background_Dark}"
+	<Border Classes="card" HorizontalAlignment="Stretch">
+		<Grid RowDefinitions="10,AUTO,AUTO,AUTO,10" ColumnDefinitions="10,AUTO,*,AUTO,10" 
+			  Background="{DynamicResource BackgroundBrush}"
+			  Margin="2"
 			  >
 
 			<!-- Icon stack -->
@@ -19,19 +17,19 @@
 			            Orientation="Horizontal" Spacing="5"
 			>
 				<!-- Server Icon -->
-				<Path Data="{StaticResource Server}" Fill="{StaticResource SPT_Brush_DarkGrayBlue}"
+				<Path Data="{StaticResource Server}" Fill="{DynamicResource AltAccentBrush}"
 				      IsVisible="{Binding IsInServer, RelativeSource={RelativeSource AncestorType=UserControl}}"
 				/>
 				
 				<!-- Profile Icon -->
-				<Path Data="{StaticResource Profile}" Fill="{StaticResource SPT_Brush_DarkGrayBlue}"
+				<Path Data="{StaticResource Profile}" Fill="{DynamicResource AltAccentBrush}"
 				      IsVisible="{Binding IsInProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
 					  />
 				
 				<!-- Info Icon -->
 				<Canvas>
 					<Rectangle ToolTip.Tip="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=mod_not_in_server_warning}" Fill="Transparent" Height="20" Width="20"/>
-					<Path Data="{StaticResource Info}" Fill="DodgerBlue" 
+					<Path Data="{StaticResource Info}" Fill="{DynamicResource AccentBrush}" 
 					      ToolTip.Tip="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=mod_not_in_server_warning}"
 					>
 					<Path.IsVisible>
@@ -54,7 +52,7 @@
 			        >
 				<StackPanel Orientation="Horizontal">
 					<Label Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=open_link}"/>
-					<Path Data="{StaticResource Open}" Fill="{StaticResource SPT_Brush_Yellow}"
+					<Path Data="{StaticResource Open}" Fill="{DynamicResource AccentBrush}"
 					      IsVisible="{Binding IsInProfile, RelativeSource={RelativeSource AncestorType=UserControl}}"
 					/>
 				</StackPanel>
@@ -66,7 +64,7 @@
 				   />
 			
 			<!-- Author Text -->
-			<Label Grid.Row="3" Grid.Column="1" FontSize="12" Foreground="DimGray"
+			<Label Grid.Row="3" Grid.Column="1" FontSize="12" Foreground="{DynamicResource AltAccentBrush}"
 				   Content="{Binding Source={x:Static helpers:LocalizationProvider.Instance}, Path=author}"
 				   />
 			
@@ -78,6 +76,7 @@
 			<!-- Mod Version -->
 			<Label Grid.Row="3" Grid.Column="3" FontSize="12"
 				   Content="{Binding Version, RelativeSource={RelativeSource AncestorType=UserControl}}"
+				   Classes="acc"
 				   />
 		</Grid>
 	</Border>

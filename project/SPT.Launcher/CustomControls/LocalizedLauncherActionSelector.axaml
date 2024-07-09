@@ -10,7 +10,7 @@
 			  >
 		<ComboBox.ItemTemplate>
 			<DataTemplate DataType="{x:Type model:LocalizedLauncherAction}">
-				<Label Content="{Binding Name}"/>
+				<TextBlock Text="{Binding Name}"/>
 			</DataTemplate>
 		</ComboBox.ItemTemplate>
 	</ComboBox>
