@@ -38,7 +38,7 @@ namespace SPT.Launcher.Models.SPT
 
             string[] splitVersion = SPTVersion.Split('.');
 
-            if (splitVersion.Length == 3)
+            if (splitVersion.Length >= 3)
             {
                 int.TryParse(splitVersion[0], out Major);
                 int.TryParse(splitVersion[1], out Minor);

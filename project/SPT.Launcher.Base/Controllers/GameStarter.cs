@@ -217,7 +217,7 @@ namespace SPT.Launcher
             {
                 var serverVersion = new SPTVersion(ServerManager.GetVersion());
 
-                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Combine($"{gamePath}/BepinEx/plugins/spt", "spt-core.dll"));
+                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
                 var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);
 
                 LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
