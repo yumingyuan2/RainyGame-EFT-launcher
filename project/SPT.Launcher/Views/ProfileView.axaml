@@ -13,7 +13,7 @@
                         ProfileInfo="{Binding ProfileInfo}"
                         CurrentEdition="{Binding CurrentEdition}"
                         CurrentId="{Binding CurrentId}"
-                        WipeProfileOnStart="{Binding WipeProfileOnStart}"
+                        WipeProfileOnStart="{Binding WipeProfileOnStart, Mode=TwoWay}"
                         ProfileWipePending="{Binding ProfileWipePending}"
                         CopyCommand="{Binding CopyCommand}"
                         ChangeEditionCommand="{Binding ChangeEditionCommand}"

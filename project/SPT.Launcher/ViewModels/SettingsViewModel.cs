@@ -11,7 +11,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Notifications;
+using Avalonia.Platform.Storage;
 
 namespace SPT.Launcher.ViewModels
 {
@@ -148,18 +150,22 @@ namespace SPT.Launcher.ViewModels
 
         public async Task SelectGameFolderCommand()
         {
-            OpenFolderDialog dialog = new OpenFolderDialog();
-
-            dialog.Directory = Assembly.GetExecutingAssembly().Location;
-
-            if (Application.Current?.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                string? result = await dialog.ShowAsync(desktop.MainWindow);
-
-                if (result != null)
+                var startPath = await desktop.MainWindow.StorageProvider.TryGetFolderFromPathAsync(Assembly.GetExecutingAssembly().Location);
+                
+                var dir = await desktop.MainWindow.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions()
                 {
-                    LauncherSettingsProvider.Instance.GamePath = result;
+                    Title = "Select your SPT folder",
+                    SuggestedStartLocation = startPath
+                });
+
+                if (dir == null || dir.Count == 0)
+                {
+                    return;
                 }
+
+                LauncherSettingsProvider.Instance.GamePath = dir[0].Path.LocalPath;
             }
         }
     }
