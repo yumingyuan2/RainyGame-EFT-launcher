@@ -193,6 +193,8 @@ namespace SPT.Launcher.Helpers
             englishLocale.dev_mode = "Developer Mode";
             englishLocale.failed_to_save_settings = "Failed to save settings";
             englishLocale.register_failed_name_limit = "name cannot exceed 15 characters";
+            englishLocale.copy_failed = "Failed to copy data to clipboard";
+            englishLocale.copy_logs_to_clipboard = "Copy logs to clipboard";
             #endregion
 
             Directory.CreateDirectory(LocalizationProvider.DefaultLocaleFolderPath);
@@ -228,6 +230,39 @@ namespace SPT.Launcher.Helpers
         //this is going to be some pretty long boiler plate code. So I'm putting everything into regions.
 
         #region All Properties
+        
+        #region
+        private string _copy_logs_to_clipboard;
+        public string copy_logs_to_clipboard
+        {
+            get => _copy_logs_to_clipboard;
+            set
+            {
+                if (_copy_logs_to_clipboard != value)
+                {
+                    _copy_logs_to_clipboard = value;
+                    RaisePropertyChanged(nameof(copy_logs_to_clipboard));
+                }
+            }
+        }
+        
+        #endregion
+        
+        #region copy_failed
+        private string _copy_failed;
+        public string copy_failed
+        {
+            get => _copy_failed;
+            set
+            {
+                if (_copy_failed != value)
+                {
+                    _copy_failed = value;
+                    RaisePropertyChanged(nameof(copy_failed));
+                }
+            }
+        }
+        #endregion
         
         #region register_failed_name_limit
 
