@@ -300,7 +300,6 @@ namespace SPT.Launcher
                 foreach (var value in key.GetValueNames())
                 {
                     key.DeleteValue(value);
-                    LogManager.Instance.Debug($"Removing reg key: {key.Name}");
                 }
             }
             catch (Exception ex)
@@ -352,7 +351,6 @@ namespace SPT.Launcher
                 {
                     file.IsReadOnly = false;
                     file.Delete();
-                    LogManager.Instance.Debug($"  -> del file: {file.FullName}");
                 }
 
                 // remove directory
