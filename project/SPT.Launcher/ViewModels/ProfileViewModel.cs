@@ -18,8 +18,6 @@ namespace SPT.Launcher.ViewModels
     [RequireLoggedIn]
     public class ProfileViewModel : ViewModelBase
     {
-        // public string CurrentUsername { get; set; }
-        
         private string _CurrentEdition;
         public string CurrentEdition
         {
@@ -64,8 +62,6 @@ namespace SPT.Launcher.ViewModels
             }
 
             _monitor = new ProcessMonitor("EscapeFromTarkov", 1000, aliveCallback: GameAliveCallBack, exitCallback: GameExitCallback);
-
-            // CurrentUsername = AccountManager.SelectedAccount.username;
 
             CurrentEdition = AccountManager.SelectedAccount.edition;
 

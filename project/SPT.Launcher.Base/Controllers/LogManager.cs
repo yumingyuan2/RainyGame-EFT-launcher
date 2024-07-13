@@ -20,16 +20,16 @@ namespace SPT.Launcher.Controllers
         private static LogManager _instance;
         public static LogManager Instance => _instance ??= new LogManager();
         private readonly string _filePath;
-        private readonly string _logFile;
+        public readonly string LogFile;
 
         private LogManager()
         {
             _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "user", "logs");
-            _logFile = Path.Combine(_filePath, "launcher.log");
+            LogFile = Path.Combine(_filePath, "launcher.log");
 
-            if (File.Exists(_logFile))
+            if (File.Exists(LogFile))
             {
-                File.Delete(_logFile);
+                File.Delete(LogFile);
             }
             
             Write($" ==== Launcher Started ====");
@@ -52,7 +52,7 @@ namespace SPT.Launcher.Controllers
                 Directory.CreateDirectory(_filePath);
             }
             
-            File.AppendAllLines(_logFile, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{GetDevModeTag()}{text}" });
+            File.AppendAllLines(LogFile, new[] { $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]{GetDevModeTag()}{text}" });
         }
 
         public void Debug(string text) => Write($"[Debug] {text}");

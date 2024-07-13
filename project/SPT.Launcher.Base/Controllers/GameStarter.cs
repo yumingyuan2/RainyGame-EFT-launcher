@@ -217,7 +217,7 @@ namespace SPT.Launcher
             {
                 var serverVersion = new SPTVersion(ServerManager.GetVersion());
 
-                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Combine($"{gamePath}/BepinEx/plugins/spt", "spt-core.dll"));
+                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
                 var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);
 
                 LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
@@ -300,7 +300,6 @@ namespace SPT.Launcher
                 foreach (var value in key.GetValueNames())
                 {
                     key.DeleteValue(value);
-                    LogManager.Instance.Debug($"Removing reg key: {key.Name}");
                 }
             }
             catch (Exception ex)
@@ -352,7 +351,6 @@ namespace SPT.Launcher
                 {
                     file.IsReadOnly = false;
                     file.Delete();
-                    LogManager.Instance.Debug($"  -> del file: {file.FullName}");
                 }
 
                 // remove directory
