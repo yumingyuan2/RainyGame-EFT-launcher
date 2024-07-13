@@ -232,7 +232,7 @@ namespace SPT.Launcher
                 if (serverVersion.Minor != dllVersion.Minor) return true;
 
                 // check x.x.'X'
-                if (serverVersion.Tag != dllVersion.Tag) return true;
+                if (serverVersion.Build != dllVersion.Build) return true;
 
                 return false; // Versions match, hooray
             }
