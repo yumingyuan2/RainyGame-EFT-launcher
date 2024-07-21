@@ -1,9 +1,8 @@
 /* ProcessMonitor.cs
  * License: NCSA Open Source License
  * 
- * Copyright: Merijn Hendriks
+ * Copyright: SPT
  * AUTHORS:
- * Merijn Hendriks
  */
 
 
