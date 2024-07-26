@@ -223,7 +223,7 @@ namespace SPT.Launcher
                 LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
 
                 // Edge case, running on locally built modules dlls, ignore check and return ok
-                if (dllVersion.Major == 0) return false;
+                if (dllVersion.Major == 1) return false;
 
                 // check 'X'.x.x
                 if (serverVersion.Major != dllVersion.Major) return true;
