@@ -21,6 +21,7 @@ using SPT.Launcher.Controllers;
 using SPT.Launcher.Interfaces;
 using System.Runtime.InteropServices;
 using SPT.Launcher.Models.SPT;
+using Newtonsoft.Json.Linq;
 
 namespace SPT.Launcher
 {
@@ -90,7 +91,7 @@ namespace SPT.Launcher
             if (account.wipe)
             {
                 LogManager.Instance.Info("[LaunchGame] Wipe profile requested");
-                RemoveRegistryKeys();
+                RemoveProfileRegistryKeys(account.id);
                 CleanTempFiles();
             }
 
@@ -288,27 +289,24 @@ namespace SPT.Launcher
         }
 
         /// <summary>
-        /// Remove the registry keys
+        /// Remove the SPT JSON-based registry keys associated with the given profile ID
         /// </summary>
-        /// <returns>returns true if the keys were removed. returns false if an exception occured</returns>
-		public bool RemoveRegistryKeys()
+		public void RemoveProfileRegistryKeys(string profileId)
         {
-            try
-            {
-                var key = Registry.CurrentUser.OpenSubKey(registrySettings, true);
+            var registryFile = new FileInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptRegistry\\registry.json"));
 
-                foreach (var value in key.GetValueNames())
-                {
-                    key.DeleteValue(value);
-                }
-            }
-            catch (Exception ex)
+            if (!registryFile.Exists)
             {
-                LogManager.Instance.Exception(ex);
-                return false;
+                return;
             }
 
-            return true;
+            JObject registryData = JObject.Parse(File.ReadAllText(registryFile.FullName));
+
+            // Find any property that has a key containing the profileId, and remove it
+            var propsToRemove = registryData.Properties().Where(prop => prop.Name.Contains(profileId, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            propsToRemove.ForEach(prop => prop.Remove());
+
+            File.WriteAllText(registryFile.FullName, registryData.ToString());
         }
 
         /// <summary>
