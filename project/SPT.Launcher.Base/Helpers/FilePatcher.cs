@@ -33,7 +33,7 @@ namespace SPT.Launcher.Helpers
             switch (result.Result)
             {
                 case PatchResultType.Success:
-                    File.Copy(targetfile, $"{targetfile}.bak");
+                    File.Copy(targetfile, $"{targetfile}.spt-bak");
                     VFS.WriteFile(targetfile, result.PatchedData);
                     break;
 
@@ -109,7 +109,7 @@ namespace SPT.Launcher.Helpers
 
             foreach (var file in files)
             {
-                if (file.Extension == ".bak")
+                if (file.Extension == ".spt-bak")
                 {
                     var target = Path.ChangeExtension(file.FullName, null);
 

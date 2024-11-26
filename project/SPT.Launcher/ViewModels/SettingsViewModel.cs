@@ -2,9 +2,7 @@
 using SPT.Launcher.Helpers;
 using SPT.Launcher.Models;
 using SPT.Launcher.Models.Launcher;
-using SPT.Launcher.ViewModels.Dialogs;
 using Avalonia;
-using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -50,19 +48,42 @@ namespace SPT.Launcher.ViewModels
                     return;
                 }
 
-                var traceLogs = Directory.GetFiles(Path.Join(LauncherSettingsProvider.Instance.GamePath, "Logs"), $"{DateTime.Now:yyyy.MM.dd}_* traces.log", SearchOption.AllDirectories);
+                var filesToCopy = new List<string> { LogManager.Instance.LogFile };
                 
-                var traceLog = traceLogs.Length > 0 ? traceLogs[0] : "";
+                var serverLog = Path.Join(LauncherSettingsProvider.Instance.GamePath, @"\user\logs",
+                    $"server-{DateTime.Now:yyyy-MM-dd}.log");
+                var bepinexLog = Path.Join(LauncherSettingsProvider.Instance.GamePath, @"BepInEx\LogOutput.log");
 
-                var filesToCopy = new string[]
+                if (AccountManager.SelectedAccount?.id != null)
                 {
-                    Path.Join(LauncherSettingsProvider.Instance.GamePath, @"\user\logs", $"server-{DateTime.Now:yyyy-MM-dd}.log"),
-                    traceLog,
-                    Path.Join(LauncherSettingsProvider.Instance.GamePath, @"BepInEx\LogOutput.log"),
-                    Path.Join(LauncherSettingsProvider.Instance.GamePath, @"\user\profiles", $"{AccountManager.SelectedAccount.id}.json"),
-                    LogManager.Instance.LogFile,
-                };
+                    filesToCopy.Add(Path.Join(LauncherSettingsProvider.Instance.GamePath, @"\user\profiles",
+                        $"{AccountManager.SelectedAccount.id}.json"));
+                }
 
+                if (File.Exists(serverLog))
+                {
+                    filesToCopy.Add(serverLog);
+                }
+
+                if (File.Exists(bepinexLog))
+                {
+                    filesToCopy.Add(bepinexLog);
+                }
+
+                var logsPath = Path.Join(LauncherSettingsProvider.Instance.GamePath, "Logs");
+                if (Directory.Exists(logsPath))
+                {
+                    var traceLogs = Directory.GetFiles(logsPath, $"{DateTime.Now:yyyy.MM.dd}_* traces.log",
+                        SearchOption.AllDirectories);
+
+                    var log = traceLogs.Length > 0 ? traceLogs[0] : "";
+
+                    if (!string.IsNullOrWhiteSpace(log))
+                    {
+                        filesToCopy.Add(log);
+                    }
+                }
+                
                 List<IStorageFile> files = new List<IStorageFile>();
 
                 foreach (var logPath in filesToCopy)
@@ -127,23 +148,6 @@ namespace SPT.Launcher.ViewModels
             {
                 LogManager.Instance.Info("[Settings] Temp files failed to clear");
                 SendNotification("", LocalizationProvider.Instance.clean_temp_files_failed, NotificationType.Error);
-            }
-        }
-
-        public void RemoveRegistryKeysCommand()
-        {
-            LogManager.Instance.Info("[Settings] Removing registry keys ...");
-            bool regKeysRemoved = gameStarter.RemoveRegistryKeys();
-
-            if (regKeysRemoved)
-            {
-                LogManager.Instance.Info("[Settings] Registry keys removed");
-                SendNotification("", LocalizationProvider.Instance.remove_registry_keys_succeeded, Avalonia.Controls.Notifications.NotificationType.Success);
-            }
-            else
-            {
-                LogManager.Instance.Info("[Settings] Registry keys failed to remove");
-                SendNotification("", LocalizationProvider.Instance.remove_registry_keys_failed, Avalonia.Controls.Notifications.NotificationType.Error);
             }
         }
 

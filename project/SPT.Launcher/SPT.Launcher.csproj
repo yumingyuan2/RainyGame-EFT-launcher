@@ -6,6 +6,7 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Assets\spt-logo.ico</ApplicationIcon>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
@@ -22,12 +23,12 @@
     <Content Include="Assets\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.1.0-rc2" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.1.0-rc2" />
+    <PackageReference Include="Avalonia" Version="11.1.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.1" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.12" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.0-rc2" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0-rc2" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.1" />
     <PackageReference Include="DialogHost.Avalonia" Version="0.8.0-avalonia11dot1-3" />
   </ItemGroup>
   <ItemGroup>
