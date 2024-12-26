@@ -124,7 +124,7 @@ namespace SPT.Launcher
             
             //start game
             var args =
-                $"-force-gfx-jobs native -token={account.id} -config={{'BackendUrl':'{server.backendUrl}','Version':'live','MatchingVersion':'live'}}"; // Old Way: {Json.Serialize(new ClientConfig(server.backendUrl))} - Workaround for now
+                $"-force-gfx-jobs native -token={account.id} -config={Json.SerializeSingleQuotes(new ClientConfig(server.backendUrl))}";
 
             if (_showOnly)
             {
