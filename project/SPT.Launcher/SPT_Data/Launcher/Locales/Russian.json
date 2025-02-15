@@ -38,7 +38,7 @@
   "remove_registry_keys": "Очистить реестр",
   "remove_registry_keys_succeeded": "Реестр очищен",
   "remove_registry_keys_failed": "Неизвестная проблема при очистке реестра",
-  "clean_temp_files": "Очистка временных файлов",
+  "clean_temp_files": "Очистить временные файлы",
   "clean_temp_files_succeeded": "Временные файлы очищены",
   "clean_temp_files_failed": "Неизвестная проблема при очистке временных файлов",
   "select_folder": "Выбрать директорию",
