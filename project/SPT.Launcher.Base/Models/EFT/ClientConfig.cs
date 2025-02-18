@@ -16,7 +16,7 @@ namespace SPT.Launcher
 
         public ClientConfig()
         {
-            BackendUrl = "http://127.0.0.1:6969";
+            BackendUrl = "https://127.0.0.1:6969";
             Version = "live";
             MatchingVersion = "live";
         }
