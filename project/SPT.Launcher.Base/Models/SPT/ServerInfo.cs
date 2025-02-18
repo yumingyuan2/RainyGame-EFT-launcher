@@ -19,7 +19,7 @@ namespace SPT.Launcher
 
         public ServerInfo()
         {
-            backendUrl = "http://127.0.0.1:6969";
+            backendUrl = "https://127.0.0.1:6969";
             name = "Local SPT Server";
             editions = new string[0];
             profileDescriptions = new Dictionary<string, string>();
