@@ -10,4 +10,10 @@
         <Exec Command="pwsh -NoProfile -ExecutionPolicy Bypass ../build.ps1" WorkingDirectory="$(ProjectDir)" />
     </Target>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SPT.ByteBanger\SPT.ByteBanger.csproj" />
+      <ProjectReference Include="..\SPT.Launcher.Base\SPT.Launcher.Base.csproj" />
+      <ProjectReference Include="..\SPT.Launcher\SPT.Launcher.csproj" />
+    </ItemGroup>
+
 </Project>

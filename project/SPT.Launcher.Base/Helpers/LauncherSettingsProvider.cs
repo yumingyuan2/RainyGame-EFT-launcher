@@ -30,7 +30,7 @@ namespace SPT.Launcher.Helpers
 
         public bool SaveSettings()
         {
-            Server.Url = Path.TrimEndingDirectorySeparator(Server.Url);
+            Server.Url = Path.TrimEndingDirectorySeparator(Server.Url.Trim());
             return Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
         }
 
