@@ -30,13 +30,13 @@ namespace SPT.Launcher.Helpers
 
         public bool SaveSettings()
         {
-            Server.Url = Path.TrimEndingDirectorySeparator(Server.Url);
+            Server.Url = Path.TrimEndingDirectorySeparator(Server.Url.Trim());
             return Json.SaveWithFormatting(LauncherSettingsProvider.DefaultSettingsFileLocation, this, Formatting.Indented);
         }
 
         public void ResetDefaults()
         {
-            string defaultUrl = "http://127.0.0.1:6969";
+            string defaultUrl = "https://127.0.0.1:6969";
             string defaultPath = Environment.CurrentDirectory;
             
             // don't reset if running in dev mode
@@ -150,7 +150,7 @@ namespace SPT.Launcher.Helpers
                 Server = new ServerSetting
                 {
                     Name = "SPT", 
-                    Url = "http://127.0.0.1:6969"
+                    Url = "https://127.0.0.1:6969"
                 };
                 SaveSettings();
             }

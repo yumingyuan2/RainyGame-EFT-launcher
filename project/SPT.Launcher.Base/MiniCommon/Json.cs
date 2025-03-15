@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Linq;
+using System.Text;
 using SPT.Launcher.Controllers;
 
 namespace SPT.Launcher.MiniCommon
@@ -21,6 +22,22 @@ namespace SPT.Launcher.MiniCommon
         public static string Serialize<T>(T data)
         {
             return JsonConvert.SerializeObject(data);
+        }
+
+        public static string SerializeSingleQuotes<T>(T Data)
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            using (StringWriter sw = new StringWriter(sb))
+            using (JsonTextWriter jw = new JsonTextWriter(sw))
+            {
+                jw.QuoteChar = '\'';
+                
+                JsonSerializer ser = new JsonSerializer();
+                ser.Serialize(jw, Data);
+            }
+            
+            return sb.ToString();
         }
 
         public static T Deserialize<T>(string json)

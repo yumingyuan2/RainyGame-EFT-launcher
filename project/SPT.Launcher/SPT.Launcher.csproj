@@ -36,9 +36,6 @@
     <ProjectReference Include="..\SPT.Launcher.Base\SPT.Launcher.Base.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>References\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="zlib.net">
       <HintPath>References\zlib.net.dll</HintPath>
     </Reference>

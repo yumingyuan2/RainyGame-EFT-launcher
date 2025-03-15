@@ -19,7 +19,7 @@ public class ModInfoViewModel : ViewModelBase
     
     public async Task OpenUrlCommand(string url)
     {
-        if (!url.StartsWith("https://") && !url.StartsWith("https://"))
+        if (!url.StartsWith("https://"))
         {
             LogManager.Instance.Warning($"url does not start with http/s \n  -URL-> '{url}'");
             return;

@@ -57,7 +57,7 @@ namespace SPT.Launcher.ViewModels
 
                 version.ParseVersionInfo(ServerManager.GetVersion());
                 
-                LogManager.Instance.Info($"Connected to server: {ServerManager.SelectedServer.backendUrl} - SPT Version: {version}");
+                LogManager.Instance.Info($"Connected to server: {ServerManager.SelectedServer.backendUrl} - SPT MatchingVersion: {version}");
 
                 NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
             }
