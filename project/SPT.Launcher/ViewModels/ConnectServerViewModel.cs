@@ -35,7 +35,7 @@ namespace SPT.Launcher.ViewModels
         {
             LauncherSettingsProvider.Instance.AllowSettings = false;
             
-            if (!await ServerManager.LoadDefaultServerAsync(LauncherSettingsProvider.Instance.Server.Url))
+            if (!await ServerManager.LoadServerAsync(LauncherSettingsProvider.Instance.Server.Url))
             {
                 connectModel.ConnectionFailed = true;
                 connectModel.InfoText = string.Format(LocalizationProvider.Instance.server_unavailable_format_1,
@@ -45,7 +45,7 @@ namespace SPT.Launcher.ViewModels
                 return;
             }
             
-            bool connected = ServerManager.PingServer();
+            bool connected = await ServerManager.PingServerAsync();
 
             connectModel.ConnectionFailed = !connected;
 
@@ -55,11 +55,11 @@ namespace SPT.Launcher.ViewModels
             {
                 SPTVersion version = Locator.Current.GetService<SPTVersion>("sptversion");
 
-                version.ParseVersionInfo(ServerManager.GetVersion());
+                version.ParseVersionInfo(await ServerManager.GetVersionAsync());
                 
                 LogManager.Instance.Info($"Connected to server: {ServerManager.SelectedServer.backendUrl} - SPT MatchingVersion: {version}");
 
-                NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
+                await NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
             }
             
             LauncherSettingsProvider.Instance.AllowSettings = true;

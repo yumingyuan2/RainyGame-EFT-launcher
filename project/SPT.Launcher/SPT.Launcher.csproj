@@ -23,25 +23,26 @@
     <Content Include="Assets\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.3.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageReference Include="Avalonia" Version="11.3.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.1" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.12" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.0" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.1" />
     <PackageReference Include="DialogHost.Avalonia" Version="0.9.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SPT.Launcher.Base\SPT.Launcher.Base.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="zlib.net">
-      <HintPath>References\zlib.net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <AvaloniaXaml Update="Assets\Styles.axaml">
       <SubType>Designer</SubType>
     </AvaloniaXaml>
   </ItemGroup>
+	<Target Name="CopyRequiredDataInDebug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+		<ItemGroup>
+			<FilesToCopy Include="..\Build\SPT_Data\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(OutputPath)\SPT_Data\%(RecursiveDir)" SkipUnchangedFiles="false" />
+	</Target>
 </Project>

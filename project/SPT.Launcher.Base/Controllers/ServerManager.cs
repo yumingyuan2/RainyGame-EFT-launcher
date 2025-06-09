@@ -8,6 +8,7 @@
 
 using SPT.Launcher.MiniCommon;
 using SPT.Launcher.Models.SPT;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,13 +18,13 @@ namespace SPT.Launcher
     {
         public static ServerInfo SelectedServer { get; private set; } = null;
 
-        public static bool PingServer()
+        public static async Task<bool> PingServerAsync()
         {
             string json = "";
 
             try
             {
-                json = RequestHandler.SendPing();
+                json = await RequestHandler.SendPing();
 
                 if(json != null) return true;
             }
@@ -35,11 +36,11 @@ namespace SPT.Launcher
             return false;
         }
 
-        public static string GetVersion()
+        public static async Task<string> GetVersionAsync()
         {
             try
             {
-                string json = RequestHandler.RequestServerVersion();
+                string json = await RequestHandler.RequestServerVersion();
 
                 return Json.Deserialize<string>(json);
             }
@@ -49,11 +50,11 @@ namespace SPT.Launcher
             }
         }
 
-        public static string GetCompatibleGameVersion()
+        public static async Task<string> GetCompatibleGameVersionAsync()
         {
             try
             {
-                string json = RequestHandler.RequestCompatibleGameVersion();
+                string json = await RequestHandler.RequestCompatibleGameVersion();
 
                 return Json.Deserialize<string>(json);
             }
@@ -63,11 +64,11 @@ namespace SPT.Launcher
             }
         }
 
-        public static Dictionary<string, SPTServerModInfo> GetLoadedServerMods()
+        public static async Task<Dictionary<string, SPTServerModInfo>> GetLoadedServerModsAsync()
         {
             try
             {
-                string json = RequestHandler.RequestLoadedServerMods();
+                string json = await RequestHandler.RequestLoadedServerMods();
 
                 return Json.Deserialize<Dictionary<string, SPTServerModInfo>>(json);
             }
@@ -77,11 +78,11 @@ namespace SPT.Launcher
             }
         }
 
-        public static SPTProfileModInfo[] GetProfileMods()
+        public static async Task<SPTProfileModInfo[]> GetProfileModsAsync()
         {
             try
             {
-                string json = RequestHandler.RequestProfileMods();
+                string json = await RequestHandler.RequestProfileMods();
 
                 return Json.Deserialize<SPTProfileModInfo[]>(json);
             }
@@ -91,14 +92,14 @@ namespace SPT.Launcher
             }
         }
 
-        public static bool LoadServer(string backendUrl)
+        public static async Task<bool> LoadServerAsync(string backendUrl)
         {
             string json = "";
 
             try
             {
                 RequestHandler.ChangeBackendUrl(backendUrl);
-                json = RequestHandler.RequestConnect();
+                json = await RequestHandler.RequestConnect();
                 SelectedServer = Json.Deserialize<ServerInfo>(json);
             }
             catch
@@ -108,11 +109,6 @@ namespace SPT.Launcher
             }
 
             return true;
-        }
-
-        public static async Task<bool> LoadDefaultServerAsync(string server)
-        {
-            return await Task.Run(() => LoadServer(server));
         }
     }
 }

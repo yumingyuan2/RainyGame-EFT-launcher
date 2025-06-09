@@ -2,14 +2,15 @@
 using SPT.Launcher.Models;
 using SPT.Launcher.ViewModels;
 using ReactiveUI;
+using System.Threading.Tasks;
 
 namespace SPT.Launcher.Attributes
 {
     public class RequireLoggedIn : NavigationPreCondition
     {
-        public override NavigationPreConditionResult TestPreCondition(IScreen Host)
+        public override async Task<NavigationPreConditionResult> TestPreCondition(IScreen Host)
         {
-            AccountStatus status = AccountManager.Login(AccountManager.SelectedAccount.username, AccountManager.SelectedAccount.password);
+            AccountStatus status = await AccountManager.LoginAsync(AccountManager.SelectedAccount.username, AccountManager.SelectedAccount.password);
 
             if (status == AccountStatus.OK) return NavigationPreConditionResult.FromSuccess();
 

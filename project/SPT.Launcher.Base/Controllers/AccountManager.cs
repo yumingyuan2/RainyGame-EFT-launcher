@@ -37,21 +37,10 @@ namespace SPT.Launcher
 
         public static async Task<AccountStatus> LoginAsync(LoginModel Creds)
         {
-            return await Task.Run(() =>
-            {
-                return Login(Creds.Username, Creds.Password);
-            });
+            return await LoginAsync(Creds.Username, Creds.Password);
         }
 
         public static async Task<AccountStatus> LoginAsync(string username, string password)
-        {
-            return await Task.Run(() =>
-            {
-                return Login(username, password);
-            });
-        }
-
-        public static AccountStatus Login(string username, string password)
         {
             LoginRequestData data = new LoginRequestData(username, password);
             string id = STATUS_FAILED;
@@ -59,14 +48,14 @@ namespace SPT.Launcher
 
             try
             {
-                id = RequestHandler.RequestLogin(data);
+                id = await RequestHandler.RequestLogin(data);
 
                 if (id == STATUS_FAILED)
                 {
                     return AccountStatus.LoginFailed;
                 }
 
-                json = RequestHandler.RequestAccount(data);
+                json = await RequestHandler.RequestAccount(data);
             }
             catch
             {
@@ -76,15 +65,15 @@ namespace SPT.Launcher
             SelectedAccount = Json.Deserialize<AccountInfo>(json);
             RequestHandler.ChangeSession(SelectedAccount.id);
 
-            UpdateProfileInfo();
+            await UpdateProfileInfoAsync();
 
             return AccountStatus.OK;
         }
 
-        public static void UpdateProfileInfo()
+        public static async Task UpdateProfileInfoAsync()
         {
             LoginRequestData data = new LoginRequestData(SelectedAccount.username, SelectedAccount.password);
-            string profileInfoJson = RequestHandler.RequestProfileInfo(data);
+            string profileInfoJson = await RequestHandler.RequestProfileInfo(data);
 
             if (profileInfoJson != null)
             {
@@ -93,9 +82,9 @@ namespace SPT.Launcher
             }
         }
 
-        public static ServerProfileInfo[] GetExistingProfiles()
+        public static async Task<ServerProfileInfo[]> GetExistingProfilesAsync()
         {
-            string profileJsonArray = RequestHandler.RequestExistingProfiles();
+            string profileJsonArray = await RequestHandler.RequestExistingProfiles();
 
             if(profileJsonArray != null)
             {
@@ -107,25 +96,17 @@ namespace SPT.Launcher
                 }
             }
 
-            return new ServerProfileInfo[0];
+            return [];
         }
 
         public static async Task<AccountStatus> RegisterAsync(string username, string password, string edition)
-        {
-            return await Task.Run(() =>
-            {
-                return Register(username, password, edition);
-            });
-        }
-
-        public static AccountStatus Register(string username, string password, string edition)
         {
             RegisterRequestData data = new RegisterRequestData(username, password, edition);
             string registerStatus = STATUS_FAILED;
 
             try
             {
-                registerStatus = RequestHandler.RequestRegister(data);
+                registerStatus = await RequestHandler.RequestRegister(data);
 
                 if (registerStatus != STATUS_OK)
                 {
@@ -139,25 +120,16 @@ namespace SPT.Launcher
             
             LogManager.Instance.Info($"Account Registered: {username}");
 
-            return Login(username, password);
+            return await LoginAsync(username, password);
         }
 
-        //only added incase wanted for future use.
         public static async Task<AccountStatus> RemoveAsync()
-        {
-            return await Task.Run(() =>
-            {
-                return Remove();
-            });
-        }
-
-        public static AccountStatus Remove()
         {
             LoginRequestData data = new LoginRequestData(SelectedAccount.username, SelectedAccount.password);
 
             try
             {
-                string json = RequestHandler.RequestRemove(data);
+                string json = await RequestHandler.RequestRemove(data);
 
                 if(Json.Deserialize<bool>(json))
                 {
@@ -182,20 +154,12 @@ namespace SPT.Launcher
 
         public static async Task<AccountStatus> ChangeUsernameAsync(string username)
         {
-            return await Task.Run(() =>
-            {
-                return ChangeUsername(username);
-            });
-        }
-
-        public static AccountStatus ChangeUsername(string username)
-        {
             ChangeRequestData data = new ChangeRequestData(SelectedAccount.username, SelectedAccount.password, username);
             string json = STATUS_FAILED;
 
             try
             {
-                json = RequestHandler.RequestChangeUsername(data);
+                json = await RequestHandler.RequestChangeUsername(data);
 
                 if (json != STATUS_OK)
                 {
@@ -222,19 +186,12 @@ namespace SPT.Launcher
 
         public static async Task<AccountStatus> ChangePasswordAsync(string password)
         {
-            return await Task.Run(() =>
-            {
-                return ChangePassword(password);
-            });
-        }
-        public static AccountStatus ChangePassword(string password)
-        {
             ChangeRequestData data = new ChangeRequestData(SelectedAccount.username, SelectedAccount.password, password);
             string json = STATUS_FAILED;
 
             try
             {
-                json = RequestHandler.RequestChangePassword(data);
+                json = await RequestHandler.RequestChangePassword(data);
 
                 if (json != STATUS_OK)
                 {
@@ -261,20 +218,12 @@ namespace SPT.Launcher
 
         public static async Task<AccountStatus> WipeAsync(string edition)
         {
-            return await Task.Run(() =>
-            {
-                return Wipe(edition);
-            });
-        }
-
-        public static AccountStatus Wipe(string edition)
-        {
             RegisterRequestData data = new RegisterRequestData(SelectedAccount.username, SelectedAccount.password, edition);
             string json = STATUS_FAILED;
 
             try
             {
-                json = RequestHandler.RequestWipe(data);
+                json = await RequestHandler.RequestWipe(data);
 
                 if (json != STATUS_OK)
                 {

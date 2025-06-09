@@ -41,7 +41,7 @@ namespace SPT.Launcher.ViewModels
                             }
 
                             LauncherSettingsProvider.Instance.SaveSettings();
-                            NavigateTo(new ProfileViewModel(HostScreen));
+                            await NavigateTo(new ProfileViewModel(HostScreen));
                             break;
                         }
                     case AccountStatus.LoginFailed:
@@ -72,7 +72,7 @@ namespace SPT.Launcher.ViewModels
 
                                                 LauncherSettingsProvider.Instance.SaveSettings();
                                                 SendNotification(LocalizationProvider.Instance.profile_created, Login.Username, NotificationType.Success);
-                                                NavigateTo(new ProfileViewModel(HostScreen));
+                                                await NavigateTo(new ProfileViewModel(HostScreen));
                                                 break;
                                             }
                                         case AccountStatus.RegisterFailed:
@@ -82,7 +82,7 @@ namespace SPT.Launcher.ViewModels
                                             }
                                         case AccountStatus.NoConnection:
                                             {
-                                                NavigateTo(new ConnectServerViewModel(HostScreen));
+                                                await NavigateTo(new ConnectServerViewModel(HostScreen));
                                                 break;
                                             }
                                         default:
@@ -102,7 +102,7 @@ namespace SPT.Launcher.ViewModels
                         }
                     case AccountStatus.NoConnection:
                         {
-                            NavigateTo(new ConnectServerViewModel(HostScreen));
+                            await NavigateTo(new ConnectServerViewModel(HostScreen));
                             break;
                         }
                 }
@@ -126,10 +126,7 @@ namespace SPT.Launcher.ViewModels
                 return;
             }
 
-            Task.Run(() =>
-            {
-                GetExistingProfiles();
-            });
+            Task.Run(GetExistingProfiles);
         }
 
         public void LoginProfileCommand(object parameter)
@@ -150,7 +147,7 @@ namespace SPT.Launcher.ViewModels
         {
             await Task.Delay(200);
             
-            ServerProfileInfo[] existingProfiles = AccountManager.GetExistingProfiles();
+            ServerProfileInfo[] existingProfiles = await AccountManager.GetExistingProfilesAsync();
 
             if(existingProfiles != null)
             {
