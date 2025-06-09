@@ -145,14 +145,12 @@ namespace SPT.Launcher.ViewModels
 
         public async Task GetExistingProfiles()
         {
-            await Task.Delay(200);
-            
+            ExistingProfiles.Clear();
+
             ServerProfileInfo[] existingProfiles = await AccountManager.GetExistingProfilesAsync();
 
             if(existingProfiles != null)
             {
-                ExistingProfiles.Clear();
-
                 foreach(ServerProfileInfo profile in existingProfiles)
                 {
                     ProfileInfo profileInfo = new ProfileInfo(profile);
