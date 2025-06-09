@@ -69,7 +69,7 @@ namespace SPT.Launcher
             }
 
             // Confirm core.dll version matches version server is running
-            if (IsCoreDllVersionMismatched(gamePath))
+            if (await IsCoreDllVersionMismatched(gamePath))
             {
                 LogManager.Instance.Error("[LaunchGame] Core dll mismatch :: FAILED");
                 return GameStarterResult.FromError(-8);
@@ -212,11 +212,11 @@ namespace SPT.Launcher
             return isInstalledInLive;
         }
 
-        static bool IsCoreDllVersionMismatched(string gamePath)
+        static async Task<bool> IsCoreDllVersionMismatched(string gamePath)
         {
             try
             {
-                var serverVersion = new SPTVersion(ServerManager.GetVersion());
+                var serverVersion = new SPTVersion(await ServerManager.GetVersionAsync());
 
                 var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
                 var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);

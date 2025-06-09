@@ -11,6 +11,8 @@ using SPT.Launcher.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SPT.Launcher.MiniCommon
 {
@@ -36,26 +38,29 @@ namespace SPT.Launcher.MiniCommon
         {
             try
             {
-                Directory.CreateDirectory(ImageCacheFolder);
-
-                if (String.IsNullOrWhiteSpace(route) || CachedRoutes.Contains(route)) //Don't want to request the image if it was already cached this session.
+                Task.Run(async () =>
                 {
-                    return;
-                }
+                    Directory.CreateDirectory(ImageCacheFolder);
 
-                using Stream s = new Request(null, LauncherSettingsProvider.Instance.Server.Url).Send(route, "GET", null, false);
+                    if (string.IsNullOrWhiteSpace(route) || CachedRoutes.Contains(route)) //Don't want to request the image if it was already cached this session.
+                    {
+                        return;
+                    }
 
-                using MemoryStream ms = new MemoryStream();
+                    HttpResponseMessage responseMessage = await new Request(null, LauncherSettingsProvider.Instance.Server.Url).Send(route, "GET", null, false);
+                    await using var stream = await responseMessage.Content.ReadAsStreamAsync();
+                    await using MemoryStream ms = new();
 
-                s.CopyTo(ms);
+                    await stream.CopyToAsync(ms);
 
-                if (ms.Length == 0) return;
+                    if (ms.Length == 0) return;
 
-                using FileStream fs = File.Create(filePath);
-                ms.Seek(0, SeekOrigin.Begin);
-                ms.CopyTo(fs);
+                    await using FileStream fs = File.Create(filePath);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    await ms.CopyToAsync(fs);
 
-                CachedRoutes.Add(route);
+                    CachedRoutes.Add(route);
+                });
             }
             catch (Exception ex)
             {

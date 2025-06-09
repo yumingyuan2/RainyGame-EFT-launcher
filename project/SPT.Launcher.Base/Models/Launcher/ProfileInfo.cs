@@ -154,7 +154,7 @@ namespace SPT.Launcher.Models.Launcher
 
             if (SPT != null)
             {
-                VersionMismatch = !CompareVersions(SPT.version, ServerManager.GetVersion());
+                //VersionMismatch = !CompareVersions(SPT.version, ServerManager.GetVersionAsync());
             }
 
             SideImage = Path.Combine(ImageRequest.ImageCacheFolder, $"side_{Side.ToLower()}.png");

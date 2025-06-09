@@ -70,7 +70,7 @@ namespace SPT.Launcher.ViewModels
 
         private async Task GameVersionCheck()
         {
-            string compatibleGameVersion = ServerManager.GetCompatibleGameVersion();
+            string compatibleGameVersion = await ServerManager.GetCompatibleGameVersionAsync();
 
             if (compatibleGameVersion == "") return;
 
@@ -85,21 +85,21 @@ namespace SPT.Launcher.ViewModels
                 WarningDialogViewModel warning = new WarningDialogViewModel(null,
                                                      string.Format(LocalizationProvider.Instance.game_version_mismatch_format_2, gameVersion, compatibleGameVersion),
                                                      LocalizationProvider.Instance.i_understand);
-                Dispatcher.UIThread.InvokeAsync(async() =>
+                
+                await Dispatcher.UIThread.InvokeAsync(async() =>
                 {
                     await ShowDialog(warning);
                 });
             }
         }
 
-        public void OpenModsInfoCommand() =>
-            NavigateTo(new ModInfoViewModel(HostScreen, ModInfoCollection));
+        public async Task OpenModsInfoCommand() => await NavigateTo(new ModInfoViewModel(HostScreen, ModInfoCollection));
 
-        public void LogoutCommand()
+        public async Task LogoutCommand()
         {
             AccountManager.Logout();
 
-            NavigateTo(new ConnectServerViewModel(HostScreen, true));
+            await NavigateTo(new ConnectServerViewModel(HostScreen, true));
         }
 
         public void ChangeWindowState(Avalonia.Controls.WindowState? State, bool Close = false)
@@ -132,7 +132,7 @@ namespace SPT.Launcher.ViewModels
             switch (status)
             {
                 case AccountStatus.NoConnection:
-                    NavigateTo(new ConnectServerViewModel(HostScreen));
+                    await NavigateTo(new ConnectServerViewModel(HostScreen));
                     return;
             }
 
@@ -193,7 +193,7 @@ namespace SPT.Launcher.ViewModels
                     }
                 case AccountStatus.NoConnection:
                     {
-                        NavigateTo(new ConnectServerViewModel(HostScreen));
+                        await NavigateTo(new ConnectServerViewModel(HostScreen));
                         break;
                     }
                 default:
@@ -250,7 +250,7 @@ namespace SPT.Launcher.ViewModels
 
                         LauncherSettingsProvider.Instance.SaveSettings();
 
-                        NavigateTo(new ConnectServerViewModel(HostScreen));
+                        await NavigateTo(new ConnectServerViewModel(HostScreen));
                         break;
                     }
                 case AccountStatus.UpdateFailed:
@@ -261,15 +261,15 @@ namespace SPT.Launcher.ViewModels
                 case AccountStatus.NoConnection:
                     {
                         SendNotification("", LocalizationProvider.Instance.no_servers_available);
-                        NavigateTo(new ConnectServerViewModel(HostScreen));
+                        await NavigateTo(new ConnectServerViewModel(HostScreen));
                         break;
                     }
             }
         }
 
-        private void UpdateProfileInfo()
+        private async Task UpdateProfileInfo()
         {
-            AccountManager.UpdateProfileInfo();
+            await AccountManager.UpdateProfileInfoAsync();
             ImageRequest.CacheSideImage(AccountManager.SelectedProfileInfo.Side);
             ProfileInfo.UpdateDisplayedProfile(AccountManager.SelectedProfileInfo);
             if (ProfileInfo.SideImage != SideImage.Path)
@@ -282,18 +282,18 @@ namespace SPT.Launcher.ViewModels
 
         //pull profile every x seconds
         private int aliveCallBackCountdown = 60;
-        private void GameAliveCallBack(ProcessMonitor monitor)
+        private async void GameAliveCallBack(ProcessMonitor monitor)
         {
             aliveCallBackCountdown--;
 
             if (aliveCallBackCountdown <= 0)
             {
                 aliveCallBackCountdown = 60;
-                UpdateProfileInfo();
+                await UpdateProfileInfo();
             }
         }
 
-        private void GameExitCallback(ProcessMonitor monitor)
+        private async void GameExitCallback(ProcessMonitor monitor)
         {
             monitor.Stop();
 
@@ -311,7 +311,7 @@ namespace SPT.Launcher.ViewModels
                     }
             }
 
-            UpdateProfileInfo();
+            await UpdateProfileInfo();
         }
     }
 }
