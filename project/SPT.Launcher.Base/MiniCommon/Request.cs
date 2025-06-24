@@ -23,7 +23,8 @@ namespace SPT.Launcher.MiniCommon
 
         private static readonly HttpClientHandler httpClientHandler = new()
         {
-            ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true,
+            UseProxy = false
         };
 
         private static readonly HttpClient _httpClient = new(httpClientHandler);
