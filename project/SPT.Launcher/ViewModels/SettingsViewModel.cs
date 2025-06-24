@@ -25,7 +25,7 @@ namespace SPT.Launcher.ViewModels
 
         public SettingsViewModel(IScreen Host) : base(Host)
         {
-            if(Application.Current?.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+            if(Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow.Closing += MainWindow_Closing;
             }
@@ -117,9 +117,9 @@ namespace SPT.Launcher.ViewModels
             }
         }
 
-        public void GoBackCommand()
+        public async Task GoBackCommand()
         {
-            if (Application.Current?.ApplicationLifetime is Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime desktop)
+            if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow.Closing -= MainWindow_Closing;
             }
@@ -131,7 +131,7 @@ namespace SPT.Launcher.ViewModels
                 SendNotification("", LocalizationProvider.Instance.failed_to_save_settings, NotificationType.Error);
             }
 
-            NavigateBack();
+            await NavigateBack();
         }
 
         public void CleanTempFilesCommand()

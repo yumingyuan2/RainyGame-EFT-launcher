@@ -16,15 +16,15 @@ using Avalonia.Threading;
 namespace SPT.Launcher.ViewModels
 {
     [RequireServerConnected]
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel(IScreen Host, bool NoAutoLogin = false) : ViewModelBase(Host)
     {
         public ObservableCollection<ProfileInfo> ExistingProfiles { get; set; } = new ObservableCollection<ProfileInfo>();
 
         public LoginModel Login { get; set; } = new LoginModel();
 
-        public ReactiveCommand<Unit, Unit> LoginCommand { get; set; }
+        public ReactiveCommand<Unit, Unit>? LoginCommand { get; set; }
 
-        public LoginViewModel(IScreen Host, bool NoAutoLogin = false) : base(Host)
+        public override async Task OnCreateAsync()
         {
             //setup reactive commands
             LoginCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -41,7 +41,10 @@ namespace SPT.Launcher.ViewModels
                             }
 
                             LauncherSettingsProvider.Instance.SaveSettings();
-                            await NavigateTo(new ProfileViewModel(HostScreen));
+                            ViewModelBase vm = new ProfileViewModel(HostScreen);
+                            await vm.OnCreateAsync();
+
+                            await NavigateTo(vm);
                             break;
                         }
                     case AccountStatus.LoginFailed:
@@ -54,7 +57,7 @@ namespace SPT.Launcher.ViewModels
                                     SendNotification(LocalizationProvider.Instance.registration_failed, LocalizationProvider.Instance.register_failed_name_limit, NotificationType.Error);
                                     return;
                                 }
-                                
+
                                 var result = await ShowDialog(new RegisterDialogViewModel(null, Login.Username));
 
                                 if (result != null && result is SPTEdition edition)
@@ -72,7 +75,11 @@ namespace SPT.Launcher.ViewModels
 
                                                 LauncherSettingsProvider.Instance.SaveSettings();
                                                 SendNotification(LocalizationProvider.Instance.profile_created, Login.Username, NotificationType.Success);
-                                                await NavigateTo(new ProfileViewModel(HostScreen));
+
+                                                ViewModelBase vm = new ProfileViewModel(HostScreen);
+                                                await vm.OnCreateAsync();
+
+                                                await NavigateTo(vm);
                                                 break;
                                             }
                                         case AccountStatus.RegisterFailed:
@@ -111,22 +118,25 @@ namespace SPT.Launcher.ViewModels
             //cache and touch background image
             var backgroundImage = Locator.Current.GetService<ImageHelper>("bgimage");
 
-            ImageRequest.CacheBackgroundImage();
+            if (backgroundImage is not null)
+            {
+                await ImageRequest.CacheBackgroundImage();
 
-            backgroundImage.Touch();
+                backgroundImage.Touch();
+            }
 
             //handle auto-login
             if (LauncherSettingsProvider.Instance.UseAutoLogin && LauncherSettingsProvider.Instance.Server.AutoLoginCreds != null && !NoAutoLogin)
             {
                 Login = LauncherSettingsProvider.Instance.Server.AutoLoginCreds;
-                Dispatcher.UIThread.InvokeAsync(() =>
+                await Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     LoginCommand.Execute();
                 });
                 return;
             }
 
-            Task.Run(GetExistingProfiles);
+            await GetExistingProfiles();
         }
 
         public void LoginProfileCommand(object parameter)
@@ -138,7 +148,8 @@ namespace SPT.Launcher.ViewModels
                 if (parameter is string username)
                 {
                     Login.Username = username;
-                    LoginCommand.Execute();
+
+                    LoginCommand?.Execute();
                 }
             });
         }
@@ -149,7 +160,7 @@ namespace SPT.Launcher.ViewModels
 
             ServerProfileInfo[] existingProfiles = await AccountManager.GetExistingProfilesAsync();
 
-            if(existingProfiles != null)
+            if (existingProfiles != null)
             {
                 foreach(ServerProfileInfo profile in existingProfiles)
                 {
@@ -157,7 +168,7 @@ namespace SPT.Launcher.ViewModels
 
                     ExistingProfiles.Add(profileInfo);
 
-                    ImageRequest.CacheSideImage(profileInfo.Side);
+                    await ImageRequest.CacheSideImage(profileInfo.Side);
 
                     ImageHelper sideImage = new ImageHelper() { Path = profileInfo.SideImage };
                     sideImage.Touch();

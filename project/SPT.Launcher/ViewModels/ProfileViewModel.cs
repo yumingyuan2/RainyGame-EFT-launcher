@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using Avalonia.Controls.ApplicationLifetimes;
 using SPT.Launcher.Models.SPT;
+using System;
 
 namespace SPT.Launcher.ViewModels
 {
@@ -49,23 +50,26 @@ namespace SPT.Launcher.ViewModels
 
         private readonly GameStarter _gameStarter = new GameStarter(new GameStarterFrontend());
 
-        private readonly ProcessMonitor _monitor;
+        private ProcessMonitor _monitor;
 
         public ProfileViewModel(IScreen Host) : base(Host)
         {
-            // cache and load side image if profile has a side
-            if(AccountManager.SelectedProfileInfo != null && AccountManager.SelectedProfileInfo.Side != null)
-            {
-                ImageRequest.CacheSideImage(AccountManager.SelectedProfileInfo.Side);
-                SideImage.Path = AccountManager.SelectedProfileInfo.SideImage;
-                SideImage.Touch();
-            }
-
             _monitor = new ProcessMonitor("EscapeFromTarkov", 1000, aliveCallback: GameAliveCallBack, exitCallback: GameExitCallback);
 
             CurrentEdition = AccountManager.SelectedAccount.edition;
 
             CurrentId = AccountManager.SelectedAccount.id;
+        }
+
+        public override async Task OnCreateAsync()
+        {
+            // cache and load side image if profile has a side
+            if (AccountManager.SelectedProfileInfo != null && AccountManager.SelectedProfileInfo.Side != null)
+            {
+                await ImageRequest.CacheSideImage(AccountManager.SelectedProfileInfo.Side);
+                SideImage.Path = AccountManager.SelectedProfileInfo.SideImage;
+                SideImage.Touch();
+            }
         }
 
         private async Task GameVersionCheck()
@@ -270,7 +274,7 @@ namespace SPT.Launcher.ViewModels
         private async Task UpdateProfileInfo()
         {
             await AccountManager.UpdateProfileInfoAsync();
-            ImageRequest.CacheSideImage(AccountManager.SelectedProfileInfo.Side);
+            await ImageRequest.CacheSideImage(AccountManager.SelectedProfileInfo.Side);
             ProfileInfo.UpdateDisplayedProfile(AccountManager.SelectedProfileInfo);
             if (ProfileInfo.SideImage != SideImage.Path)
             {

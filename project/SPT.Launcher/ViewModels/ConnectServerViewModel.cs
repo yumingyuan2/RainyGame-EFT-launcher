@@ -59,7 +59,11 @@ namespace SPT.Launcher.ViewModels
                 
                 LogManager.Instance.Info($"Connected to server: {ServerManager.SelectedServer.backendUrl} - SPT MatchingVersion: {version}");
 
-                await NavigateTo(new LoginViewModel(HostScreen, noAutoLogin));
+                ViewModelBase vm = new LoginViewModel(HostScreen, noAutoLogin);
+
+                await vm.OnCreateAsync();
+
+                await NavigateTo(vm);
             }
             
             LauncherSettingsProvider.Instance.AllowSettings = true;

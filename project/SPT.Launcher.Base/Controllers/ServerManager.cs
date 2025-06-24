@@ -88,7 +88,7 @@ namespace SPT.Launcher
             }
             catch
             {
-                return new SPTProfileModInfo[] { };
+                return [];
             }
         }
 

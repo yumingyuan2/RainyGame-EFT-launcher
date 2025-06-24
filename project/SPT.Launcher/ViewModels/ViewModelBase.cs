@@ -22,6 +22,11 @@ namespace SPT.Launcher.ViewModels
 
         public IScreen HostScreen { get; }
 
+        public virtual Task OnCreateAsync()
+        {
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// Delay the return of the viewmodel
         /// </summary>
