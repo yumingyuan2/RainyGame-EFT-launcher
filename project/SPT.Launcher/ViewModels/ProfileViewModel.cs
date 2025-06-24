@@ -311,7 +311,12 @@ namespace SPT.Launcher.ViewModels
                     }
             }
 
-            await UpdateProfileInfo();
+            try
+            {
+                await UpdateProfileInfo();
+            }
+            catch(Exception)
+            { }
         }
     }
 }
