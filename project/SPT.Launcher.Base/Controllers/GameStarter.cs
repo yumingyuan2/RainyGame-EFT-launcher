@@ -255,7 +255,8 @@ namespace SPT.Launcher
                 GetFileForCleanup("EscapeFromTarkov_BE.exe", gamePath),
                 GetFileForCleanup("Uninstall.exe", gamePath),
                 GetFileForCleanup("UnityCrashHandler64.exe", gamePath),
-                GetFileForCleanup("WinPixEventRuntime.dll", gamePath)
+                GetFileForCleanup("WinPixEventRuntime.dll", gamePath),
+                GetFileForCleanup(@"EscapeFromTarkov_Data\Plugins\x86_64\hwecho.dll", gamePath),
             };
 
             foreach (var file in files)
