@@ -8,7 +8,6 @@
 
 using SPT.Launcher.MiniCommon;
 using SPT.Launcher.Models.SPT;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +25,7 @@ namespace SPT.Launcher
             {
                 json = await RequestHandler.SendPing();
 
-                if(json != null) return true;
+                if (json != null) return true;
             }
             catch
             {

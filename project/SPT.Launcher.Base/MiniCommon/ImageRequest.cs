@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SPT.Launcher.MiniCommon
@@ -24,17 +25,17 @@ namespace SPT.Launcher.MiniCommon
         private static List<string> CachedRoutes = new List<string>();
 
         private static string LauncherRoute = "/files/launcher/";
-        public static async Task CacheBackgroundImage() => await CacheImage($"{LauncherRoute}bg.png", Path.Combine(ImageCacheFolder, "bg.png"));
-        public static async Task CacheSideImage(string Side)
+        public static async Task CacheBackgroundImage(CancellationToken cancellationToken = default) => await CacheImage($"{LauncherRoute}bg.png", Path.Combine(ImageCacheFolder, "bg.png"), cancellationToken);
+        public static async Task CacheSideImage(string Side, CancellationToken cancellationToken = default)
         {
             if (Side == null || string.IsNullOrWhiteSpace(Side) || Side.ToLower() == "unknown") return;
 
             string SideImagePath = Path.Combine(ImageCacheFolder, $"side_{Side.ToLower()}.png");
 
-            await CacheImage($"{LauncherRoute}side_{Side.ToLower()}.png", SideImagePath);
+            await CacheImage($"{LauncherRoute}side_{Side.ToLower()}.png", SideImagePath, cancellationToken);
         }
 
-        private static async Task CacheImage(string route, string filePath)
+        private static async Task CacheImage(string route, string filePath, CancellationToken cancellationToken)
         {
             try
             {
@@ -45,8 +46,8 @@ namespace SPT.Launcher.MiniCommon
                     return;
                 }
 
-                HttpResponseMessage responseMessage = await new Request(null, LauncherSettingsProvider.Instance.Server.Url).Send(route, "GET", null, false);
-                await using var stream = await responseMessage.Content.ReadAsStreamAsync();
+                HttpResponseMessage responseMessage = await new Request(null, LauncherSettingsProvider.Instance.Server.Url).Send(route, "GET", null, false, cancellationToken);
+                await using var stream = await responseMessage.Content.ReadAsStreamAsync(cancellationToken);
                 await using MemoryStream ms = new();
 
                 await stream.CopyToAsync(ms);
@@ -55,7 +56,7 @@ namespace SPT.Launcher.MiniCommon
 
                 await using FileStream fs = File.Create(filePath);
                 ms.Seek(0, SeekOrigin.Begin);
-                await ms.CopyToAsync(fs);
+                await ms.CopyToAsync(fs, cancellationToken);
 
                 CachedRoutes.Add(route);
             }

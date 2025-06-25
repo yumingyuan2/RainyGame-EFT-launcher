@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SPT.Launcher.MiniCommon
@@ -29,7 +30,7 @@ namespace SPT.Launcher.MiniCommon
 
         private static readonly HttpClient _httpClient = new(httpClientHandler);
 
-        public async Task<HttpResponseMessage> Send(string url, string method = "GET", string data = null, bool compress = true)
+        public async Task<HttpResponseMessage> Send(string url, string method = "GET", string data = null, bool compress = true, CancellationToken cts = default)
         {
             // set session headers
             var requestUri = new Uri(RemoteEndPoint + url);
@@ -48,7 +49,7 @@ namespace SPT.Launcher.MiniCommon
             if (method != "GET" && !string.IsNullOrWhiteSpace(data))
             {
                 // set request body
-                var bytes = compress ? await CompressZlibAsync(data) : Encoding.UTF8.GetBytes(data);
+                var bytes = compress ? await CompressZlibAsync(data, cts) : Encoding.UTF8.GetBytes(data);
                 var content = new ByteArrayContent(bytes);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
@@ -63,7 +64,7 @@ namespace SPT.Launcher.MiniCommon
             // get response stream
             try
             {
-                var response = await _httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+                var response = await _httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cts);
 
                 response.EnsureSuccessStatusCode();
 
@@ -77,44 +78,44 @@ namespace SPT.Launcher.MiniCommon
             return null;
         }
 
-        public async Task<string> GetJsonAsync(string url, bool compress = true)
+        public async Task<string> GetJsonAsync(string url, bool compress = true, CancellationToken cancellationToken = default)
         {
-            using var response = await Send(url, "GET", null, compress);
+            using var response = await Send(url, "GET", null, compress, cancellationToken);
+           await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+            await using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            return await DecompressZlibAsync(ms.ToArray(), cancellationToken);
+        }
+
+        public async Task<string> PostJsonAsync(string url, string data, bool compress = true, CancellationToken cancellationToken = default)
+        {
+            using var response =  await Send(url, "POST", data, compress, cancellationToken);
             await using var stream = await response.Content.ReadAsStreamAsync();
             await using var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
-            return await DecompressZlibAsync(ms.ToArray());
+            return await DecompressZlibAsync(ms.ToArray(), cancellationToken);
         }
 
-        public async Task<string> PostJsonAsync(string url, string data, bool compress = true)
-        {
-            using var response =  await Send(url, "POST", data, compress);
-            await using var stream = await response.Content.ReadAsStreamAsync();
-            await using var ms = new MemoryStream();
-            await stream.CopyToAsync(ms);
-            return await DecompressZlibAsync(ms.ToArray());
-        }
-
-        public async Task<byte[]> CompressZlibAsync(string input)
+        private async Task<byte[]> CompressZlibAsync(string input, CancellationToken cancellationToken)
         {
             var inputBytes = Encoding.UTF8.GetBytes(input);
 
             await using var ms = new MemoryStream();
             await using (var stream = new ZLibStream(ms, CompressionLevel.Optimal))
             {
-                await stream.WriteAsync(inputBytes);
+                await stream.WriteAsync(inputBytes, cancellationToken);
             }
 
             return ms.ToArray();
         }
 
-        private async Task<string> DecompressZlibAsync(byte[] compressedBytes)
+        private async Task<string> DecompressZlibAsync(byte[] compressedBytes, CancellationToken cancellationToken)
         {
             await using var ms = new MemoryStream(compressedBytes);
             await using var deflateStream = new ZLibStream(ms, CompressionMode.Decompress);
             using var reader = new StreamReader(deflateStream, Encoding.UTF8);
 
-            return await reader.ReadToEndAsync();
+            return await reader.ReadToEndAsync(cancellationToken);
         }
     }
 }
