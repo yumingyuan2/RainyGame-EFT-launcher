@@ -103,6 +103,8 @@ namespace SPT.Launcher
             string registerResult;
             try
             {
+                // Clear out stored session id to prevent cross-contamination
+                RequestHandler.CleanSessionIdFromRequest();
                 registerResult = await RequestHandler.RequestRegister(new RegisterRequestData(username, password, edition));
             }
             catch
