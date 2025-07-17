@@ -7,13 +7,12 @@
  */
 
 
-using System;
+using SPT.Launcher.Controllers;
 using SPT.Launcher.Helpers;
 using SPT.Launcher.MiniCommon;
-using SPT.Launcher.Models.SPT;
 using SPT.Launcher.Models.Launcher;
+using SPT.Launcher.Models.SPT;
 using System.Threading.Tasks;
-using SPT.Launcher.Controllers;
 
 namespace SPT.Launcher
 {
@@ -101,24 +100,22 @@ namespace SPT.Launcher
 
         public static async Task<AccountStatus> RegisterAsync(string username, string password, string edition)
         {
-            RegisterRequestData data = new RegisterRequestData(username, password, edition);
-            string registerStatus = STATUS_FAILED;
-
+            string registerResult;
             try
             {
-                registerStatus = await RequestHandler.RequestRegister(data);
-
-                if (registerStatus != STATUS_OK)
-                {
-                    return AccountStatus.RegisterFailed;
-                }
+                registerResult = await RequestHandler.RequestRegister(new RegisterRequestData(username, password, edition));
             }
             catch
             {
                 return AccountStatus.NoConnection;
             }
-            
-            LogManager.Instance.Info($"Account Registered: {username}");
+
+            if (registerResult == string.Empty)
+            {
+                return AccountStatus.RegisterFailed;
+            }
+
+            LogManager.Instance.Info($"Account Registered: {username} {registerResult}");
 
             return await LoginAsync(username, password);
         }

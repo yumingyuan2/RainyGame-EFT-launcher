@@ -50,6 +50,11 @@ namespace SPT.Launcher
             return await request.PostJsonAsync("/launcher/profile/login", Json.Serialize(data), true, requestCancellationTokenSource.Token);
         }
 
+        /// <summary>
+        /// Register account with server
+        /// </summary>
+        /// <param name="data">Username chosen by player</param>
+        /// <returns>Returns mongoId for registered account. Empty string == failed to register</returns>
         public static async Task<string> RequestRegister(RegisterRequestData data)
         {
             return await request.PostJsonAsync("/launcher/profile/register", Json.Serialize(data), true, requestCancellationTokenSource.Token);
