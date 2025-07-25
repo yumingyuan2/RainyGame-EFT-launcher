@@ -23,11 +23,6 @@ namespace SPT.Launcher
             return request.RemoteEndPoint;
         }
 
-        public static void CleanSessionIdFromRequest()
-        {
-            request.Session = null;
-        }
-
         public static void ChangeBackendUrl(string remoteEndPoint)
         {
             request.RemoteEndPoint = remoteEndPoint;

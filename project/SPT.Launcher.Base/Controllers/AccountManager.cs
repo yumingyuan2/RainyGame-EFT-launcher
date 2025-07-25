@@ -32,7 +32,12 @@ namespace SPT.Launcher
         public static AccountInfo SelectedAccount { get; private set; } = null;
         public static ProfileInfo SelectedProfileInfo { get; private set; } = null;
 
-        public static void Logout() => SelectedAccount = null;
+        public static void Logout()
+        {
+            // Set currently selected account to null, as well as removing the old session token
+            SelectedAccount = null;
+            RequestHandler.ChangeSession(null);
+        }
 
         public static async Task<AccountStatus> LoginAsync(LoginModel Creds)
         {
@@ -103,8 +108,6 @@ namespace SPT.Launcher
             string registerResult;
             try
             {
-                // Clear out stored session id to prevent cross-contamination
-                RequestHandler.CleanSessionIdFromRequest();
                 registerResult = await RequestHandler.RequestRegister(new RegisterRequestData(username, password, edition));
             }
             catch
@@ -132,8 +135,10 @@ namespace SPT.Launcher
 
                 if(Json.Deserialize<bool>(json))
                 {
+                    // Set currently selected account to null, as well as removing the old session token
                     SelectedAccount = null;
-                    
+                    RequestHandler.ChangeSession(null);
+
                     LogManager.Instance.Info($"Account Removed: {data.username}");
 
                     return AccountStatus.OK;
