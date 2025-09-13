@@ -126,10 +126,7 @@ namespace SPT.Launcher.ViewModels
                 return;
             }
 
-            Task.Run(() =>
-            {
-                GetExistingProfiles();
-            });
+            _ = Task.Run(GetExistingProfiles);
         }
 
         public void LoginProfileCommand(object parameter)

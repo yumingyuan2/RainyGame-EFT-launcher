@@ -14,7 +14,8 @@ namespace SPT.Launcher.Views
         {
             InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+            // AttachDevTools is no longer available in newer Avalonia versions
+            // this.AttachDevTools();
 #endif
 
             WindowNotificationManager notificationManager = new WindowNotificationManager(this);

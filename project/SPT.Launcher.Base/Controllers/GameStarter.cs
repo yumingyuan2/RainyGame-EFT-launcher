@@ -11,7 +11,6 @@
 using SPT.Launcher.Helpers;
 using SPT.Launcher.MiniCommon;
 using SPT.Launcher.Models.Launcher;
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -31,9 +30,6 @@ namespace SPT.Launcher
         private readonly bool _showOnly;
         private readonly string _originalGamePath;
         private readonly string[] _excludeFromCleanup;
-        private const string registryInstall = @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov";
-
-        private const string registrySettings = @"Software\Battlestate Games\EscapeFromTarkov";
 
         public GameStarter(IGameStarterFrontend frontend, string gamePath = null, string originalGamePath = null,
             bool showOnly = false, string[] excludeFromCleanup = null)
@@ -46,14 +42,9 @@ namespace SPT.Launcher
 
         private static string DetectOriginalGamePath()
         {
-            // We can't detect the installed path on non-Windows
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return null;
-
-            var installLocation = Registry.LocalMachine.OpenSubKey(registryInstall, false)
-                ?.GetValue("InstallLocation");
-            var info = (installLocation is string key) ? new DirectoryInfo(key) : null;
-            return info?.FullName;
+            // Original EFT registry detection removed
+            // Users are responsible for installing required modules themselves
+            return null;
         }
 
         public async Task<GameStarterResult> LaunchGame(ServerInfo server, AccountInfo account, string gamePath)
@@ -61,12 +52,9 @@ namespace SPT.Launcher
             LogManager.Instance.Info(">>> Launching Game");
             LogManager.Instance.Info($">>> Account: {account.username}");
             LogManager.Instance.Info($">>> Server : {server.backendUrl}");
-            // setup directories
-            if (IsInstalledInLive())
-            {
-                LogManager.Instance.Error("[LaunchGame] Installed in Live :: YES");
-                return GameStarterResult.FromError(-1);
-            }
+            // Original EFT verification removed - skip live installation check
+            // Users are responsible for installing required modules themselves
+            LogManager.Instance.Info("[LaunchGame] Installed in Live :: SKIPPED (Original EFT verification removed)");
 
             // Confirm core.dll version matches version server is running
             if (IsCoreDllVersionMismatched(gamePath))
@@ -80,13 +68,7 @@ namespace SPT.Launcher
             LogManager.Instance.Info("[LaunchGame] Setup Game Files ...");
             SetupGameFiles(gamePath);
 
-            if (!ValidationUtil.Validate())
-            {
-                LogManager.Instance.Error("[LaunchGame] Game Validation   :: FAILED");
-                return GameStarterResult.FromError(-2);
-            }
-            
-            LogManager.Instance.Info("[LaunchGame] Game Validation   :: OK");
+            LogManager.Instance.Info("[LaunchGame] Game Validation   :: SKIPPED (Original EFT validation removed)");
 
             if (account.wipe)
             {
@@ -218,7 +200,7 @@ namespace SPT.Launcher
             {
                 var serverVersion = new SPTVersion(ServerManager.GetVersion());
 
-                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
+                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Combine(gamePath, "BepinEx", "plugins", "spt", "spt-core.dll"));
                 var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);
 
                 LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
@@ -293,7 +275,7 @@ namespace SPT.Launcher
         /// </summary>
 		public void RemoveProfileRegistryKeys(string profileId)
         {
-            var registryFile = new FileInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptRegistry\\registry.json"));
+            var registryFile = new FileInfo(Path.Combine(Environment.CurrentDirectory, "user", "sptRegistry", "registry.json"));
 
             if (!registryFile.Exists)
             {
@@ -315,7 +297,7 @@ namespace SPT.Launcher
         /// <returns>returns true if the temp folder was cleaned succefully or doesn't exist. returns false if something went wrong.</returns>
 		public bool CleanTempFiles()
         {
-            var rootdir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptappdata"));
+            var rootdir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "user", "sptappdata"));
 
             if (!rootdir.Exists)
             {

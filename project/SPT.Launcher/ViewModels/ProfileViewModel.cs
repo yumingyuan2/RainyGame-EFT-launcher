@@ -18,7 +18,7 @@ namespace SPT.Launcher.ViewModels
     [RequireLoggedIn]
     public class ProfileViewModel : ViewModelBase
     {
-        private string _CurrentEdition;
+        private string _CurrentEdition = string.Empty;
         public string CurrentEdition
         {
             get => _CurrentEdition;
@@ -85,7 +85,7 @@ namespace SPT.Launcher.ViewModels
                 WarningDialogViewModel warning = new WarningDialogViewModel(null,
                                                      string.Format(LocalizationProvider.Instance.game_version_mismatch_format_2, gameVersion, compatibleGameVersion),
                                                      LocalizationProvider.Instance.i_understand);
-                Dispatcher.UIThread.InvokeAsync(async() =>
+                _ = Dispatcher.UIThread.InvokeAsync(async() =>
                 {
                     await ShowDialog(warning);
                 });

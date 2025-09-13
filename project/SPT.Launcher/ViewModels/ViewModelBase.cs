@@ -1,3 +1,5 @@
+#nullable enable
+
 using SPT.Launcher.Attributes;
 using SPT.Launcher.Controllers;
 using SPT.Launcher.Models;
@@ -16,7 +18,7 @@ namespace SPT.Launcher.ViewModels
     {
         public ViewModelActivator Activator { get; } = new ViewModelActivator();
 
-        protected WindowNotificationManager NotificationManager => Locator.Current.GetService<WindowNotificationManager>();
+        protected WindowNotificationManager? NotificationManager => Locator.Current.GetService<WindowNotificationManager>();
 
         public string? UrlPathSegment => Guid.NewGuid().ToString().Substring(0, 7);
 
@@ -69,13 +71,13 @@ namespace SPT.Launcher.ViewModels
         /// </summary>
         /// <param name="ViewModel"></param>
         /// <returns>The viewmodel that should be loaded</returns>
-        private ViewModelBase ProcessViewModelResults(ViewModelBase ViewModel)
+        private ViewModelBase? ProcessViewModelResults(ViewModelBase ViewModel)
         {
             NavigationPreConditionResult result = TestPreConditions(ViewModel);
 
             if (!result.Succeeded)
             {
-                ViewModel = result.ViewModel;
+                return result.ViewModel;
             }
 
             return ViewModel;
@@ -89,13 +91,13 @@ namespace SPT.Launcher.ViewModels
         /// <returns></returns>
         public async Task NavigateToWithDelay(ViewModelBase ViewModel, int Milliseconds)
         {
-            ViewModel = ProcessViewModelResults(ViewModel);
+            var processedViewModel = ProcessViewModelResults(ViewModel);
 
-            if (ViewModel == null) return;
+            if (processedViewModel == null) return;
 
             await Dispatcher.UIThread.InvokeAsync(async () =>
             {
-                HostScreen.Router.Navigate.Execute(await ViewModel.WithDelay(Milliseconds));
+                HostScreen.Router.Navigate.Execute(await processedViewModel.WithDelay(Milliseconds));
             });
         }
 
@@ -105,13 +107,13 @@ namespace SPT.Launcher.ViewModels
         /// <param name="ViewModel"></param>
         public void NavigateTo(ViewModelBase ViewModel)
         {
-            ViewModel = ProcessViewModelResults(ViewModel);
+            var processedViewModel = ProcessViewModelResults(ViewModel);
 
-            if (ViewModel == null) return;
+            if (processedViewModel == null) return;
 
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                HostScreen.Router.Navigate.Execute(ViewModel);
+                HostScreen.Router.Navigate.Execute(processedViewModel);
             });
         }
 
@@ -152,7 +154,8 @@ namespace SPT.Launcher.ViewModels
         /// <param name="Type"></param>
         public void SendNotification(string Title, string Message, NotificationType Type = NotificationType.Information)
         {
-            NotificationManager.Show(new SPTNotificationViewModel(HostScreen, Title, Message, Type));
+            var manager = NotificationManager ?? throw new InvalidOperationException("Notification manager not available");
+            manager.Show(new SPTNotificationViewModel(HostScreen, Title, Message, Type));
         }
 
         /// <summary>
@@ -165,9 +168,17 @@ namespace SPT.Launcher.ViewModels
             return await DialogHost.Show(ViewModel);
         }
 
-        public ViewModelBase(IScreen Host)
+        public ViewModelBase(IScreen? Host)
         {
-            HostScreen = Host;
+            HostScreen = Host ?? new EmptyHostScreen();
         }
+    }
+
+    /// <summary>
+    /// Empty host screen for ViewModels that don't require navigation
+    /// </summary>
+    public class EmptyHostScreen : IScreen
+    {
+        public RoutingState Router { get; } = new RoutingState();
     }
 }

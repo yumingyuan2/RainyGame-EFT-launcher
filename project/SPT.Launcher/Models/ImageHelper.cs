@@ -1,10 +1,10 @@
-﻿using ReactiveUI;
+using ReactiveUI;
 
 namespace SPT.Launcher.Models
 {
     public class ImageHelper : ReactiveObject
     {
-        private string _Path;
+        private string _Path = string.Empty;
         public string Path
         {
             get => _Path;
