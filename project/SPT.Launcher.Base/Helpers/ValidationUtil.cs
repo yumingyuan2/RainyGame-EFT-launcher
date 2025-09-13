@@ -1,46 +1,21 @@
-using Microsoft.Win32;
-using System.IO;
-
 namespace SPT.Launcher.Helpers
 {
+    /// <summary>
+    /// ValidationUtil - Original EFT verification module removed as requested.
+    /// This class is kept as a placeholder to maintain compilation compatibility.
+    /// </summary>
     public static class ValidationUtil
     {
+        /// <summary>
+        /// Original EFT validation method removed. Always returns true to bypass verification.
+        /// Install required modules yourself as needed.
+        /// </summary>
+        /// <returns>Always returns true (validation bypassed)</returns>
         public static bool Validate()
         {
-            var c0 = @"Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\EscapeFromTarkov";
-            var v0 = 0;
-
-            try
-            {
-                var v1 = Registry.LocalMachine.OpenSubKey(c0, false).GetValue("InstallLocation");
-                var v2 = (v1 != null) ? v1.ToString() : string.Empty;
-                var v3 = new DirectoryInfo(v2);
-                var v4 = new FileSystemInfo[]
-                {
-                    v3,
-                    new FileInfo(Path.Join(v2, @"BattlEye\BEClient_x64.dll")),
-                    new FileInfo(Path.Join(v2, @"BattlEye\BEService_x64.dll")),
-                    new FileInfo(Path.Join(v2, "ConsistencyInfo")),
-                    new FileInfo(Path.Join(v2, "Uninstall.exe")),
-                    new FileInfo(Path.Join(v2, "UnityCrashHandler64.exe"))
-                };
-
-                v0 = v4.Length - 1;
-
-                foreach (var value in v4)
-                {
-                    if (value.Exists)
-                    {
-                        --v0;
-                    }
-                }
-            }
-            catch
-            {
-                v0 = -1;
-            }
-
-            return v0 == 0;
+            // Original EFT verification completely removed
+            // Users should install required modules themselves
+            return true;
         }
     }
 }

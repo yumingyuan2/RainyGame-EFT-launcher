@@ -80,13 +80,7 @@ namespace SPT.Launcher
             LogManager.Instance.Info("[LaunchGame] Setup Game Files ...");
             SetupGameFiles(gamePath);
 
-            if (!ValidationUtil.Validate())
-            {
-                LogManager.Instance.Error("[LaunchGame] Game Validation   :: FAILED");
-                return GameStarterResult.FromError(-2);
-            }
-            
-            LogManager.Instance.Info("[LaunchGame] Game Validation   :: OK");
+            LogManager.Instance.Info("[LaunchGame] Game Validation   :: SKIPPED (Original EFT validation removed)");
 
             if (account.wipe)
             {
