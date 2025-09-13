@@ -200,7 +200,7 @@ namespace SPT.Launcher
             {
                 var serverVersion = new SPTVersion(ServerManager.GetVersion());
 
-                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Join(gamePath, @"\BepinEx\plugins\spt", "spt-core.dll"));
+                var coreDllVersionInfo = FileVersionInfo.GetVersionInfo(Path.Combine(gamePath, "BepinEx", "plugins", "spt", "spt-core.dll"));
                 var dllVersion = new SPTVersion(coreDllVersionInfo.FileVersion);
 
                 LogManager.Instance.Info($"[LaunchGame] spt-core.dll version: {dllVersion}");
@@ -275,7 +275,7 @@ namespace SPT.Launcher
         /// </summary>
 		public void RemoveProfileRegistryKeys(string profileId)
         {
-            var registryFile = new FileInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptRegistry\\registry.json"));
+            var registryFile = new FileInfo(Path.Combine(Environment.CurrentDirectory, "user", "sptRegistry", "registry.json"));
 
             if (!registryFile.Exists)
             {
@@ -297,7 +297,7 @@ namespace SPT.Launcher
         /// <returns>returns true if the temp folder was cleaned succefully or doesn't exist. returns false if something went wrong.</returns>
 		public bool CleanTempFiles()
         {
-            var rootdir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "user\\sptappdata"));
+            var rootdir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, "user", "sptappdata"));
 
             if (!rootdir.Exists)
             {
