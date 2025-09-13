@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls.Notifications;
+#nullable enable
+
+using Avalonia.Controls.Notifications;
 using Avalonia.Media;
 using ReactiveUI;
 
@@ -10,7 +12,7 @@ namespace SPT.Launcher.ViewModels.Notifications
         public string Message { get; set; }
         public IBrush BarColor { get; set; }
 
-        public SPTNotificationViewModel(IScreen Host, string Title, string Message, NotificationType Type = NotificationType.Information) : base(Host)
+        public SPTNotificationViewModel(IScreen? Host, string Title, string Message, NotificationType Type = NotificationType.Information) : base(Host)
         {
             this.Title = Title;
             this.Message = Message;

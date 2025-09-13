@@ -168,9 +168,17 @@ namespace SPT.Launcher.ViewModels
             return await DialogHost.Show(ViewModel);
         }
 
-        public ViewModelBase(IScreen Host)
+        public ViewModelBase(IScreen? Host)
         {
-            HostScreen = Host;
+            HostScreen = Host ?? new EmptyHostScreen();
         }
+    }
+
+    /// <summary>
+    /// Empty host screen for ViewModels that don't require navigation
+    /// </summary>
+    public class EmptyHostScreen : IScreen
+    {
+        public RoutingState Router { get; } = new RoutingState();
     }
 }
